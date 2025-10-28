@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De-Slop - Customize Patterns</title>
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>DE-SLOP</h1>
+      <p class="tagline">[ PATTERN CUSTOMIZATION ]</p>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="tier1">TIER 1: AI SLOP</button>
+      <button class="tab" data-tab="tier2">TIER 2: CORPORATE</button>
+      <button class="tab" data-tab="tier3">TIER 3: MARKETING</button>
+      <button class="tab" data-tab="custom">CUSTOM PATTERNS</button>
+    </nav>
+
+    <div class="tab-content">
+      <!-- Tier 1 -->
+      <div id="tier1" class="panel active">
+        <div class="panel-header">
+          <h2>Tier 1: AI-Specific Indicators</h2>
+          <p>Weight: 3 points per match | Always active</p>
+        </div>
+        <div class="pattern-list" id="tier1List"></div>
+        <div class="pattern-add">
+          <input type="text" id="tier1Input" placeholder='Enter regex pattern (e.g., /\bdelve into\b/gi)'>
+          <button id="tier1Add" class="btn btn-add">[ ADD PATTERN ]</button>
+        </div>
+      </div>
+
+      <!-- Tier 2 -->
+      <div id="tier2" class="panel">
+        <div class="panel-header">
+          <h2>Tier 2: Corporate Buzzwords</h2>
+          <p>Weight: 2 points per match | Active at sensitivity 3+</p>
+        </div>
+        <div class="pattern-list" id="tier2List"></div>
+        <div class="pattern-add">
+          <input type="text" id="tier2Input" placeholder='Enter regex pattern (e.g., /\bsynergy\b/gi)'>
+          <button id="tier2Add" class="btn btn-add">[ ADD PATTERN ]</button>
+        </div>
+      </div>
+
+      <!-- Tier 3 -->
+      <div id="tier3" class="panel">
+        <div class="panel-header">
+          <h2>Tier 3: Marketing Spam</h2>
+          <p>Weight: 1 point per match | Active at sensitivity 4+</p>
+        </div>
+        <div class="pattern-list" id="tier3List"></div>
+        <div class="pattern-add">
+          <input type="text" id="tier3Input" placeholder='Enter regex pattern (e.g., /\bfree\b/gi)'>
+          <button id="tier3Add" class="btn btn-add">[ ADD PATTERN ]</button>
+        </div>
+      </div>
+
+      <!-- Custom Patterns -->
+      <div id="custom" class="panel">
+        <div class="panel-header">
+          <h2>Custom Patterns</h2>
+          <p>Your own patterns with custom weights</p>
+        </div>
+        <div class="pattern-list" id="customList"></div>
+        <div class="pattern-add custom-add">
+          <input type="text" id="customInput" placeholder='Enter regex pattern'>
+          <select id="customWeight" class="weight-select">
+            <option value="1">1 point</option>
+            <option value="2">2 points</option>
+            <option value="3" selected>3 points</option>
+            <option value="5">5 points</option>
+          </select>
+          <button id="customAdd" class="btn btn-add">[ ADD CUSTOM ]</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <div class="action-group">
+        <button id="exportBtn" class="btn btn-secondary">[ EXPORT PATTERNS ]</button>
+        <button id="importBtn" class="btn btn-secondary">[ IMPORT PATTERNS ]</button>
+        <input type="file" id="importFile" accept=".json" style="display: none;">
+      </div>
+      <div class="action-group">
+        <button id="resetBtn" class="btn btn-warning">[ RESET TO DEFAULTS ]</button>
+        <button id="saveBtn" class="btn btn-primary">[ CLOSE ]</button>
+      </div>
+    </div>
+
+    <footer>
+      <p class="status" id="status"></p>
+      <p class="version">v2.4.3 | Kief Studio | HxHippy</p>
+    </footer>
+  </div>
+
+  <script src="settings.js"></script>
+</body>
+</html>

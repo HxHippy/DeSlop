@@ -1,0 +1,52 @@
+# Build artifacts
+*.zip
+de-slop-v*.zip
+
+# Chrome extension metadata (generated when loading unpacked)
+_metadata/
+
+# Development/documentation files
+CHANGELOG.md
+CHROME-STORE.md
+CHROME-STORE-CHECKLIST.md
+INSTALL.md
+PATTERNS.md
+PRIVACY-POLICY-SECTION.md
+QUICK-START.md
+RELEASE-CHECKLIST.md
+TEST.md
+TROUBLESHOOTING.md
+
+# Build scripts
+package.sh
+generate-icons.sh
+
+# Development reference files
+words.txt
+words.txt~
+
+# Backup files
+*~
+*.bak
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+*.log
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+.project
+.settings/
+
+# Node modules (if ever added)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Temporary files
+tmp/
+temp/

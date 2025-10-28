@@ -1,0 +1,16 @@
+/* De-Slop Content Styles */
+
+.deslop-removed {
+  display: none !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Optional: Show a subtle indicator where content was removed */
+.deslop-removed::before {
+  content: '' !important;
+  display: none !important;
+}

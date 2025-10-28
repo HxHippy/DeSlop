@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "px.ads.linkedin.com",
+      "resourceTypes": [
+        "xmlhttprequest",
+        "image",
+        "script",
+        "sub_frame"
+      ]
+    }
+  }
+]

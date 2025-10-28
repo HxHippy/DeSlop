@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De-Slop</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>DE-SLOP</h1>
+      <p class="tagline">[ SLOP DETECTION SYSTEM ]</p>
+    </header>
+
+    <div class="stats">
+      <div class="stat-item">
+        <span class="stat-label">Slop Blocked</span>
+        <span class="stat-value" id="slopCount">0</span>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="toggle-group">
+        <label class="switch">
+          <input type="checkbox" id="enabledToggle" checked>
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label">Extension Enabled</span>
+      </div>
+
+      <div class="sensitivity">
+        <label for="sensitivitySlider">Detection Sensitivity</label>
+        <input type="range" id="sensitivitySlider" min="1" max="5" value="3" step="1">
+        <div class="sensitivity-labels">
+          <span>1</span>
+          <span>2</span>
+          <span>3</span>
+          <span>4</span>
+          <span>5</span>
+        </div>
+        <div class="tier-info" id="tierInfo">
+          <strong>Tier 1:</strong> AI-specific slop only
+        </div>
+      </div>
+
+      <div class="section-divider" style="margin-top: 24px; margin-bottom: 16px;">
+        <div class="section-header-small">Detection Types</div>
+      </div>
+
+      <div class="toggle-group">
+        <label class="switch">
+          <input type="checkbox" id="blockTier1" checked>
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label">Block AI Slop (Tier 1)</span>
+      </div>
+
+      <div class="toggle-group">
+        <label class="switch">
+          <input type="checkbox" id="blockTier2" checked>
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label">Block Corporate Buzzwords (Tier 2)</span>
+      </div>
+
+      <div class="toggle-group">
+        <label class="switch">
+          <input type="checkbox" id="blockTier3">
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label">Block Marketing Spam (Tier 3)</span>
+      </div>
+
+      <div class="toggle-group">
+        <label class="switch">
+          <input type="checkbox" id="blockEmojis">
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label">Block Emoji Slop</span>
+      </div>
+
+      <div class="toggle-group">
+        <label class="switch">
+          <input type="checkbox" id="blockStopWords" checked>
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label">Block Stop Words ("I'm excited...")</span>
+      </div>
+
+      <div class="toggle-group">
+        <label class="switch">
+          <input type="checkbox" id="blockEmDashes" checked>
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label">Block Em Dash Overuse (—)</span>
+      </div>
+    </div>
+
+    <div class="linkedin-fixer" id="linkedinFixer" style="display: none;">
+      <div class="section-header">LinkedIn Fixer</div>
+      <div class="toggle-group">
+        <label class="switch">
+          <input type="checkbox" id="blockVideos">
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label">Block Auto-Play Videos</span>
+      </div>
+      <div class="toggle-group">
+        <label class="switch">
+          <input type="checkbox" id="blockAds">
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label">Block Ad Tracking</span>
+      </div>
+      <div class="toggle-group">
+        <label class="switch">
+          <input type="checkbox" id="darkerMode">
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label">Darker Mode</span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="rescanBtn" class="btn btn-primary">[ RESCAN PAGE ]</button>
+      <button id="resetBtn" class="btn btn-secondary">[ RESET STATS ]</button>
+      <button id="checkerBtn" class="btn btn-settings">[ IS MY POST SLOP? ]</button>
+      <button id="slopMachineBtn" class="btn btn-fun">[ SLOP MACHINE ]</button>
+      <button id="settingsBtn" class="btn btn-settings">[ CUSTOMIZE PATTERNS ]</button>
+    </div>
+
+    <footer>
+      <p class="version">v2.4.3</p>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

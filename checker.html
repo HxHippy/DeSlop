@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De-Slop - Is My Post Slop?</title>
+  <link rel="stylesheet" href="checker.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>DE-SLOP</h1>
+      <p class="tagline">[ SLOP DETECTOR ]</p>
+      <p class="subtitle">Check if your post would be flagged as slop</p>
+    </header>
+
+    <div class="checker-section">
+      <div class="editor-layout">
+        <div class="input-section">
+          <div class="section-header">
+            <label for="textInput">Edit your content:</label>
+            <button id="clearBtn" class="btn-clear">[ CLEAR ]</button>
+          </div>
+          <textarea
+            id="textInput"
+            placeholder="Paste your LinkedIn post, article, or any text here to check if it would be detected as slop..."
+            rows="16"
+          ></textarea>
+          <div class="input-controls">
+            <span class="live-indicator">⚡ Live analysis enabled</span>
+          </div>
+        </div>
+
+        <div class="preview-section">
+          <div class="section-header">
+            <label>Highlighted preview:</label>
+            <button id="markdownToggle" class="btn-toggle" title="Toggle markdown rendering">
+              <span class="toggle-label">[ RENDER MARKDOWN ]</span>
+            </button>
+          </div>
+          <div id="highlightedPreview" class="highlighted-preview">
+            <div class="placeholder-text">Your content will appear here with slop phrases highlighted...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="results-section" id="results">
+        <div class="score-display">
+          <div class="score-label">SLOP SCORE</div>
+          <div class="score-value" id="scoreValue">0</div>
+          <div class="score-status" id="scoreStatus"></div>
+        </div>
+
+        <div class="threshold-info">
+          <div class="threshold-item">
+            <span>Sensitivity 1 (15pts):</span>
+            <span id="thresh1" class="status-indicator">—</span>
+          </div>
+          <div class="threshold-item">
+            <span>Sensitivity 2 (12pts):</span>
+            <span id="thresh2" class="status-indicator">—</span>
+          </div>
+          <div class="threshold-item">
+            <span>Sensitivity 3 (9pts):</span>
+            <span id="thresh3" class="status-indicator">—</span>
+          </div>
+          <div class="threshold-item">
+            <span>Sensitivity 4 (6pts):</span>
+            <span id="thresh4" class="status-indicator">—</span>
+          </div>
+          <div class="threshold-item">
+            <span>Sensitivity 5 (4pts):</span>
+            <span id="thresh5" class="status-indicator">—</span>
+          </div>
+        </div>
+
+        <div class="breakdown" id="breakdown">
+          <h3>Score Breakdown</h3>
+          <div id="breakdownContent"></div>
+        </div>
+
+        <div class="matches" id="matches" style="display: none;">
+          <h3>Detected Patterns</h3>
+          <div id="matchesContent"></div>
+        </div>
+
+        <div class="suggestions" id="suggestions">
+          <h3>Suggestions</h3>
+          <div id="suggestionsContent"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <button id="backBtn" class="btn btn-link">← Back to Popup</button>
+      <p class="version">v2.4.3 | Kief Studio | HxHippy</p>
+    </footer>
+
+    <!-- Fix suggestion tooltip -->
+    <div id="fixTooltip" class="fix-tooltip" style="display: none;">
+      <div class="tooltip-header">
+        <span class="tooltip-title">SLOP DETECTED</span>
+        <button class="tooltip-close">×</button>
+      </div>
+      <div class="tooltip-content">
+        <div class="tooltip-phrase"></div>
+        <div class="tooltip-suggestion"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="checker.js"></script>
+</body>
+</html>

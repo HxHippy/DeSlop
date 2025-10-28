@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slop Machine - De-Slop</title>
+  <link rel="stylesheet" href="slop-machine.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>SLOP MACHINE</h1>
+      <p class="tagline">[ SPIN FOR BETTER WORDS ]</p>
+      <p class="subtitle">Replace slop with authentic language</p>
+    </header>
+
+    <div class="machine-container">
+      <div class="slot-machine">
+        <div class="reels">
+          <div class="reel">
+            <div class="reel-label">SLOP</div>
+            <div class="reel-window">
+              <div class="reel-strip" id="reel1">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </div>
+
+          <div class="reel arrow-reel">
+            <div class="reel-label">→</div>
+            <div class="reel-window">
+              <div class="arrow">→</div>
+            </div>
+          </div>
+
+          <div class="reel">
+            <div class="reel-label">BETTER</div>
+            <div class="reel-window">
+              <div class="reel-strip" id="reel3">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button id="spinBtn" class="spin-btn">[ SPIN THE MACHINE ]</button>
+
+        <div class="result-display" id="resultDisplay" style="display: none;">
+          <div class="result-slop" id="resultSlop"></div>
+          <div class="result-arrow">→</div>
+          <div class="result-better" id="resultBetter"></div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-label">Spins:</span>
+          <span class="stat-value" id="spinCount">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Alternatives learned:</span>
+          <span class="stat-value" id="learnedCount">0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="index-container">
+      <div class="index-header">
+        <h2>FULL SLOP INDEX</h2>
+        <p>Don't like gambling? Here's the full list.</p>
+        <input type="text" id="searchInput" placeholder="Search slop words..." class="search-input">
+      </div>
+
+      <div class="index-tabs">
+        <button class="tab active" data-filter="all">All</button>
+        <button class="tab" data-filter="tier1">AI Slop</button>
+        <button class="tab" data-filter="tier2">Corporate</button>
+        <button class="tab" data-filter="tier3">Marketing</button>
+        <button class="tab" data-filter="stopwords">Stop Words</button>
+      </div>
+
+      <div class="index-list" id="indexList">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <footer>
+      <button id="backBtn" class="btn-link">← Back to Popup</button>
+      <p class="version">v2.4.3 | Kief Studio | HxHippy</p>
+    </footer>
+  </div>
+
+  <script src="slop-machine.js"></script>
+</body>
+</html>
