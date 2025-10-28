@@ -8,6 +8,7 @@ class SlopDetector {
     this.customPatterns = []; // User-defined patterns with custom weights
     this.stopWordPatterns = []; // Marketing engagement openers
     this.emDashPatterns = []; // Em dash overuse
+    this.whitelist = []; // User-defined whitelist
     this.loadSettings();
     this.initPatterns();
   }
@@ -23,7 +24,8 @@ class SlopDetector {
         blockTier2: true,
         blockTier3: false,
         blockStopWords: true,
-        blockEmDashes: true
+        blockEmDashes: true,
+        whitelist: []
       });
 
       this.sensitivity = settings.sensitivity;
@@ -34,6 +36,7 @@ class SlopDetector {
       this.blockTier3 = settings.blockTier3;
       this.blockStopWords = settings.blockStopWords;
       this.blockEmDashes = settings.blockEmDashes;
+      this.whitelist = settings.whitelist || [];
 
       // Load custom patterns if available
       if (settings.customPatterns) {
@@ -401,7 +404,44 @@ class SlopDetector {
     ];
   }
 
+  // Check if current URL is whitelisted
+  isWhitelisted() {
+    const currentUrl = window.location.href.toLowerCase();
+    const currentHost = window.location.hostname.toLowerCase().replace(/^www\./, '');
+    const currentPath = window.location.pathname + window.location.search;
+    
+    return this.whitelist.some(item => {
+      const whitelistItem = item.toLowerCase();
+      
+      // Full URL match
+      if (currentUrl.includes(whitelistItem)) {
+        return true;
+      }
+      
+      // Domain/subdomain match
+      if (currentHost === whitelistItem || currentHost.endsWith('.' + whitelistItem)) {
+        return true;
+      }
+      
+      // Path match (domain + path)
+      if (whitelistItem.includes('/')) {
+        const [domain, path] = whitelistItem.split('/', 2);
+        if ((currentHost === domain || currentHost.endsWith('.' + domain)) && currentPath.startsWith('/' + path)) {
+          return true;
+        }
+      }
+      
+      return false;
+    });
+  }
+
   init() {
+    // Check if current site is whitelisted
+    if (this.isWhitelisted()) {
+      console.log('[De-Slop] Site is whitelisted, skipping detection');
+      return;
+    }
+    
     this.scanPage();
     this.observeChanges();
     this.updateBadge();
