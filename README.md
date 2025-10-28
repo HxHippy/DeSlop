@@ -2,7 +2,7 @@
 
 ![De-Slop Logo](De-Slop.png)
 
-![De-Slop Banner](Deslop.jpeg)
+![De-Slop Banner](assets/Deslop.jpeg)
 
 A Chrome extension that automatically detects and removes AI-generated "slop" content from web pages.
 
@@ -37,7 +37,7 @@ When on LinkedIn.com, additional features activate:
 - **Em dash detector** - AI loves em dashes
 - **Export/import** custom pattern sets
 
-![Main Sidebar Interface](Sidebar.png)
+![Main Sidebar Interface](assets/Sidebar.png)
 
 ## Installation
 
@@ -49,7 +49,7 @@ When on LinkedIn.com, additional features activate:
 2. Open Chrome and go to `chrome://extensions/`
 3. Enable "Developer mode" (top-right)
 4. Click "Load unpacked"
-5. Select the `de-slop` directory
+5. Select the `src` directory
 
 ## Detection System
 
@@ -105,7 +105,7 @@ The widest net:
 3. See highlighted matches with explanations
 4. Toggle markdown rendering if needed
 
-![Slop Detector Tool](Slop-Detector.png)
+![Slop Detector Tool](assets/Slop-Detector.png)
 
 ### Slop Machine
 1. Click `[ SLOP MACHINE ]`
@@ -113,7 +113,7 @@ The widest net:
 3. Or browse the full searchable index
 4. Filter by category (AI, Corporate, Marketing, Stop Words)
 
-![Slop Machine Interface](Slop-Machine.png)
+![Slop Machine Interface](assets/Slop-Machine.png)
 
 ### Pattern Customization
 1. Click `[ CUSTOMIZE PATTERNS ]`
@@ -122,7 +122,7 @@ The widest net:
 4. Export/import pattern sets
 5. Changes save automatically
 
-![Pattern Customization](Patterns.png)
+![Pattern Customization](assets/Patterns.png)
 
 ### LinkedIn Fixer
 When on LinkedIn, additional toggles appear:
@@ -144,25 +144,28 @@ When on LinkedIn, additional toggles appear:
 - **Medium**: `article`, `.postArticle`
 - **All sites**: Generic article/post/card selectors
 
-## Files Structure
+## Repository Structure
 
-### Core Extension
-- `manifest.json` - Extension configuration
-- `background.js` - Service worker for badge updates
-- `content.js` - Main detection logic (180+ patterns)
-- `content.css` - Styles for hiding detected slop
-
-### Popup Interface
-- `popup.html/css/js` - Main extension popup
-
-### Tools
-- `checker.html/css/js` - Interactive slop checker
-- `slop-machine.html/css/js` - Learning slot machine
-- `settings.html/css/js` - Pattern customization UI
-
-### LinkedIn Features
-- `linkedin-fixer.js` - Video blocking & darker mode
-- `rules.json` - Ad blocking rules
+```
+DeSlop/
+├── src/                  # Extension source code
+│   ├── manifest.json     # Extension configuration
+│   ├── background.js     # Service worker for badge updates
+│   ├── content.js        # Main detection logic (180+ patterns)
+│   ├── content.css       # Styles for hiding detected slop
+│   ├── popup.*           # Main sidebar interface
+│   ├── checker.*         # Interactive slop checker
+│   ├── slop-machine.*    # Learning slot machine
+│   ├── settings.*        # Pattern customization UI
+│   ├── linkedin-fixer.js # Video blocking & darker mode
+│   ├── rules.json        # Ad blocking rules
+│   └── icons/            # Extension icons
+├── assets/               # Screenshots and marketing images
+├── De-Slop.png          # Logo
+├── privacy.html         # Privacy policy
+├── LICENSE              # GPL-3.0 license
+└── README.md            # This file
+```
 
 ## Privacy
 
