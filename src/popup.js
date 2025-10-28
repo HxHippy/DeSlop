@@ -23,6 +23,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   const blockAdsToggle = document.getElementById('blockAds');
   const darkerModeToggle = document.getElementById('darkerMode');
 
+  // Whitelist elements
+  const whitelistInput = document.getElementById('whitelistInput');
+  const addWhitelistBtn = document.getElementById('addWhitelistBtn');
+  const whitelistList = document.getElementById('whitelistList');
+
   // Load saved settings
   const settings = await chrome.storage.sync.get({
     enabled: true,
@@ -35,7 +40,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     blockEmDashes: true,
     linkedinBlockVideos: false,
     linkedinBlockAds: false,
-    linkedinDarkerMode: false
+    linkedinDarkerMode: false,
+    whitelist: []
   });
 
   enabledToggle.checked = settings.enabled;
@@ -200,4 +206,101 @@ document.addEventListener('DOMContentLoaded', async () => {
       slopCountEl.textContent = request.count.toString();
     }
   });
+
+  // Whitelist functionality
+  let whitelist = settings.whitelist || [];
+
+  // Display whitelist items
+  function displayWhitelist() {
+    if (whitelist.length === 0) {
+      whitelistList.innerHTML = '<div class="whitelist-empty">No domains whitelisted</div>';
+      return;
+    }
+
+    whitelistList.innerHTML = whitelist.map((item, index) => `
+      <div class="whitelist-item">
+        <span class="whitelist-url">${item}</span>
+        <button class="whitelist-remove" data-index="${index}">[ X ]</button>
+      </div>
+    `).join('');
+
+    // Add remove event listeners
+    whitelistList.querySelectorAll('.whitelist-remove').forEach(btn => {
+      btn.addEventListener('click', removeWhitelistItem);
+    });
+  }
+
+  // Validate and normalize URL input
+  function normalizeUrl(input) {
+    input = input.trim().toLowerCase();
+    if (!input) return null;
+
+    // Remove protocol if present
+    input = input.replace(/^https?:\/\//, '');
+    
+    // Remove www if present
+    input = input.replace(/^www\./, '');
+    
+    // Remove trailing slash
+    input = input.replace(/\/$/, '');
+    
+    // Basic validation
+    if (!/^[a-z0-9.-]+(\.[a-z]{2,})?.*$/i.test(input)) {
+      return null;
+    }
+    
+    return input;
+  }
+
+  // Add whitelist item
+  async function addWhitelistItem() {
+    const input = whitelistInput.value;
+    const normalized = normalizeUrl(input);
+    
+    if (!normalized) {
+      alert('Please enter a valid domain, subdomain, or path:\n\n' +
+            'Examples:\n' +
+            '• example.com\n' +
+            '• blog.example.com\n' +
+            '• example.com/news\n' +
+            '• example.com/page.html');
+      return;
+    }
+
+    if (whitelist.includes(normalized)) {
+      alert('This URL is already whitelisted');
+      return;
+    }
+
+    whitelist.push(normalized);
+    await chrome.storage.sync.set({ whitelist });
+    whitelistInput.value = '';
+    displayWhitelist();
+    
+    // Reload current tab to apply changes
+    if (currentTab) chrome.tabs.reload(currentTab.id);
+  }
+
+  // Remove whitelist item
+  async function removeWhitelistItem(e) {
+    const index = parseInt(e.target.dataset.index);
+    whitelist.splice(index, 1);
+    await chrome.storage.sync.set({ whitelist });
+    displayWhitelist();
+    
+    // Reload current tab to apply changes
+    if (currentTab) chrome.tabs.reload(currentTab.id);
+  }
+
+  // Event listeners for whitelist
+  addWhitelistBtn.addEventListener('click', addWhitelistItem);
+  
+  whitelistInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      addWhitelistItem();
+    }
+  });
+
+  // Initialize whitelist display
+  displayWhitelist();
 });

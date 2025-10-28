@@ -110,7 +110,7 @@ class LinkedInFixer {
         border-color: #1a1a1a !important;
       }
 
-      /* Text colors */
+      /* Text colors - Primary text */
       .feed-shared-actor__title,
       .feed-shared-actor__description,
       .feed-shared-text__text-view,
@@ -125,7 +125,37 @@ class LinkedInFixer {
       .pvs-entity__caption-wrapper,
       .t-black,
       .t-normal,
-      .t-14 {
+      .t-14,
+      .t-16,
+      .t-18,
+      .t-20,
+      .t-24,
+      .feed-shared-update-v2__description,
+      .feed-shared-update-v2__content,
+      .feed-shared-article__title,
+      .feed-shared-article__description,
+      .update-components-text,
+      .update-components-text span,
+      .feed-shared-header__description,
+      .feed-shared-header__title,
+      .linkedin-text-color-text,
+      .linkedin-text-color-text-low-emphasis,
+      .feed-shared-actor__meta,
+      .feed-shared-social-action-bar,
+      .social-action,
+      .social-action span,
+      .artdeco-button__text,
+      .feed-shared-control-menu__trigger,
+      .update-components-actor__meta,
+      .update-components-actor__name,
+      .update-components-actor__description,
+      .feed-shared-mini-update-v2 .update-components-actor__name,
+      .feed-shared-mini-update-v2 .update-components-actor__description,
+      .feed-shared-mini-update-v2 .update-components-actor__meta,
+      .feed-shared-mini-update-v2 .feed-shared-text,
+      .feed-shared-mini-update-v2 .update-components-text,
+      .ember-text-area,
+      .ql-editor {
         color: #d0d0d0 !important;
       }
 
@@ -227,6 +257,31 @@ class LinkedInFixer {
       .feed-shared-update-v2__update-content-wrapper,
       .pvs-list__item--border-bottom {
         border-bottom-color: #1a1a1a !important;
+      }
+
+      /* Additional text visibility fixes */
+      span[dir="ltr"], 
+      div[dir="ltr"],
+      p,
+      h1, h2, h3, h4, h5, h6,
+      .artdeco-text,
+      .artdeco-text--caption,
+      .visually-hidden,
+      [class*="text-color-text"],
+      [class*="t-black"] {
+        color: #d0d0d0 !important;
+      }
+
+      /* Ensure no text is completely black */
+      * {
+        color: inherit !important;
+      }
+
+      /* Override any black text */
+      [style*="color: #000"],
+      [style*="color: black"],
+      [style*="color: rgb(0, 0, 0)"] {
+        color: #d0d0d0 !important;
       }
     `;
 

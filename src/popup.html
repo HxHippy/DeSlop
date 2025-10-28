@@ -122,6 +122,32 @@
       </div>
     </div>
 
+    <div class="whitelist-section">
+      <div class="section-header">Domain Whitelist</div>
+      <p class="section-description">Exclude specific domains, pages, or paths from slop detection</p>
+      
+      <div class="whitelist-controls">
+        <div class="input-group">
+          <input type="text" id="whitelistInput" placeholder="example.com, subdomain.site.com, site.com/path" />
+          <button id="addWhitelistBtn" class="btn btn-small">[ ADD ]</button>
+        </div>
+        
+        <div class="whitelist-examples">
+          <small>Examples:</small>
+          <ul class="example-list">
+            <li><code>example.com</code> - entire domain</li>
+            <li><code>blog.example.com</code> - specific subdomain</li>
+            <li><code>example.com/news</code> - specific path</li>
+            <li><code>example.com/page.html</code> - specific page</li>
+          </ul>
+        </div>
+        
+        <div class="whitelist-list" id="whitelistList">
+          <!-- Whitelisted items will be populated here -->
+        </div>
+      </div>
+    </div>
+
     <div class="actions">
       <button id="rescanBtn" class="btn btn-primary">[ RESCAN PAGE ]</button>
       <button id="resetBtn" class="btn btn-secondary">[ RESET STATS ]</button>

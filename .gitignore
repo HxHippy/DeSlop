@@ -16,6 +16,7 @@ QUICK-START.md
 RELEASE-CHECKLIST.md
 TEST.md
 TROUBLESHOOTING.md
+Documents/
 
 # Build scripts
 package.sh
