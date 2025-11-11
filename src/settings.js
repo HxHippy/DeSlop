@@ -240,6 +240,12 @@ function setupEventListeners() {
   document.getElementById('saveBtn').addEventListener('click', () => {
     window.close();
   });
+
+  // Pattern tester
+  document.getElementById('testBtn').addEventListener('click', testPattern);
+  document.getElementById('testPattern').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') testPattern();
+  });
 }
 
 // Add pattern to tier
@@ -425,4 +431,71 @@ function escapeHtml(text) {
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
+}
+
+// Pattern tester
+function testPattern() {
+  const patternInput = document.getElementById('testPattern').value.trim();
+  const testText = document.getElementById('testText').value;
+  const resultsDiv = document.getElementById('testResults');
+  const matchCountEl = document.getElementById('matchCount');
+  const matchListEl = document.getElementById('matchList');
+  const highlightedTextEl = document.getElementById('highlightedText');
+
+  if (!patternInput) {
+    showStatus('Please enter a pattern to test', true);
+    return;
+  }
+
+  if (!testText) {
+    showStatus('Please enter some text to test against', true);
+    return;
+  }
+
+  // Parse the pattern
+  const match = patternInput.match(/^\/(.+)\/([gimuy]*)$/);
+  if (!match) {
+    showStatus('Pattern must be in regex format: /pattern/flags', true);
+    return;
+  }
+
+  let regex;
+  try {
+    regex = new RegExp(match[1], match[2]);
+  } catch (e) {
+    showStatus('Invalid regex pattern: ' + e.message, true);
+    return;
+  }
+
+  // Test the pattern
+  const matches = testText.match(regex);
+  const matchCount = matches ? matches.length : 0;
+
+  // Show results
+  resultsDiv.style.display = 'block';
+  matchCountEl.textContent = `Found ${matchCount} match${matchCount === 1 ? '' : 'es'}`;
+
+  // Show unique matches
+  if (matches) {
+    const uniqueMatches = [...new Set(matches)];
+    matchListEl.innerHTML = uniqueMatches
+      .map(m => `<div class="match-item">"${escapeHtml(m)}"</div>`)
+      .join('');
+
+    // Highlight matches in text
+    let highlightedHtml = escapeHtml(testText);
+    // Sort matches by length (longest first) to avoid partial replacements
+    uniqueMatches.sort((a, b) => b.length - a.length);
+    uniqueMatches.forEach(m => {
+      const escaped = escapeHtml(m);
+      const pattern = new RegExp(escaped.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+      highlightedHtml = highlightedHtml.replace(pattern, `<mark>${escaped}</mark>`);
+    });
+    highlightedTextEl.innerHTML = highlightedHtml;
+  } else {
+    matchListEl.innerHTML = '<div class="no-matches">No matches found</div>';
+    highlightedTextEl.innerHTML = escapeHtml(testText);
+  }
+
+  showStatus(`Test complete: ${matchCount} match${matchCount === 1 ? '' : 'es'} found`);
 }

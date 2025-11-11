@@ -4,6 +4,7 @@
 class SlopDetector {
   constructor() {
     this.slopCount = 0;
+    this.totalElements = 0; // Track total elements scanned
     this.sensitivity = 3; // Default to medium
     this.customPatterns = []; // User-defined patterns with custom weights
     this.stopWordPatterns = []; // Marketing engagement openers
@@ -17,12 +18,10 @@ class SlopDetector {
     try {
       const settings = await chrome.storage.sync.get({
         enabled: true,
+        detectionOnly: false,
         sensitivity: 3,
         customPatterns: null,
         blockEmojis: false,
-        blockTier1: true,
-        blockTier2: true,
-        blockTier3: false,
         blockStopWords: true,
         blockEmDashes: true,
         whitelist: []
@@ -30,10 +29,8 @@ class SlopDetector {
 
       this.sensitivity = settings.sensitivity;
       this.enabled = settings.enabled;
+      this.detectionOnly = settings.detectionOnly;
       this.blockEmojis = settings.blockEmojis;
-      this.blockTier1 = settings.blockTier1;
-      this.blockTier2 = settings.blockTier2;
-      this.blockTier3 = settings.blockTier3;
       this.blockStopWords = settings.blockStopWords;
       this.blockEmDashes = settings.blockEmDashes;
       this.whitelist = settings.whitelist || [];
@@ -209,7 +206,111 @@ class SlopDetector {
       /\bFor (decades|years), .{10,50} seemed like\b/gi,
       /\bin 20\d{2}, it'?s\b/gi,
       /\bNot all .{5,30} discoveries are\b/gi,
-      /\bscience fiction .{5,30} but in 20\d{2}\b/gi
+      /\bscience fiction .{5,30} but in 20\d{2}\b/gi,
+
+      // Additional AI-generated content tells
+      /\blandscape is (constantly|rapidly|continuously) (changing|evolving|shifting)\b/gi,
+      /\bever[- ]changing (world|landscape|environment)\b/gi,
+      /\bfast[- ]paced (world|environment|landscape)\b/gi,
+      /\bcrucial (to understand|to note|to recognize|that)\b/gi,
+      /\bvital (to understand|to note|to recognize|that)\b/gi,
+      /\bimportant to (understand|note|recognize|remember) that\b/gi,
+      /\bworth noting that\b/gi,
+      /\bit'?s worth mentioning\b/gi,
+      /\bone (must|should) (consider|understand|recognize)\b/gi,
+      /\bproven track record\b/gi,
+      /\blong[- ]standing (tradition|practice|history)\b/gi,
+      /\btime[- ]tested\b/gi,
+      /\btried and (true|tested)\b/gi,
+      /\bstand(s)? the test of time\b/gi,
+      /\bexciting times ahead\b/gi,
+      /\bbright future ahead\b/gi,
+      /\bpromising future\b/gi,
+      /\blooking ahead\b/gi,
+      /\bas we look (to the future|forward|ahead)\b/gi,
+      /\bshape the future of\b/gi,
+      /\bfuture of .{5,30} (is|looks|appears)\b/gi,
+      /\bpoised to (become|transform|revolutionize)\b/gi,
+      /\bset to (become|transform|revolutionize)\b/gi,
+      /\bon the (brink|cusp|verge) of\b/gi,
+      /\bheralds? a new (era|age|chapter)\b/gi,
+      /\buses?her(s|ing)? in a new (era|age|chapter)\b/gi,
+      /\bmarks? a (turning|pivotal) point\b/gi,
+      /\bwatershed moment\b/gi,
+      /\binflection point\b/gi,
+      /\btipping point\b/gi,
+      /\bperfect storm of\b/gi,
+      /\bconvergence of\b/gi,
+      /\bintersection of\b/gi,
+      /\bat the (crossroads|forefront|vanguard) of\b/gi,
+      /\bspearhead(ing)? (the|a)\b/gi,
+      /\bchampion(ing)? (the|a)\b/gi,
+      /\bpioneer(ing)? (the|a|new)\b/gi,
+      /\btrailblaz(er|ing)\b/gi,
+      /\bindustry[- ]leading\b/gi,
+      /\bmarket[- ]leading\b/gi,
+      /\bworld[- ]class\b/gi,
+      /\bbest[- ]of[- ]breed\b/gi,
+      /\bcutting[- ]edge (technology|solution|approach|innovation)\b/gi,
+      /\bbleeding[- ]edge\b/gi,
+      /\bstate[- ]of[- ]the[- ]art (technology|solution|system)\b/gi,
+      /\bnext[- ]generation (technology|solution|platform)\b/gi,
+      /\bfuture[- ]proof(ing)?\b/gi,
+      /\bforward[- ]thinking\b/gi,
+      /\bvisionary (approach|leadership|thinking)\b/gi,
+      /\bmission[- ]critical\b/gi,
+      /\bbusiness[- ]critical\b/gi,
+      /\bstrategic (imperative|importance|priority)\b/gi,
+      /\bkey (driver|enabler|differentiator)\b/gi,
+      /\bfundamental(ly)? (different|transform)\b/gi,
+      /\bradical(ly)? (different|transform|change)\b/gi,
+      /\bdramatic(ally)? (different|improve|increase)\b/gi,
+      /\bsignificant(ly)? (improve|enhance|boost)\b/gi,
+      /\bmassive(ly)? (improve|scale|grow)\b/gi,
+      /\bexponential (growth|increase|improvement)\b/gi,
+      /\bunique (opportunity|position|advantage)\b/gi,
+      /\bdistinctive (feature|advantage|capability)\b/gi,
+      /\bcompelling (reason|case|argument)\b/gi,
+      /\bconvincing (evidence|case|argument)\b/gi,
+      /\boverwhelmingly (positive|successful|clear)\b/gi,
+      /\bundeniab(ly|le)\b/gi,
+      /\birrefutabl(y|e)\b/gi,
+      /\bincontrovertib(ly|le)\b/gi,
+      /\bunequivocal(ly)?\b/gi,
+      /\bdefinitively\b/gi,
+      /\bcategorically\b/gi,
+      /\bundoubtedly\b/gi,
+      /\bwithout (a )?doubt\b/gi,
+      /\bbeyond (a|any) (shadow of a )?doubt\b/gi,
+      /\bneedles to say\b/gi,
+      /\bit goes without saying\b/gi,
+      /\bsuffice (it )?to say\b/gi,
+      /\blong story short\b/gi,
+      /\bto make a long story short\b/gi,
+      /\bcutting to the chase\b/gi,
+      /\bbottom line is\b/gi,
+      /\bnet[- ]net\b/gi,
+      /\ball things considered\b/gi,
+      /\btaking everything into (account|consideration)\b/gi,
+      /\bat this (point in time|juncture)\b/gi,
+      /\bcurrent(ly)? in the (process|midst) of\b/gi,
+      /\bgaining (traction|momentum)\b/gi,
+      /\bpicking up (steam|speed|momentum)\b/gi,
+      /\bon an upward trajectory\b/gi,
+      /\bupward trend\b/gi,
+      /\bskyrocket(ing)?\b/gi,
+      /\bsurg(e|ing)\b/gi,
+      /\bexplosive growth\b/gi,
+      /\bmeteoric rise\b/gi,
+      /\bunprecedented growth\b/gi,
+      /\bunparalleled success\b/gi,
+      /\brecord[- ]breaking\b/gi,
+      /\ball[- ]time (high|low|record)\b/gi,
+      /\bbar[- ]setting\b/gi,
+      /\bbenchmark[- ]setting\b/gi,
+      /\bindustry[- ]defining\b/gi,
+      /\bmarket[- ]defining\b/gi,
+      /\bcategory[- ]defining\b/gi
 
       // Marketing engagement stop words and em dashes moved to separate arrays below for independent toggling
     ];
@@ -248,25 +349,165 @@ class SlopDetector {
     this.emojiPatterns = [
       // Emoji followed by buzzwords
       /[\u{1F300}-\u{1F9FF}][\s]*Revolutioniz(e|ing)/giu,
-      /[\u{1F300}-\u{1F9FF}][\s]*Transform(ing|ative)/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Transform(ing|ative|ation)/giu,
       /[\u{1F300}-\u{1F9FF}][\s]*Innovati(ng|on|ve)/giu,
-      /[\u{1F300}-\u{1F9FF}][\s]*Disrupt(ing|ive)/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Disrupt(ing|ive|ion)/giu,
       /[\u{1F300}-\u{1F9FF}][\s]*Game[- ]changer/giu,
-      /[\u{1F300}-\u{1F9FF}][\s]*Unlock(ing)? the/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Unlock(ing)? (the|your)/giu,
       /[\u{1F300}-\u{1F9FF}][\s]*Navigating the/giu,
-      /[\u{1F300}-\u{1F9FF}][\s]*Building the future/giu,
-      /[\u{1F300}-\u{1F9FF}][\s]*Leading the way/giu,
-      /[\u{1F300}-\u{1F9FF}][\s]*Breaking barriers/giu,
-      /[\u{1F300}-\u{1F9FF}][\s]*Exciting (news|announcement)/giu,
-      /[\u{1F300}-\u{1F9FF}][\s]*Proud to (announce|share)/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Building (the future|tomorrow)/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Leading the (way|charge)/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Breaking (barriers|boundaries)/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Exciting (news|announcement|times)/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Proud to (announce|share|present)/giu,
       /[\u{1F300}-\u{1F9FF}][\s]*Thrilled to/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Honored to/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Grateful (for|to)/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Blessed to/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Humbled (by|to)/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*(Big|Huge|Major) (news|announcement)/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Level(ing)? up/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Next level/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Taking (it|things) to/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Raising the bar/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Pushing boundaries/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Breaking (new )?ground/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Making (waves|history|impact)/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Changing the game/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Shaping the future/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Driving (change|innovation|growth)/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Empowering/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Inspiring/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Amplifying/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Elevating/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Scaling/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Optimizing/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Maximizing/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Leveraging/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Harnessing/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Pioneering/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Spearheading/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Championing/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Crushing (it|goals)/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Killing it/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Nailing it/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Winning/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Slaying/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Dominating/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Conquering/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Launching/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Unveiling/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Introducing/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Announcing/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Revealing/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Dropping/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Shipping/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*(New|Fresh) (chapter|journey|adventure)/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Milestone (alert|achieved)/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Achievement unlocked/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Success story/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Plot twist/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Hot take/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Pro tip/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Life hack/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Growth hack/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Quick win/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Game plan/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Strategy/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Framework/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Blueprint/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Roadmap/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Masterclass/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Deep dive/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Behind the scenes/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Sneak peek/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Coming soon/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Stay tuned/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*Watch this space/giu,
+      /[\u{1F300}-\u{1F9FF}][\s]*More to come/giu,
+
+      // Emoji as bullet points or separators (slop formatting)
+      /\n[\u{1F300}-\u{1F9FF}][\s]*/gmu,
+      /^[\u{1F300}-\u{1F9FF}][\s]*[A-Z]/gmu,
+      /[\u{1F300}-\u{1F9FF}][\s]*[\u{1F300}-\u{1F9FF}][\s]*[\u{1F300}-\u{1F9FF}]/giu,
+
+      // Multiple same emojis (emphasis spam)
+      /([\u{1F300}-\u{1F9FF}])\1{2,}/giu,
+      /[\u{1F300}-\u{1F9FF}]{4,}/giu,
 
       // Multiple emojis in short span (LinkedIn slop signature)
       /[\u{1F300}-\u{1F9FF}].{0,30}[\u{1F300}-\u{1F9FF}].{0,30}[\u{1F300}-\u{1F9FF}]/giu,
+      /[\u{1F300}-\u{1F9FF}].{0,50}[\u{1F300}-\u{1F9FF}]/giu,
 
       // Emoji at start of post/sentence (thought leader tell)
       /^[\u{1F300}-\u{1F9FF}][\s]*/gmu,
       /\.[\s]*[\u{1F300}-\u{1F9FF}][\s]*/gmu,
+      /![\s]*[\u{1F300}-\u{1F9FF}][\s]*/gmu,
+
+      // Emoji at end of sentences (punctuation replacement)
+      /[\u{1F300}-\u{1F9FF}][\s]*$/gmu,
+      /[\u{1F300}-\u{1F9FF}][\s]*\n/gmu,
+
+      // Emoji surrounding text (attention grabbing)
+      /[\u{1F300}-\u{1F9FF}][\s]*.{3,30}[\s]*[\u{1F300}-\u{1F9FF}]/giu,
+
+      // Specific cringe emoji patterns
+      /👇.{0,30}(link|comment|thread|below)/giu,
+      /👆.{0,30}(above|check out)/giu,
+      /👉.{0,30}(click|read|check|see)/giu,
+      /🔥.{0,30}(hot|fire|lit|amazing)/giu,
+      /💡.{0,30}(idea|tip|insight)/giu,
+      /🚀.{0,30}(launch|grow|scale|rocket)/giu,
+      /💪.{0,30}(strong|power|team)/giu,
+      /🎯.{0,30}(target|goal|focus)/giu,
+      /⚡.{0,30}(fast|quick|instant)/giu,
+      /✨.{0,30}(magic|special|shine)/giu,
+      /🌟.{0,30}(star|great|amazing)/giu,
+      /💰.{0,30}(money|revenue|profit)/giu,
+      /📈.{0,30}(growth|increase|up)/giu,
+      /🎉.{0,30}(celebrate|congrat|party)/giu,
+      /🎊.{0,30}(celebrate|milestone)/giu,
+      /🏆.{0,30}(win|award|champion)/giu,
+      /💯.{0,30}(percent|complete|perfect)/giu,
+      /🔑.{0,30}(key|secret|unlock)/giu,
+      /🎁.{0,30}(gift|bonus|free)/giu,
+      /⏰.{0,30}(time|now|urgent|hurry)/giu,
+      /🔔.{0,30}(alert|notification|reminder)/giu,
+      /📣.{0,30}(announce|news|update)/giu,
+      /📢.{0,30}(announce|shout|loud)/giu,
+      /💬.{0,30}(comment|discuss|talk)/giu,
+      /🤝.{0,30}(partner|collab|together)/giu,
+      /❤️.{0,30}(love|passion|care)/giu,
+      /🙏.{0,30}(thank|grateful|please)/giu,
+      /👏.{0,30}(applaud|congrat|bravo)/giu,
+      /🎓.{0,30}(learn|education|graduate)/giu,
+      /📚.{0,30}(learn|book|knowledge)/giu,
+      /🧠.{0,30}(brain|think|smart|intelligence)/giu,
+      /🌍.{0,30}(world|global|international)/giu,
+      /🌎.{0,30}(world|global|international)/giu,
+      /🌏.{0,30}(world|global|international)/giu,
+
+      // Emoji chains/walls (peak slop)
+      /[\u{1F300}-\u{1F9FF}][\s]*[\u{1F300}-\u{1F9FF}][\s]*[\u{1F300}-\u{1F9FF}][\s]*[\u{1F300}-\u{1F9FF}][\s]*[\u{1F300}-\u{1F9FF}]/giu,
+
+      // Emoji at beginning and end (sandwich pattern)
+      /^[\u{1F300}-\u{1F9FF}].{20,200}[\u{1F300}-\u{1F9FF}]$/gmu,
+
+      // Call to action with emoji
+      /[\u{1F300}-\u{1F9FF}][\s]*(Click|Comment|Share|Like|Follow|Subscribe|Join|Sign up|Learn more|Read more|Get|Download|Try|Start)/giu,
+      /(Click|Comment|Share|Like|Follow|Subscribe|Join|Sign up|Learn more|Read more|Get|Download|Try|Start).{0,20}[\u{1F300}-\u{1F9FF}]/giu,
+
+      // Hashtag with emoji
+      /#[a-zA-Z0-9]+[\u{1F300}-\u{1F9FF}]/giu,
+      /[\u{1F300}-\u{1F9FF}]#[a-zA-Z0-9]+/giu,
+
+      // Questions with emoji
+      /[\u{1F300}-\u{1F9FF}][\s]*.{5,50}\?/giu,
+      /.{5,50}\?[\s]*[\u{1F300}-\u{1F9FF}]/giu,
+
+      // Emoji in all caps context (double slop)
+      /[\u{1F300}-\u{1F9FF}][\s]*[A-Z]{4,}/gmu,
+      /[A-Z]{4,}[\s]*[\u{1F300}-\u{1F9FF}]/gmu,
 
       // Any emoji (nuclear option)
       /[\u{1F300}-\u{1F9FF}]/giu
@@ -342,7 +583,118 @@ class SlopDetector {
       /\benhance\b/gi,
       /\boptimize\b/gi,
       /\bstreamline\b/gi,
-      /\bmaximize\b/gi
+      /\bmaximize\b/gi,
+
+      // Additional corporate buzzwords
+      /\balignment\b/gi,
+      /\balign(ing|ed) (with|to|on)\b/gi,
+      /\bget (on|aligned on) the same page\b/gi,
+      /\bsing from the same (hymn|song) (sheet|book)\b/gi,
+      /\bget everyone on board\b/gi,
+      /\bwin[- ]win\b/gi,
+      /\bgain[- ]gain\b/gi,
+      /\bmutually beneficial\b/gi,
+      /\bpartnerships?\b/gi,
+      /\bcollaborate\b/gi,
+      /\bcross[- ]functional\b/gi,
+      /\bcross[- ]pollination\b/gi,
+      /\bhorizontal integration\b/gi,
+      /\bvertical integration\b/gi,
+      /\bend[- ]to[- ]end (solution|platform)\b/gi,
+      /\bone[- ]stop[- ]shop\b/gi,
+      /\bturnkey (solution|platform)\b/gi,
+      /\bplug[- ]and[- ]play\b/gi,
+      /\bout[- ]of[- ]the[- ]box\b/gi,
+      /\bbaked[- ]in\b/gi,
+      /\bnative(ly)? (support|integrate)\b/gi,
+      /\bfirst[- ]class (support|citizen)\b/gi,
+      /\bfull[- ]stack\b/gi,
+      /\bhands[- ]on deck\b/gi,
+      /\brolling up (our|my) sleeves\b/gi,
+      /\brolls[- ]royce (of|standard)\b/gi,
+      /\bgold standard\b/gi,
+      /\bbest[- ]in[- ]class\b/gi,
+      /\bworld[- ]beating\b/gi,
+      /\btop[- ]tier\b/gi,
+      /\bpremium (quality|tier|offering)\b/gi,
+      /\benterprise[- ]grade\b/gi,
+      /\bproduction[- ]ready\b/gi,
+      /\bbattle[- ]tested\b/gi,
+      /\bfield[- ]tested\b/gi,
+      /\bproven (solution|platform|methodology)\b/gi,
+      /\bvirtual(ly)? seamless\b/gi,
+      /\bfriction(less)?\b/gi,
+      /\bpainless\b/gi,
+      /\beffortless(ly)?\b/gi,
+      /\btransparent(ly)?\b/gi,
+      /\bvisibility\b/gi,
+      /\bobservability\b/gi,
+      /\btelemetry\b/gi,
+      /\binstrument(ation|ed)?\b/gi,
+      /\bmetrics[- ]driven\b/gi,
+      /\bmeasurable (impact|results|outcomes)\b/gi,
+      /\bquantifiable (impact|results|benefits)\b/gi,
+      /\bactionable (insights?|data|intelligence)\b/gi,
+      /\bdata[- ]backed\b/gi,
+      /\bevidence[- ]based\b/gi,
+      /\bscientific (approach|method)\b/gi,
+      /\bfirst principles\b/gi,
+      /\bfrom the ground up\b/gi,
+      /\bpurpose[- ]built\b/gi,
+      /\btailor[- ]made\b/gi,
+      /\bcustomized (solution|approach|strategy)\b/gi,
+      /\bbespoke\b/gi,
+      /\bwhite[- ]glove (service|treatment)\b/gi,
+      /\bconcierge (service|level|tier)\b/gi,
+      /\bpremium (service|support|experience)\b/gi,
+      /\b24\/7\b/gi,
+      /\baround[- ]the[- ]clock\b/gi,
+      /\balways[- ]on\b/gi,
+      /\b99\.9+%? (uptime|availability)\b/gi,
+      /\bhigh[- ]availability\b/gi,
+      /\bmission[- ]critical\b/gi,
+      /\bfault[- ]tolerant\b/gi,
+      /\bself[- ]healing\b/gi,
+      /\bauto[- ]scaling\b/gi,
+      /\belastic(ally)?\b/gi,
+      /\bon[- ]demand\b/gi,
+      /\bpay[- ]as[- ]you[- ]go\b/gi,
+      /\bsubscription[- ]based\b/gi,
+      /\bSaaS\b/gi,
+      /\bPaaS\b/gi,
+      /\bIaaS\b/gi,
+      /\bXaaS\b/gi,
+      /\bAs[- ]a[- ]Service\b/gi,
+      /\bAPI[- ]first\b/gi,
+      /\bmobile[- ]first\b/gi,
+      /\bcloud[- ]first\b/gi,
+      /\bcloud[- ]native\b/gi,
+      /\bcontainerized\b/gi,
+      /\bmicroservices\b/gi,
+      /\bserverless\b/gi,
+      /\bevent[- ]driven\b/gi,
+      /\basync(hronous)?\b/gi,
+      /\breal[- ]time\b/gi,
+      /\binstant(ly)?\b/gi,
+      /\blightning[- ]fast\b/gi,
+      /\bblazing(ly)?[- ]fast\b/gi,
+      /\bmillisecond (response|latency)\b/gi,
+      /\blow[- ]latency\b/gi,
+      /\bhigh[- ]performance\b/gi,
+      /\bperformant\b/gi,
+      /\bscalable\b/gi,
+      /\bmodular\b/gi,
+      /\bextensible\b/gi,
+      /\bflexible\b/gi,
+      /\badaptable\b/gi,
+      /\bversatile\b/gi,
+      /\bno[- ]code\b/gi,
+      /\blow[- ]code\b/gi,
+      /\bdrag[- ]and[- ]drop\b/gi,
+      /\bpoint[- ]and[- ]click\b/gi,
+      /\buser[- ]friendly\b/gi,
+      /\bintuitive\b/gi,
+      /\bseamless (experience|integration|workflow)\b/gi
     ];
 
     // HIGH AGGRO TIER (Tier 3) - Marketing Clichés & Fillers
@@ -400,7 +752,154 @@ class SlopDetector {
       /\bin a nutshell\b/gi,
       /\bbasically\b/gi,
       /\bessentially\b/gi,
-      /\bactually\b/gi
+      /\bactually\b/gi,
+
+      // Additional marketing spam and weak language
+      /\bawesome\b/gi,
+      /\bfantastic\b/gi,
+      /\bspectacular\b/gi,
+      /\bphenomenal\b/gi,
+      /\boutstanding\b/gi,
+      /\bexceptional\b/gi,
+      /\bextraordinary\b/gi,
+      /\bremarkable\b/gi,
+      /\bstunning\b/gi,
+      /\bwonderful\b/gi,
+      /\bsuperb\b/gi,
+      /\bexquisite\b/gi,
+      /\bmagnificent\b/gi,
+      /\bglorious\b/gi,
+      /\bsplendid\b/gi,
+      /\bterrific\b/gi,
+      /\bmarvelous\b/gi,
+      /\bsensational\b/gi,
+      /\bimpressive\b/gi,
+      /\bawe[- ]inspiring\b/gi,
+      /\bbreathtaking\b/gi,
+      /\blife[- ]changing\b/gi,
+      /\bgame[- ]changing\b/gi,
+      /\bworld[- ]changing\b/gi,
+      /\binsane(ly)?\b/gi,
+      /\bcrazy (good|fast|powerful)\b/gi,
+      /\bsick (deals?|features?)\b/gi,
+      /\bepic\b/gi,
+      /\blegendary\b/gi,
+      /\bmythical\b/gi,
+      /\bunicorn\b/gi,
+      /\b10x\b/gi,
+      /\b100x\b/gi,
+      /\bmillion dollar\b/gi,
+      /\bbillion dollar\b/gi,
+      /\bfortune 500\b/gi,
+      /\bwall street\b/gi,
+      /\bsilicon valley\b/gi,
+      /\bsecret(s)? (to|of)\b/gi,
+      /\bhidden (secrets?|gems?|treasures?)\b/gi,
+      /\binsider (secrets?|tips?|knowledge)\b/gi,
+      /\bexclusive (access|offer|deal|content)\b/gi,
+      /\bmembers[- ]only\b/gi,
+      /\bVIP (access|membership|treatment)\b/gi,
+      /\binvite[- ]only\b/gi,
+      /\belite (group|club|members)\b/gi,
+      /\binner circle\b/gi,
+      /\btop 1%\b/gi,
+      /\bhigh[- ]earners?\b/gi,
+      /\bsuper[- ]users?\b/gi,
+      /\bpower[- ]users?\b/gi,
+      /\bearly (adopters?|access|bird)\b/gi,
+      /\bfirst movers?\b/gi,
+      /\bground floor\b/gi,
+      /\bget in (now|early|first)\b/gi,
+      /\bdon'?t miss out\b/gi,
+      /\bFOMO\b/gi,
+      /\bfear of missing out\b/gi,
+      /\bwhile (supplies|stocks?) last\b/gi,
+      /\bonly \d+ (left|remaining|available)\b/gi,
+      /\balmost (gone|sold out)\b/gi,
+      /\bselling (fast|quickly)\b/gi,
+      /\bhurry\b/gi,
+      /\bfast[- ]track\b/gi,
+      /\bshortcut(s)?\b/gi,
+      /\bcheat[- ]sheet\b/gi,
+      /\bhack(s)?\b/gi,
+      /\btrick(s)?\b/gi,
+      /\btip(s)? and trick(s)?\b/gi,
+      /\bpro[- ]tip(s)?\b/gi,
+      /\blife[- ]hack(s)?\b/gi,
+      /\bgrowth hack(s|ing)?\b/gi,
+      /\bguru\b/gi,
+      /\bexpert(s)? (reveal|share|teach)\b/gi,
+      /\blearn (from|like) the (pros|experts|best)\b/gi,
+      /\bmaster[- ]class\b/gi,
+      /\bblueprint\b/gi,
+      /\bframework\b/gi,
+      /\bformula (for|to)\b/gi,
+      /\bstep[- ]by[- ]step (guide|formula|system)\b/gi,
+      /\bproven (system|formula|method|strategy)\b/gi,
+      /\bfoolproof\b/gi,
+      /\bno[- ]brainer\b/gi,
+      /\bsimple (as|trick|hack|way)\b/gi,
+      /\beasy (as|peasy|way|trick)\b/gi,
+      /\bquick (and easy|fix|win|tip)\b/gi,
+      /\bin (just )?\d+ (minutes?|hours?|days?|weeks?)\b/gi,
+      /\bovernight (success|results)\b/gi,
+      /\binstant (results|success|gratification)\b/gi,
+      /\bimmediate (results|impact|effect)\b/gi,
+      /\bwithin (minutes|hours|days)\b/gi,
+      /\bas soon as (today|tomorrow|tonight)\b/gi,
+      /\bright (now|away|here)\b/gi,
+      /\bdon'?t (delay|hesitate|think twice)\b/gi,
+      /\btake action (now|today|immediately)\b/gi,
+      /\bget started (now|today|free)\b/gi,
+      /\btry (it|now|today|free)\b/gi,
+      /\bno (credit card|payment|commitment) (required|needed)\b/gi,
+      /\bcancel anytime\b/gi,
+      /\b30[- ]day (trial|guarantee|money[- ]back)\b/gi,
+      /\bmoney[- ]back guarantee\b/gi,
+      /\b100% (free|guaranteed|satisfaction)\b/gi,
+      /\babsolutely free\b/gi,
+      /\bcompletely free\b/gi,
+      /\btotally free\b/gi,
+      /\bno (catch|gimmick|trick)\b/gi,
+      /\byou (won'?t|don'?t want to) miss (this|out)\b/gi,
+      /\bsign up (now|today|free)\b/gi,
+      /\bjoin (now|today|free|thousands|millions)\b/gi,
+      /\b(thousands|millions|billions) of (users|customers|people)\b/gi,
+      /\btrusted by (thousands|millions|Fortune 500)\b/gi,
+      /\bas seen on (TV|CNN|Forbes|TechCrunch)\b/gi,
+      /\bfeatured in\b/gi,
+      /\baward[- ]winning\b/gi,
+      /\bindustry[- ]leading\b/gi,
+      /\bmarket[- ]leading\b/gi,
+      /\b#1 (rated|ranked|choice)\b/gi,
+      /\btop[- ]rated\b/gi,
+      /\bhighest[- ]rated\b/gi,
+      /\b\d+[- ]star (rating|reviews?)\b/gi,
+      /\b\d+\+? ?(million|billion|thousand)?\+? (users?|customers?|downloads?)\b/gi,
+      /\btransform your (life|business|career|finances)\b/gi,
+      /\bchange your life\b/gi,
+      /\bachieve your (dreams|goals)\b/gi,
+      /\bunlock your (potential|success)\b/gi,
+      /\bdiscover (how|the|your)\b/gi,
+      /\blearn (how|the secret|everything)\b/gi,
+      /\bfind out (how|why|what)\b/gi,
+      /\bsee (how|why|what|the)\b/gi,
+      /\bwatch (how|this|now)\b/gi,
+      /\blook (at|what|how)\b/gi,
+      /\bread (this|on|more)\b/gi,
+      /\bmore (here|info|information|details)\b/gi,
+      /\blearn more\b/gi,
+      /\bget (more|yours|started|access)\b/gi,
+      /\bfind your\b/gi,
+      /\bstart your\b/gi,
+      /\bbegin your\b/gi,
+      /\bkickstart your\b/gi,
+      /\bjumpstart your\b/gi,
+      /\bboost your\b/gi,
+      /\bgrow your\b/gi,
+      /\bscale your\b/gi,
+      /\b(double|triple|10x) your\b/gi,
+      /\bincrease your .{5,30} by \d+%\b/gi
     ];
   }
 
@@ -441,7 +940,7 @@ class SlopDetector {
       console.log('[De-Slop] Site is whitelisted, skipping detection');
       return;
     }
-    
+
     this.scanPage();
     this.observeChanges();
     this.updateBadge();
@@ -465,10 +964,12 @@ class SlopDetector {
     }
 
     const elements = document.querySelectorAll(selector);
+    this.totalElements = elements.length;
 
     elements.forEach(el => {
-      if (this.isSlopElement(el)) {
-        this.removeElement(el);
+      const result = this.isSlopElement(el);
+      if (result.isSlop) {
+        this.removeElement(el, result.matches);
       }
     });
   }
@@ -477,36 +978,40 @@ class SlopDetector {
     const text = element.textContent || '';
 
     // Skip if too short
-    if (text.length < 100) return false;
+    if (text.length < 100) return { isSlop: false, matches: [] };
 
     let slopScore = 0;
+    const matchedPhrases = new Set(); // Track unique matched phrases
 
-    // Check Tier 1 (AI slop) if enabled and sensitivity allows
-    if (this.blockTier1 && this.sensitivity >= 1) {
+    // Check Tier 1 (AI slop) - Always active at sensitivity 1+
+    if (this.sensitivity >= 1) {
       for (const pattern of this.lowAggroPatterns) {
         const matches = text.match(pattern);
         if (matches) {
           slopScore += matches.length * 3;
+          matches.forEach(m => matchedPhrases.add(`[Tier 1] ${m.trim()}`));
         }
       }
     }
 
-    // Check Tier 2 (Corporate buzzwords) if enabled and sensitivity allows
-    if (this.blockTier2 && this.sensitivity >= 3) {
+    // Check Tier 2 (Corporate buzzwords) - Active at sensitivity 3+
+    if (this.sensitivity >= 3) {
       for (const pattern of this.mediumAggroPatterns) {
         const matches = text.match(pattern);
         if (matches) {
           slopScore += matches.length * 2;
+          matches.forEach(m => matchedPhrases.add(`[Tier 2] ${m.trim()}`));
         }
       }
     }
 
-    // Check Tier 3 (Marketing spam) if enabled and sensitivity allows
-    if (this.blockTier3 && this.sensitivity >= 4) {
+    // Check Tier 3 (Marketing spam) - Active at sensitivity 4+
+    if (this.sensitivity >= 4) {
       for (const pattern of this.highAggroPatterns) {
         const matches = text.match(pattern);
         if (matches) {
           slopScore += matches.length * 1;
+          matches.forEach(m => matchedPhrases.add(`[Tier 3] ${m.trim()}`));
         }
       }
     }
@@ -517,6 +1022,7 @@ class SlopDetector {
         const matches = text.match(item.pattern);
         if (matches) {
           slopScore += matches.length * item.weight;
+          matches.forEach(m => matchedPhrases.add(`[Custom] ${m.trim()}`));
         }
       }
     }
@@ -527,6 +1033,7 @@ class SlopDetector {
         const matches = text.match(pattern);
         if (matches) {
           slopScore += matches.length * 5; // Heavy weight for emoji slop
+          matches.forEach(m => matchedPhrases.add(`[Emoji] ${m.trim()}`));
         }
       }
     }
@@ -537,6 +1044,7 @@ class SlopDetector {
         const matches = text.match(pattern);
         if (matches) {
           slopScore += matches.length * 3; // High weight for stop words
+          matches.forEach(m => matchedPhrases.add(`[Stop Word] ${m.trim()}`));
         }
       }
     }
@@ -547,6 +1055,7 @@ class SlopDetector {
         const matches = text.match(pattern);
         if (matches) {
           slopScore += matches.length * 3; // High weight for em dash overuse
+          matchedPhrases.add('[Em Dash Overuse]');
         }
       }
     }
@@ -561,10 +1070,16 @@ class SlopDetector {
     };
 
     const threshold = thresholds[this.sensitivity] || 9;
-    return slopScore >= threshold;
+    const isSlop = slopScore >= threshold;
+
+    return {
+      isSlop,
+      matches: Array.from(matchedPhrases).slice(0, 10), // Limit to 10 most relevant
+      score: slopScore
+    };
   }
 
-  removeElement(element) {
+  removeElement(element, matches = []) {
     let target = element;
     let parent = element.parentElement;
     let depth = 0;
@@ -620,12 +1135,80 @@ class SlopDetector {
       }
     }
 
-    // Mark as removed and hide
-    if (!target.hasAttribute('data-deslop-removed')) {
-      target.setAttribute('data-deslop-removed', 'true');
-      target.classList.add('deslop-removed');
+    // Mark as detected
+    if (!target.hasAttribute('data-deslop-detected')) {
+      target.setAttribute('data-deslop-detected', 'true');
+
+      // Store matched patterns for tooltip
+      if (matches && matches.length > 0) {
+        target.setAttribute('data-deslop-matches', JSON.stringify(matches));
+      }
+
+      // In detection only mode, highlight instead of hide
+      if (this.detectionOnly) {
+        target.classList.add('deslop-detected');
+        target.classList.remove('deslop-removed');
+
+        // Add tooltip functionality for detection only mode
+        this.addTooltip(target, matches);
+      } else {
+        target.classList.add('deslop-removed');
+        target.classList.remove('deslop-detected');
+      }
+
       this.slopCount++;
     }
+  }
+
+  addTooltip(element, matches) {
+    let tooltip = null;
+
+    const showTooltip = (e) => {
+      // Only show tooltip if hovering near the top of the element (where the label is)
+      const rect = element.getBoundingClientRect();
+      if (e.clientY - rect.top > 40) return; // Only show if within 40px of top
+
+      // Remove any existing tooltip
+      if (tooltip) tooltip.remove();
+
+      // Create tooltip
+      tooltip = document.createElement('div');
+      tooltip.className = 'deslop-tooltip';
+      tooltip.innerHTML = `
+        <div class="deslop-tooltip-header">Detected Slop Patterns:</div>
+        <div class="deslop-tooltip-list">
+          ${matches.slice(0, 8).map(m => `<div class="deslop-tooltip-item">${this.escapeHtml(m)}</div>`).join('')}
+          ${matches.length > 8 ? `<div class="deslop-tooltip-more">...and ${matches.length - 8} more</div>` : ''}
+        </div>
+      `;
+
+      document.body.appendChild(tooltip);
+
+      // Position tooltip
+      const tooltipRect = tooltip.getBoundingClientRect();
+      const left = Math.min(e.clientX + 10, window.innerWidth - tooltipRect.width - 10);
+      const top = Math.min(e.clientY + 10, window.innerHeight - tooltipRect.height - 10);
+
+      tooltip.style.left = left + 'px';
+      tooltip.style.top = top + 'px';
+    };
+
+    const hideTooltip = () => {
+      if (tooltip) {
+        tooltip.remove();
+        tooltip = null;
+      }
+    };
+
+    element.addEventListener('mouseenter', showTooltip);
+    element.addEventListener('mousemove', showTooltip);
+    element.addEventListener('mouseleave', hideTooltip);
+  }
+
+  escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
   }
 
   observeChanges() {
@@ -650,8 +1233,9 @@ class SlopDetector {
               [node];
 
             elements.forEach(el => {
-              if (this.isSlopElement(el)) {
-                this.removeElement(el);
+              const result = this.isSlopElement(el);
+              if (result.isSlop) {
+                this.removeElement(el, result.matches);
                 this.updateBadge();
               }
             });

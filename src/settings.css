@@ -326,3 +326,147 @@ footer {
 .pattern-list::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* Pattern Tester */
+.tester-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.tester-input,
+.tester-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tester-input label,
+.tester-text label {
+  font-size: 12px;
+  color: #999;
+  letter-spacing: 1px;
+}
+
+.tester-input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.tester-input label {
+  white-space: nowrap;
+}
+
+.tester-input input {
+  flex: 1;
+  background: #1a1a1a;
+  color: #e0e0e0;
+  border: 1px solid #555;
+  border-radius: 3px;
+  padding: 10px 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+}
+
+.tester-input input:focus {
+  outline: none;
+  border-color: #FF6B6B;
+}
+
+.tester-text textarea {
+  width: 100%;
+  min-height: 150px;
+  background: #1a1a1a;
+  color: #e0e0e0;
+  border: 1px solid #555;
+  border-radius: 3px;
+  padding: 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.tester-text textarea:focus {
+  outline: none;
+  border-color: #FF6B6B;
+}
+
+.tester-results {
+  background: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 4px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #333;
+}
+
+.result-header h3 {
+  font-size: 14px;
+  color: #FF6B6B;
+  letter-spacing: 2px;
+}
+
+.match-count {
+  font-size: 12px;
+  color: #4CAF50;
+  padding: 4px 12px;
+  background: #0f0f0f;
+  border: 1px solid #333;
+  border-radius: 3px;
+}
+
+.match-list {
+  margin-bottom: 16px;
+}
+
+.match-item {
+  padding: 8px 12px;
+  background: #0f0f0f;
+  border: 1px solid #333;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #4CAF50;
+  font-family: 'Courier New', monospace;
+}
+
+.no-matches {
+  padding: 16px;
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.highlighted-text {
+  background: #0f0f0f;
+  border: 1px solid #333;
+  border-radius: 3px;
+  padding: 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.highlighted-text mark {
+  background: #FF6B6B;
+  color: #fff;
+  padding: 2px 4px;
+  border-radius: 2px;
+  font-weight: bold;
+}

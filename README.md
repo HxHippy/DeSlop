@@ -9,10 +9,11 @@ A Chrome extension that automatically detects and removes AI-generated "slop" co
 ## Features
 
 ### Core Detection
-- **Three-tier detection system** with weighted pattern matching (180+ patterns)
+- **Three-tier detection system** with weighted pattern matching (600+ patterns)
 - **Real-time scanning** of dynamically loaded content
 - **Badge counter** showing blocked slop on current page
 - **Configurable sensitivity** (1-5 slider)
+- **Detection Only Mode** - highlight slop instead of removing it, with hover tooltips
 - **Custom pattern editor** - add your own slop patterns with custom weights
 
 ### Tools
@@ -32,7 +33,11 @@ When on LinkedIn.com, additional features activate:
 - **Darker mode** - true black LinkedIn theme
 
 ### Advanced Features
-- **Emoji slop detection** - flag emoji spam and engagement bait
+- **Emoji slop detection** - 166 patterns to flag emoji spam and engagement bait
+  - Emoji + buzzword combinations (🚀 Launching, 💡 Innovating)
+  - Specific cringe patterns (👇 link below, 🔥 hot take)
+  - Emoji chains, walls, and formatting abuse
+  - Call-to-action spam (Click 👉, Share 📣)
 - **Stop-word filtering** - detect "I'm excited to announce" style posts
 - **Em dash detector** - AI loves em dashes
 - **Export/import** custom pattern sets
@@ -151,8 +156,8 @@ DeSlop/
 ├── src/                  # Extension source code
 │   ├── manifest.json     # Extension configuration
 │   ├── background.js     # Service worker for badge updates
-│   ├── content.js        # Main detection logic (180+ patterns)
-│   ├── content.css       # Styles for hiding detected slop
+│   ├── content.js        # Main detection logic (600+ patterns)
+│   ├── content.css       # Styles for hiding/highlighting detected slop
 │   ├── popup.*           # Main sidebar interface
 │   ├── checker.*         # Interactive slop checker
 │   ├── slop-machine.*    # Learning slot machine
@@ -191,6 +196,23 @@ De-Slop:
 - If your entire LinkedIn feed disappears - it's all slop! Lower sensitivity.
 
 ## Version History
+
+**v2.4.4** - Detection Only Mode & Emoji Expansion
+- **NEW: Detection Only Mode** - Highlight slop instead of removing it
+  - Hover tooltips show which patterns triggered detection
+  - Visual feedback with red borders and pulsing animation
+- **Massively expanded emoji detection** - From 21 to 166 patterns
+  - 80+ emoji + buzzword combinations
+  - 35+ specific cringe emoji patterns
+  - Emoji formatting abuse detection (chains, walls, bullet points)
+  - Call-to-action and hashtag spam detection
+- **Simplified UI** - Removed redundant tier toggles
+  - Sensitivity slider now directly controls tier activation
+  - Collapsible sections for better organization
+- **Enhanced checker tool** - Works both in-browser and standalone
+  - Improved error handling and fallback support
+  - Full pattern sync with live detection engine
+- **Pattern coverage expanded** - Now 600+ total detection patterns
 
 **v2.4.3** - Production release
 - Fixed pattern customization (Manifest V3 compliance)

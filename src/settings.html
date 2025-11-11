@@ -18,6 +18,7 @@
       <button class="tab" data-tab="tier2">TIER 2: CORPORATE</button>
       <button class="tab" data-tab="tier3">TIER 3: MARKETING</button>
       <button class="tab" data-tab="custom">CUSTOM PATTERNS</button>
+      <button class="tab" data-tab="tester">PATTERN TESTER</button>
     </nav>
 
     <div class="tab-content">
@@ -76,6 +77,33 @@
             <option value="5">5 points</option>
           </select>
           <button id="customAdd" class="btn btn-add">[ ADD CUSTOM ]</button>
+        </div>
+      </div>
+
+      <!-- Pattern Tester -->
+      <div id="tester" class="panel">
+        <div class="panel-header">
+          <h2>Pattern Tester</h2>
+          <p>Test your regex patterns before adding them</p>
+        </div>
+        <div class="tester-container">
+          <div class="tester-input">
+            <label for="testPattern">Pattern to test:</label>
+            <input type="text" id="testPattern" placeholder='/\byour pattern\b/gi'>
+            <button id="testBtn" class="btn btn-primary">[ TEST PATTERN ]</button>
+          </div>
+          <div class="tester-text">
+            <label for="testText">Sample text:</label>
+            <textarea id="testText" placeholder="Paste or type text here to test your pattern..."></textarea>
+          </div>
+          <div class="tester-results" id="testResults" style="display: none;">
+            <div class="result-header">
+              <h3>Test Results</h3>
+              <span id="matchCount" class="match-count"></span>
+            </div>
+            <div id="matchList" class="match-list"></div>
+            <div id="highlightedText" class="highlighted-text"></div>
+          </div>
         </div>
       </div>
     </div>
