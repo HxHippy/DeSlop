@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "De-Slop",
-  "version": "2.4.3",
+  "version": "2.7.2",
   "description": "Automatically detects and removes AI-generated slop content from web pages",
   "author": "Kief Studio",
   "homepage_url": "https://kief.studio",

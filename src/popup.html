@@ -29,6 +29,22 @@
         <span class="toggle-label">Extension Enabled</span>
       </div>
 
+      <div class="toggle-group">
+        <label class="switch">
+          <input type="checkbox" id="detectionOnlyToggle">
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label">Detection Only Mode</span>
+      </div>
+
+      <div class="toggle-group">
+        <label class="switch">
+          <input type="checkbox" id="showSuggestionsToggle">
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label">Show Improvement Suggestions</span>
+      </div>
+
       <div class="sensitivity">
         <label for="sensitivitySlider">Detection Sensitivity</label>
         <input type="range" id="sensitivitySlider" min="1" max="5" value="3" step="1">
@@ -43,57 +59,48 @@
           <strong>Tier 1:</strong> AI-specific slop only
         </div>
       </div>
+    </div>
 
-      <div class="section-divider" style="margin-top: 24px; margin-bottom: 16px;">
-        <div class="section-header-small">Detection Types</div>
+    <!-- Collapsible Additional Patterns Section -->
+    <div class="collapsible-section">
+      <div class="section-header-collapsible" data-target="additionalPatterns">
+        <span class="collapse-indicator">[+]</span>
+        <span>Additional Patterns</span>
       </div>
+      <div id="additionalPatterns" class="collapsible-content" style="display: none;">
+        <p class="section-description">Optional pattern detection on top of tier-based detection</p>
 
-      <div class="toggle-group">
-        <label class="switch">
-          <input type="checkbox" id="blockTier1" checked>
-          <span class="slider"></span>
-        </label>
-        <span class="toggle-label">Block AI Slop (Tier 1)</span>
-      </div>
+        <div class="toggle-group">
+          <label class="switch">
+            <input type="checkbox" id="blockEmojis">
+            <span class="slider"></span>
+          </label>
+          <span class="toggle-label">Emoji Slop</span>
+        </div>
 
-      <div class="toggle-group">
-        <label class="switch">
-          <input type="checkbox" id="blockTier2" checked>
-          <span class="slider"></span>
-        </label>
-        <span class="toggle-label">Block Corporate Buzzwords (Tier 2)</span>
-      </div>
+        <div class="toggle-group">
+          <label class="switch">
+            <input type="checkbox" id="blockStopWords" checked>
+            <span class="slider"></span>
+          </label>
+          <span class="toggle-label">Stop Words ("I'm excited...")</span>
+        </div>
 
-      <div class="toggle-group">
-        <label class="switch">
-          <input type="checkbox" id="blockTier3">
-          <span class="slider"></span>
-        </label>
-        <span class="toggle-label">Block Marketing Spam (Tier 3)</span>
-      </div>
+        <div class="toggle-group">
+          <label class="switch">
+            <input type="checkbox" id="blockEmDashes" checked>
+            <span class="slider"></span>
+          </label>
+          <span class="toggle-label">Em Dash Overuse (—)</span>
+        </div>
 
-      <div class="toggle-group">
-        <label class="switch">
-          <input type="checkbox" id="blockEmojis">
-          <span class="slider"></span>
-        </label>
-        <span class="toggle-label">Block Emoji Slop</span>
-      </div>
-
-      <div class="toggle-group">
-        <label class="switch">
-          <input type="checkbox" id="blockStopWords" checked>
-          <span class="slider"></span>
-        </label>
-        <span class="toggle-label">Block Stop Words ("I'm excited...")</span>
-      </div>
-
-      <div class="toggle-group">
-        <label class="switch">
-          <input type="checkbox" id="blockEmDashes" checked>
-          <span class="slider"></span>
-        </label>
-        <span class="toggle-label">Block Em Dash Overuse (—)</span>
+        <div class="toggle-group">
+          <label class="switch">
+            <input type="checkbox" id="blockPolitics">
+            <span class="slider"></span>
+          </label>
+          <span class="toggle-label">Political Content (All Sides)</span>
+        </div>
       </div>
     </div>
 
@@ -122,28 +129,34 @@
       </div>
     </div>
 
-    <div class="whitelist-section">
-      <div class="section-header">Domain Whitelist</div>
-      <p class="section-description">Exclude specific domains, pages, or paths from slop detection</p>
-      
-      <div class="whitelist-controls">
-        <div class="input-group">
-          <input type="text" id="whitelistInput" placeholder="example.com, subdomain.site.com, site.com/path" />
-          <button id="addWhitelistBtn" class="btn btn-small">[ ADD ]</button>
-        </div>
-        
-        <div class="whitelist-examples">
-          <small>Examples:</small>
-          <ul class="example-list">
-            <li><code>example.com</code> - entire domain</li>
-            <li><code>blog.example.com</code> - specific subdomain</li>
-            <li><code>example.com/news</code> - specific path</li>
-            <li><code>example.com/page.html</code> - specific page</li>
-          </ul>
-        </div>
-        
-        <div class="whitelist-list" id="whitelistList">
-          <!-- Whitelisted items will be populated here -->
+    <!-- Collapsible Whitelist Section -->
+    <div class="collapsible-section">
+      <div class="section-header-collapsible" data-target="whitelistSection">
+        <span class="collapse-indicator">[+]</span>
+        <span>Domain Whitelist</span>
+      </div>
+      <div id="whitelistSection" class="collapsible-content" style="display: none;">
+        <p class="section-description">Exclude specific domains, pages, or paths from slop detection</p>
+
+        <div class="whitelist-controls">
+          <div class="input-group">
+            <input type="text" id="whitelistInput" placeholder="example.com, subdomain.site.com, site.com/path" />
+            <button id="addWhitelistBtn" class="btn btn-small">[ ADD ]</button>
+          </div>
+
+          <div class="whitelist-examples">
+            <small>Examples:</small>
+            <ul class="example-list">
+              <li><code>example.com</code> - entire domain</li>
+              <li><code>blog.example.com</code> - specific subdomain</li>
+              <li><code>example.com/news</code> - specific path</li>
+              <li><code>example.com/page.html</code> - specific page</li>
+            </ul>
+          </div>
+
+          <div class="whitelist-list" id="whitelistList">
+            <!-- Whitelisted items will be populated here -->
+          </div>
         </div>
       </div>
     </div>
@@ -157,7 +170,7 @@
     </div>
 
     <footer>
-      <p class="version">v2.4.3</p>
+      <p class="version">v2.7.2</p>
     </footer>
   </div>
 

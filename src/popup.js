@@ -6,16 +6,16 @@ let currentTab = null;
 document.addEventListener('DOMContentLoaded', async () => {
   const slopCountEl = document.getElementById('slopCount');
   const enabledToggle = document.getElementById('enabledToggle');
+  const detectionOnlyToggle = document.getElementById('detectionOnlyToggle');
+  const showSuggestionsToggle = document.getElementById('showSuggestionsToggle');
   const sensitivitySlider = document.getElementById('sensitivitySlider');
   const rescanBtn = document.getElementById('rescanBtn');
   const resetBtn = document.getElementById('resetBtn');
   const settingsBtn = document.getElementById('settingsBtn');
   const blockEmojisToggle = document.getElementById('blockEmojis');
-  const blockTier1Toggle = document.getElementById('blockTier1');
-  const blockTier2Toggle = document.getElementById('blockTier2');
-  const blockTier3Toggle = document.getElementById('blockTier3');
   const blockStopWordsToggle = document.getElementById('blockStopWords');
   const blockEmDashesToggle = document.getElementById('blockEmDashes');
+  const blockPoliticsToggle = document.getElementById('blockPolitics');
 
   // LinkedIn Fixer elements
   const linkedinFixerSection = document.getElementById('linkedinFixer');
@@ -31,13 +31,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Load saved settings
   const settings = await chrome.storage.sync.get({
     enabled: true,
+    detectionOnly: false,
+    showSuggestions: false,
     sensitivity: 3,
     blockEmojis: false,
-    blockTier1: true,
-    blockTier2: true,
-    blockTier3: false,
     blockStopWords: true,
     blockEmDashes: true,
+    blockPolitics: false,
     linkedinBlockVideos: false,
     linkedinBlockAds: false,
     linkedinDarkerMode: false,
@@ -45,13 +45,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   enabledToggle.checked = settings.enabled;
+  detectionOnlyToggle.checked = settings.detectionOnly;
+  showSuggestionsToggle.checked = settings.showSuggestions;
   sensitivitySlider.value = settings.sensitivity;
   blockEmojisToggle.checked = settings.blockEmojis;
-  blockTier1Toggle.checked = settings.blockTier1;
-  blockTier2Toggle.checked = settings.blockTier2;
-  blockTier3Toggle.checked = settings.blockTier3;
   blockStopWordsToggle.checked = settings.blockStopWords;
   blockEmDashesToggle.checked = settings.blockEmDashes;
+  blockPoliticsToggle.checked = settings.blockPolitics;
   blockVideosToggle.checked = settings.linkedinBlockVideos;
   blockAdsToggle.checked = settings.linkedinBlockAds;
   darkerModeToggle.checked = settings.linkedinDarkerMode;
@@ -75,9 +75,42 @@ document.addEventListener('DOMContentLoaded', async () => {
     slopCountEl.textContent = '0';
   }
 
+  // Collapsible section handlers
+  document.querySelectorAll('.section-header-collapsible').forEach(header => {
+    header.addEventListener('click', () => {
+      const targetId = header.getAttribute('data-target');
+      const content = document.getElementById(targetId);
+      const indicator = header.querySelector('.collapse-indicator');
+
+      if (content.style.display === 'none') {
+        content.style.display = 'block';
+        indicator.textContent = '[−]';
+      } else {
+        content.style.display = 'none';
+        indicator.textContent = '[+]';
+      }
+    });
+  });
+
   // Toggle enabled/disabled
   enabledToggle.addEventListener('change', async (e) => {
     await chrome.storage.sync.set({ enabled: e.target.checked });
+
+    // Reload the current tab to apply changes
+    if (currentTab) chrome.tabs.reload(currentTab.id);
+  });
+
+  // Toggle detection only mode
+  detectionOnlyToggle.addEventListener('change', async (e) => {
+    await chrome.storage.sync.set({ detectionOnly: e.target.checked });
+
+    // Reload the current tab to apply changes
+    if (currentTab) chrome.tabs.reload(currentTab.id);
+  });
+
+  // Toggle show suggestions mode
+  showSuggestionsToggle.addEventListener('change', async (e) => {
+    await chrome.storage.sync.set({ showSuggestions: e.target.checked });
 
     // Reload the current tab to apply changes
     if (currentTab) chrome.tabs.reload(currentTab.id);
@@ -87,11 +120,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   const updateTierInfo = (sensitivity) => {
     const tierInfo = document.getElementById('tierInfo');
     const descriptions = {
-      1: '<strong>Tier 1 Only:</strong> AI-specific phrases only (very conservative)',
-      2: '<strong>Tier 1 Only:</strong> AI-specific phrases only (conservative)',
-      3: '<strong>Tiers 1 + 2:</strong> AI slop + Corporate buzzwords (balanced)',
-      4: '<strong>Tiers 1 + 2 + 3:</strong> AI + Corporate + Marketing spam (aggressive)',
-      5: '<strong>All Tiers + Nuclear:</strong> Maximum slop detection (very aggressive)'
+      1: '<strong>Tier 1 Only:</strong> AI-specific phrases (very conservative)',
+      2: '<strong>Tier 1 Only:</strong> AI-specific phrases (conservative)',
+      3: '<strong>Tiers 1 + 2:</strong> AI + Corporate buzzwords (balanced)',
+      4: '<strong>Tiers 1 + 2 + 3:</strong> AI + Corporate + Marketing (aggressive)',
+      5: '<strong>All Tiers:</strong> Maximum detection (very aggressive)'
     };
     tierInfo.innerHTML = descriptions[sensitivity] || descriptions[3];
   };
@@ -103,6 +136,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   sensitivitySlider.addEventListener('change', async (e) => {
     await chrome.storage.sync.set({ sensitivity: parseInt(e.target.value) });
+
+    // Reload the current tab to apply tier changes
+    if (currentTab) chrome.tabs.reload(currentTab.id);
   });
 
   // Initialize tier info display
@@ -139,22 +175,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     chrome.tabs.create({ url: 'settings.html' });
   });
 
-  // Detection type toggles
-  blockTier1Toggle.addEventListener('change', async (e) => {
-    await chrome.storage.sync.set({ blockTier1: e.target.checked });
-    if (currentTab) chrome.tabs.reload(currentTab.id);
-  });
-
-  blockTier2Toggle.addEventListener('change', async (e) => {
-    await chrome.storage.sync.set({ blockTier2: e.target.checked });
-    if (currentTab) chrome.tabs.reload(currentTab.id);
-  });
-
-  blockTier3Toggle.addEventListener('change', async (e) => {
-    await chrome.storage.sync.set({ blockTier3: e.target.checked });
-    if (currentTab) chrome.tabs.reload(currentTab.id);
-  });
-
+  // Additional pattern toggles
   blockEmojisToggle.addEventListener('change', async (e) => {
     await chrome.storage.sync.set({ blockEmojis: e.target.checked });
     if (currentTab) chrome.tabs.reload(currentTab.id);
@@ -167,6 +188,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   blockEmDashesToggle.addEventListener('change', async (e) => {
     await chrome.storage.sync.set({ blockEmDashes: e.target.checked });
+    if (currentTab) chrome.tabs.reload(currentTab.id);
+  });
+
+  blockPoliticsToggle.addEventListener('change', async (e) => {
+    await chrome.storage.sync.set({ blockPolitics: e.target.checked });
     if (currentTab) chrome.tabs.reload(currentTab.id);
   });
 

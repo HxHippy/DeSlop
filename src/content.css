@@ -14,3 +14,112 @@
   content: '' !important;
   display: none !important;
 }
+
+/* Detection Only Mode - Highlight detected slop */
+.deslop-detected {
+  position: relative !important;
+  border: 3px solid #FF6B6B !important;
+  background: rgba(255, 107, 107, 0.08) !important;
+  border-radius: 4px !important;
+  padding: 8px !important;
+  margin: 8px 0 !important;
+  box-shadow: 0 0 10px rgba(255, 107, 107, 0.3) !important;
+  animation: deslop-pulse 2s ease-in-out infinite !important;
+}
+
+/* Pulse animation for detected slop */
+@keyframes deslop-pulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+  }
+}
+
+/* Label indicator for detected slop */
+.deslop-detected::before {
+  content: '[ SLOP DETECTED ]' !important;
+  position: absolute !important;
+  top: -12px !important;
+  left: 8px !important;
+  background: #FF6B6B !important;
+  color: #fff !important;
+  padding: 2px 8px !important;
+  font-size: 10px !important;
+  font-family: 'Courier New', monospace !important;
+  font-weight: bold !important;
+  letter-spacing: 1px !important;
+  border-radius: 3px !important;
+  z-index: 9999 !important;
+  display: block !important;
+}
+
+/* Tooltip for detected slop */
+.deslop-tooltip {
+  position: fixed !important;
+  background: #1a1a1a !important;
+  border: 2px solid #FF6B6B !important;
+  border-radius: 4px !important;
+  padding: 12px !important;
+  font-family: 'Courier New', monospace !important;
+  z-index: 999999 !important;
+  max-width: 400px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8) !important;
+  pointer-events: none !important;
+}
+
+.deslop-tooltip-header {
+  font-size: 11px !important;
+  font-weight: bold !important;
+  color: #FF6B6B !important;
+  letter-spacing: 1px !important;
+  margin-bottom: 8px !important;
+  padding-bottom: 6px !important;
+  border-bottom: 1px solid #333 !important;
+  text-transform: uppercase !important;
+}
+
+.deslop-tooltip-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
+
+.deslop-tooltip-item {
+  font-size: 11px !important;
+  color: #e0e0e0 !important;
+  padding: 4px 6px !important;
+  background: #0f0f0f !important;
+  border-radius: 2px !important;
+  border-left: 2px solid #FF6B6B !important;
+  word-wrap: break-word !important;
+  line-height: 1.4 !important;
+}
+
+.deslop-tooltip-more {
+  font-size: 10px !important;
+  color: #888 !important;
+  font-style: italic !important;
+  padding: 4px 6px !important;
+  text-align: center !important;
+}
+
+/* Suggestion display in tooltips */
+.deslop-match {
+  font-size: 11px !important;
+  color: #FF6B6B !important;
+  margin-bottom: 4px !important;
+  font-weight: bold !important;
+}
+
+.deslop-suggestion {
+  font-size: 10px !important;
+  color: #4CAF50 !important;
+  padding: 3px 6px !important;
+  background: rgba(76, 175, 80, 0.1) !important;
+  border-radius: 2px !important;
+  border-left: 2px solid #4CAF50 !important;
+  margin-top: 2px !important;
+  font-style: italic !important;
+}

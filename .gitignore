@@ -18,6 +18,10 @@ TEST.md
 TROUBLESHOOTING.md
 Documents/
 
+# Version-specific webstore/release documents
+WEBSTORE_DESCRIPTION_v*.md
+RELEASE_v*.md
+
 # Build scripts
 package.sh
 generate-icons.sh
