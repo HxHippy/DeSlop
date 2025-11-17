@@ -164,9 +164,19 @@ class SlopDetector {
       // Structural patterns
       /^(In conclusion|In summary|To summarize|Ultimately),?\s/mi,
       /\bNot only .{10,50} but (also)?\b/gi,
-      /\bIt'?s not (just )?about .{5,30},? it'?s\b/gi,
       /\bDespite (its|their) .{5,30},? .{5,30} faces? challenges?\b/gi,
       /\bFuture Prospects?:?\b/gi,
+
+      // AI Antithesis patterns (contrasting constructions)
+      /\b(It'?s|This is) not (just |simply |only )?about .{5,40}[,;] (it'?s|this is) (about|really about)\b/gi,
+      /\bIt'?s not .{5,40}[,;] it'?s .{5,40}\b/gi,
+      /\bNot .{5,40}[,;] but .{5,40}\b/gi,
+      /\b(Don'?t|Stop) (focus|think|worry) (on|about) .{5,40}[,;] (focus|think|start|embrace|prioritize) (on )?\b/gi,
+      /\b.{5,30} (doesn'?t|don'?t) matter[,;] .{5,30} (does|do|matters?)\b/gi,
+      /\b.{5,30} is dead[,;] .{5,30} is (the )?(future|king|here)\b/gi,
+      /\bLess .{5,30}[,;] more .{5,30}\b/gi,
+      /\bForget .{5,30}[,;] (embrace|focus on|think about) .{5,30}\b/gi,
+      /\b(Stop|Quit) .{5,30}ing[,;] (start|begin) .{5,30}ing\b/gi,
 
       // Excessive transition words
       /\b(Furthermore|Moreover|Additionally|Consequently|Nevertheless|Nonetheless),?\s/gi,
@@ -1122,6 +1132,124 @@ class SlopDetector {
     ];
   }
 
+  // Normalize Unicode fancy text (bold, italic, script, etc.) to regular ASCII
+  // This prevents LinkedIn engagement bait using 𝐛𝐨𝐥𝐝 𝐭𝐞𝐱𝐭 from evading detection
+  normalizeUnicode(text) {
+    if (!text) return text;
+
+    // Map Unicode Mathematical Alphanumeric Symbols to regular ASCII
+    // Bold (U+1D400-U+1D433): 𝐀-𝐙, 𝐚-𝐳
+    // Italic (U+1D434-U+1D467): 𝐴-𝑍, 𝑎-𝑧
+    // Bold Italic (U+1D468-U+1D49B): 𝑨-𝒁, 𝒂-𝒛
+    // Script (U+1D49C-U+1D4CF): 𝒜-𝒵, 𝒶-𝓏
+    // Bold Script (U+1D4D0-U+1D503): 𝓐-𝓩, 𝓪-𝔃
+    // Fraktur (U+1D504-U+1D537): 𝔄-𝔝, 𝔞-𝔷
+    // Bold Fraktur (U+1D56C-U+1D59F): 𝕬-𝖅, 𝖆-𝖟
+    // Sans-serif (U+1D5A0-U+1D5D3): 𝖠-𝖹, 𝖺-𝗓
+    // Bold Sans-serif (U+1D5D4-U+1D607): 𝗔-𝗭, 𝗮-𝘇
+    // Italic Sans-serif (U+1D608-U+1D63B): 𝘈-𝘡, 𝘢-𝘻
+    // Bold Italic Sans-serif (U+1D63C-U+1D66F): 𝘼-𝙕, 𝙖-𝙯
+    // Monospace (U+1D670-U+1D6A3): 𝙰-𝚉, 𝚊-𝚣
+    // Double-struck (U+1D538-U+1D56B): 𝔸-ℤ, 𝕒-𝕫
+    // Bold digits (U+1D7CE-U+1D7D7): 𝟎-𝟗
+    // Double-struck digits (U+1D7D8-U+1D7E1): 𝟘-𝟡
+    // Sans-serif digits (U+1D7E2-U+1D7EB): 𝟢-𝟫
+    // Bold sans-serif digits (U+1D7EC-U+1D7F5): 𝟬-𝟵
+    // Monospace digits (U+1D7F6-U+1D7FF): 𝟶-𝟿
+
+    const unicodeMap = {};
+
+    // Helper function to create mappings for a range
+    const createMapping = (unicodeStart, asciiStart, count) => {
+      for (let i = 0; i < count; i++) {
+        unicodeMap[String.fromCodePoint(unicodeStart + i)] = String.fromCodePoint(asciiStart + i);
+      }
+    };
+
+    // Bold uppercase A-Z
+    createMapping(0x1D400, 0x41, 26);
+    // Bold lowercase a-z
+    createMapping(0x1D41A, 0x61, 26);
+
+    // Italic uppercase A-Z
+    createMapping(0x1D434, 0x41, 26);
+    // Italic lowercase a-z (with h at different position)
+    createMapping(0x1D44E, 0x61, 26);
+
+    // Bold Italic uppercase A-Z
+    createMapping(0x1D468, 0x41, 26);
+    // Bold Italic lowercase a-z
+    createMapping(0x1D482, 0x61, 26);
+
+    // Script uppercase A-Z (with gaps)
+    createMapping(0x1D49C, 0x41, 26);
+    // Script lowercase a-z
+    createMapping(0x1D4B6, 0x61, 26);
+
+    // Bold Script uppercase A-Z
+    createMapping(0x1D4D0, 0x41, 26);
+    // Bold Script lowercase a-z
+    createMapping(0x1D4EA, 0x61, 26);
+
+    // Fraktur uppercase A-Z
+    createMapping(0x1D504, 0x41, 26);
+    // Fraktur lowercase a-z
+    createMapping(0x1D51E, 0x61, 26);
+
+    // Double-struck uppercase A-Z
+    createMapping(0x1D538, 0x41, 26);
+    // Double-struck lowercase a-z
+    createMapping(0x1D552, 0x61, 26);
+
+    // Bold Fraktur uppercase A-Z
+    createMapping(0x1D56C, 0x41, 26);
+    // Bold Fraktur lowercase a-z
+    createMapping(0x1D586, 0x61, 26);
+
+    // Sans-serif uppercase A-Z
+    createMapping(0x1D5A0, 0x41, 26);
+    // Sans-serif lowercase a-z
+    createMapping(0x1D5BA, 0x61, 26);
+
+    // Bold Sans-serif uppercase A-Z
+    createMapping(0x1D5D4, 0x41, 26);
+    // Bold Sans-serif lowercase a-z
+    createMapping(0x1D5EE, 0x61, 26);
+
+    // Italic Sans-serif uppercase A-Z
+    createMapping(0x1D608, 0x41, 26);
+    // Italic Sans-serif lowercase a-z
+    createMapping(0x1D622, 0x61, 26);
+
+    // Bold Italic Sans-serif uppercase A-Z
+    createMapping(0x1D63C, 0x41, 26);
+    // Bold Italic Sans-serif lowercase a-z
+    createMapping(0x1D656, 0x61, 26);
+
+    // Monospace uppercase A-Z
+    createMapping(0x1D670, 0x41, 26);
+    // Monospace lowercase a-z
+    createMapping(0x1D68A, 0x61, 26);
+
+    // Bold digits 0-9
+    createMapping(0x1D7CE, 0x30, 10);
+    // Double-struck digits 0-9
+    createMapping(0x1D7D8, 0x30, 10);
+    // Sans-serif digits 0-9
+    createMapping(0x1D7E2, 0x30, 10);
+    // Bold sans-serif digits 0-9
+    createMapping(0x1D7EC, 0x30, 10);
+    // Monospace digits 0-9
+    createMapping(0x1D7F6, 0x30, 10);
+
+    // Also handle fullwidth characters (U+FF01-U+FF5E)
+    // Fullwidth ! to ~
+    createMapping(0xFF01, 0x21, 94);
+
+    // Replace all Unicode variants with regular ASCII
+    return text.replace(/./gu, (char) => unicodeMap[char] || char);
+  }
+
   // Get platform-specific comment selectors
   getPlatformCommentSelectors() {
     const hostname = window.location.hostname;
@@ -1138,7 +1266,11 @@ class SlopDetector {
         posts: [
           '.feed-shared-update-v2__description',
           '.feed-shared-text',
-          '.feed-shared-inline-show-more-text'
+          '.feed-shared-inline-show-more-text',
+          // Full text elements (may be hidden)
+          '.feed-shared-inline-show-more-text__text-view',
+          '.break-words',
+          '[dir="ltr"]'
         ]
       };
     } else if (hostname.includes('twitter.com') || hostname.includes('x.com')) {
@@ -1346,19 +1478,22 @@ class SlopDetector {
     let slopScore = 0;
     const matchedPhrases = new Set();
 
-    // YouTube-SPECIFIC: Count emojis in title (ALWAYS active, ignore blockEmojis setting)
-    const emojiRegex = /[\u{1F300}-\u{1F9FF}]/gu;
-    const emojiMatches = title.match(emojiRegex);
-    if (emojiMatches) {
-      const emojiCount = emojiMatches.length;
-      if (emojiCount >= 2) {
-        // 2+ emojis = instant slop on YouTube
-        slopScore += emojiCount * 3; // 3 points per emoji
-        matchedPhrases.add(`[Emoji Spam] ${emojiCount} emojis in title`);
-      } else if (emojiCount === 1) {
-        // Even 1 emoji is suspicious on YouTube
-        slopScore += 2;
-        matchedPhrases.add('[Emoji] Emoji in title');
+    // YouTube-SPECIFIC: Count emojis in title (respects blockEmojis setting)
+    if (this.blockEmojis) {
+      // Comprehensive emoji regex covering all Unicode emoji ranges
+      const emojiRegex = /[\u{1F300}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{1F900}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F1E0}-\u{1F1FF}\u{1F191}-\u{1F251}\u{1F004}\u{1F0CF}\u{1F170}-\u{1F171}\u{1F17E}-\u{1F17F}\u{1F18E}\u{3030}\u{2B50}\u{2B55}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2B1B}-\u{2B1C}\u{3297}\u{3299}\u{303D}\u{00A9}\u{00AE}\u{2122}\u{23F0}-\u{23F3}\u{23E9}-\u{23EF}\u{25AA}-\u{25AB}\u{25B6}\u{25C0}\u{25FB}-\u{25FE}\u{2600}-\u{2604}\u{260E}\u{2611}\u{2614}-\u{2615}\u{2618}\u{261D}\u{2620}\u{2622}-\u{2623}\u{2626}\u{262A}\u{262E}-\u{262F}\u{2638}-\u{263A}\u{2640}\u{2642}\u{2648}-\u{2653}\u{265F}-\u{2660}\u{2663}\u{2665}-\u{2666}\u{2668}\u{267B}\u{267E}-\u{267F}\u{2692}-\u{2697}\u{2699}\u{269B}-\u{269C}\u{26A0}-\u{26A1}\u{26A7}\u{26AA}-\u{26AB}\u{26B0}-\u{26B1}\u{26BD}-\u{26BE}\u{26C4}-\u{26C5}\u{26C8}\u{26CE}-\u{26CF}\u{26D1}\u{26D3}-\u{26D4}\u{26E9}-\u{26EA}\u{26F0}-\u{26F5}\u{26F7}-\u{26FA}\u{26FD}\u{2702}\u{2705}\u{2708}-\u{270D}\u{270F}\u{2712}\u{2714}\u{2716}\u{271D}\u{2721}\u{2728}\u{2733}-\u{2734}\u{2744}\u{2747}\u{274C}\u{274E}\u{2753}-\u{2755}\u{2757}\u{2763}-\u{2764}\u{2795}-\u{2797}\u{27A1}\u{27B0}\u{27BF}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2B1B}-\u{2B1C}\u{2B50}\u{2B55}\u{3030}\u{303D}\u{3297}\u{3299}]/gu;
+      const emojiMatches = title.match(emojiRegex);
+      if (emojiMatches) {
+        const emojiCount = emojiMatches.length;
+        if (emojiCount >= 2) {
+          // 2+ emojis = instant slop on YouTube
+          slopScore += emojiCount * 3; // 3 points per emoji
+          matchedPhrases.add(`[Emoji Spam] ${emojiCount} emojis in title`);
+        } else if (emojiCount === 1) {
+          // Even 1 emoji is suspicious on YouTube
+          slopScore += 2;
+          matchedPhrases.add('[Emoji] Emoji in title');
+        }
       }
     }
 
@@ -1563,6 +1698,16 @@ class SlopDetector {
     const threshold = thresholds[this.sensitivity] || 9;
     const isSlop = slopScore >= threshold;
 
+    // Debug logging for LinkedIn
+    if (isLinkedIn && !isComment) {
+      console.log('[De-Slop Debug] Final score:', slopScore, '/ Threshold:', threshold, '/ IsSlop:', isSlop);
+      if (matchedPhrases.size > 0) {
+        console.log('[De-Slop Debug] Matched patterns:', Array.from(matchedPhrases));
+      } else {
+        console.log('[De-Slop Debug] NO PATTERNS MATCHED');
+      }
+    }
+
     return {
       isSlop,
       matches: Array.from(matchedPhrases).slice(0, 10),
@@ -1604,55 +1749,168 @@ class SlopDetector {
     }
   }
 
+  // Extract full text from LinkedIn post, including hidden content
+  extractLinkedInFullText(element) {
+    // LinkedIn stores the full text in the DOM but hides it with CSS
+    // Look for the full content without clicking "see more" to avoid UI disruption
+
+    let fullText = '';
+
+    // Strategy 1: Look for the full text span that might be hidden
+    // LinkedIn often has multiple spans - one truncated, one full
+    const textContainer = element.querySelector('.feed-shared-inline-show-more-text, .feed-shared-text, .feed-shared-update-v2__description');
+
+    if (textContainer) {
+      // Get all text from all spans, including hidden ones
+      const allSpans = textContainer.querySelectorAll('span[dir="ltr"]');
+
+      if (allSpans.length > 0) {
+        // Find the longest text content (likely the full version)
+        let longestText = '';
+        allSpans.forEach(span => {
+          const spanText = span.textContent || '';
+          if (spanText.length > longestText.length) {
+            longestText = spanText;
+          }
+        });
+
+        fullText = longestText;
+        console.log('[De-Slop Debug] Found text from spans, length:', fullText.length);
+      }
+
+      // If no spans found, get text from container itself
+      if (fullText.length === 0) {
+        // Clone to avoid modifying original
+        const clone = textContainer.cloneNode(true);
+        // Remove "see more" button text
+        const seeMoreButton = clone.querySelector('.feed-shared-inline-show-more-text__see-more-less-toggle');
+        if (seeMoreButton) {
+          seeMoreButton.remove();
+        }
+        fullText = clone.textContent || '';
+        console.log('[De-Slop Debug] Found text from container, length:', fullText.length);
+      }
+    }
+
+    // Strategy 2: If still empty, look for any text content in the update
+    if (fullText.length === 0) {
+      const descriptionElement = element.querySelector('.feed-shared-update-v2__description');
+      if (descriptionElement) {
+        const clone = descriptionElement.cloneNode(true);
+        // Remove comment sections
+        const comments = clone.querySelectorAll('.comments-comment-item, [class*="comment"]');
+        comments.forEach(c => c.remove());
+        // Remove buttons
+        const buttons = clone.querySelectorAll('button');
+        buttons.forEach(b => b.remove());
+        fullText = clone.textContent || '';
+        console.log('[De-Slop Debug] Found text from description fallback, length:', fullText.length);
+      }
+    }
+
+    return fullText.trim();
+  }
+
   isSlopElement(element, isComment = false) {
     // For posts, extract only the main content text, excluding comments
     let text = '';
 
-    if (!isComment) {
-      // For LinkedIn posts, get only the post content, not comments
-      const selectors = this.getPlatformCommentSelectors();
-      if (selectors && selectors.posts && selectors.posts.length > 0) {
-        // Try to find the post content specifically
-        const contentElements = [];
-        selectors.posts.forEach(sel => {
-          const found = element.querySelectorAll(sel);
-          found.forEach(el => contentElements.push(el));
-        });
+    // Debug logging
+    const isLinkedIn = window.location.hostname.includes('linkedin.com');
+    if (isLinkedIn && !isComment) {
+      console.log('[De-Slop Debug] Processing LinkedIn post element');
+    }
 
-        if (contentElements.length > 0) {
-          // Use only the post content text
-          text = contentElements.map(el => {
-            // Clone the element to avoid modifying original
-            const clone = el.cloneNode(true);
-            // Remove any comment sections from the clone
-            const commentSections = clone.querySelectorAll('.comments-comment-item, [class*="comment"]');
+    if (!isComment) {
+      // Special handling for LinkedIn to get full post text
+      if (isLinkedIn) {
+        text = this.extractLinkedInFullText(element);
+        if (isLinkedIn && !isComment) {
+          console.log('[De-Slop Debug] LinkedIn full text extracted:', text.length, 'chars');
+        }
+      } else {
+        // For other platforms, use the existing logic
+        const selectors = this.getPlatformCommentSelectors();
+        if (selectors && selectors.posts && selectors.posts.length > 0) {
+          // Try to find the post content specifically
+          const contentElements = [];
+          selectors.posts.forEach(sel => {
+            const found = element.querySelectorAll(sel);
+            found.forEach(el => contentElements.push(el));
+          });
+
+          if (contentElements.length > 0) {
+            // Use only the post content text
+            text = contentElements.map(el => {
+              // Clone the element to avoid modifying original
+              const clone = el.cloneNode(true);
+              // Remove any comment sections from the clone
+              const commentSections = clone.querySelectorAll('.comments-comment-item, [class*="comment"]');
+              commentSections.forEach(c => c.remove());
+              return clone.textContent || '';
+            }).join(' ');
+          } else {
+            // Fallback: use element text but try to exclude comments
+            const clone = element.cloneNode(true);
+            const commentSections = clone.querySelectorAll('.comments-comment-item, [class*="comment"], .comment, [id*="comment"]');
             commentSections.forEach(c => c.remove());
-            return clone.textContent || '';
-          }).join(' ');
+            text = clone.textContent || '';
+          }
         } else {
-          // Fallback: use element text but try to exclude comments
+          // Generic approach: try to exclude comment sections
           const clone = element.cloneNode(true);
-          const commentSections = clone.querySelectorAll('.comments-comment-item, [class*="comment"], .comment, [id*="comment"]');
+          const commentSections = clone.querySelectorAll('[class*="comment"], [id*="comment"], .comment');
           commentSections.forEach(c => c.remove());
           text = clone.textContent || '';
         }
-      } else {
-        // Generic approach: try to exclude comment sections
-        const clone = element.cloneNode(true);
-        const commentSections = clone.querySelectorAll('[class*="comment"], [id*="comment"], .comment');
-        commentSections.forEach(c => c.remove());
-        text = clone.textContent || '';
       }
     } else {
       // For comments, just use the element's text
       text = element.textContent || '';
     }
 
-    // Skip if too short
-    if (text.length < 100) return { isSlop: false, matches: [] };
+    // Debug logging for LinkedIn
+    // isLinkedIn already declared at top of function
+    if (isLinkedIn && !isComment) {
+      console.log('[De-Slop Debug] LinkedIn post text length:', text.length);
+      console.log('[De-Slop Debug] First 500 chars:', text.substring(0, 500));
+    }
+
+    // Skip only if completely empty or whitespace-only
+    // Analyze the WHOLE post regardless of length
+    if (text.length < 5) {
+      if (isLinkedIn && !isComment) {
+        console.log('[De-Slop Debug] SKIPPED - Text empty or too short (< 5 chars)');
+      }
+      return { isSlop: false, matches: [] };
+    }
+
+    // Normalize Unicode fancy text (bold, italic, script, etc.) to regular ASCII
+    // This prevents LinkedIn engagement bait using 𝐛𝐨𝐥𝐝 𝐭𝐞𝐱𝐭 from evading detection
+    text = this.normalizeUnicode(text);
 
     let slopScore = 0;
     const matchedPhrases = new Set(); // Track unique matched phrases
+
+    // LinkedIn-SPECIFIC: Count emojis in posts (respects blockEmojis setting)
+    // isLinkedIn already declared at top of function
+    if (isLinkedIn && !isComment && this.blockEmojis) {
+      // Comprehensive emoji regex covering all Unicode emoji ranges
+      const emojiRegex = /[\u{1F300}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{1F900}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F1E0}-\u{1F1FF}\u{1F191}-\u{1F251}\u{1F004}\u{1F0CF}\u{1F170}-\u{1F171}\u{1F17E}-\u{1F17F}\u{1F18E}\u{3030}\u{2B50}\u{2B55}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2B1B}-\u{2B1C}\u{3297}\u{3299}\u{303D}\u{00A9}\u{00AE}\u{2122}\u{23F0}-\u{23F3}\u{23E9}-\u{23EF}\u{25AA}-\u{25AB}\u{25B6}\u{25C0}\u{25FB}-\u{25FE}\u{2600}-\u{2604}\u{260E}\u{2611}\u{2614}-\u{2615}\u{2618}\u{261D}\u{2620}\u{2622}-\u{2623}\u{2626}\u{262A}\u{262E}-\u{262F}\u{2638}-\u{263A}\u{2640}\u{2642}\u{2648}-\u{2653}\u{265F}-\u{2660}\u{2663}\u{2665}-\u{2666}\u{2668}\u{267B}\u{267E}-\u{267F}\u{2692}-\u{2697}\u{2699}\u{269B}-\u{269C}\u{26A0}-\u{26A1}\u{26A7}\u{26AA}-\u{26AB}\u{26B0}-\u{26B1}\u{26BD}-\u{26BE}\u{26C4}-\u{26C5}\u{26C8}\u{26CE}-\u{26CF}\u{26D1}\u{26D3}-\u{26D4}\u{26E9}-\u{26EA}\u{26F0}-\u{26F5}\u{26F7}-\u{26FA}\u{26FD}\u{2702}\u{2705}\u{2708}-\u{270D}\u{270F}\u{2712}\u{2714}\u{2716}\u{271D}\u{2721}\u{2728}\u{2733}-\u{2734}\u{2744}\u{2747}\u{274C}\u{274E}\u{2753}-\u{2755}\u{2757}\u{2763}-\u{2764}\u{2795}-\u{2797}\u{27A1}\u{27B0}\u{27BF}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2B1B}-\u{2B1C}\u{2B50}\u{2B55}\u{3030}\u{303D}\u{3297}\u{3299}]/gu;
+      const emojiMatches = text.match(emojiRegex);
+      if (emojiMatches) {
+        const emojiCount = emojiMatches.length;
+        if (emojiCount >= 2) {
+          // 2+ emojis = instant slop on LinkedIn
+          slopScore += emojiCount * 3; // 3 points per emoji
+          matchedPhrases.add(`[Emoji Spam] ${emojiCount} emojis in post`);
+        } else if (emojiCount === 1) {
+          // Even 1 emoji is suspicious on LinkedIn
+          slopScore += 2;
+          matchedPhrases.add('[Emoji] Emoji in post');
+        }
+      }
+    }
 
     // Check Tier 1 (AI slop) - Always active at sensitivity 1+
     if (this.sensitivity >= 1) {
@@ -2037,9 +2295,13 @@ class SlopDetector {
               return;
             }
 
-            const elements = node.querySelectorAll ?
-              node.querySelectorAll(selector) :
-              [node];
+            // Check both children AND if the node itself matches the selector
+            const elements = node.querySelectorAll ? Array.from(node.querySelectorAll(selector)) : [];
+
+            // Also check if the node itself is a post element (critical for LinkedIn!)
+            if (node.matches && node.matches(selector)) {
+              elements.push(node);
+            }
 
             elements.forEach(el => {
               const result = this.isSlopElement(el);

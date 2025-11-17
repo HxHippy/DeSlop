@@ -24,7 +24,7 @@
     {
       "matches": ["*://*.linkedin.com/*"],
       "js": ["linkedin-fixer.js"],
-      "run_at": "document_idle"
+      "run_at": "document_start"
     }
   ],
   "action": {
