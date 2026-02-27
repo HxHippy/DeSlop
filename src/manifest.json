@@ -1,15 +1,17 @@
 {
   "manifest_version": 3,
-  "name": "De-Slop",
-  "version": "2.4.4",
-  "description": "Automatically detects and removes AI-generated slop content from web pages",
+  "name": "__MSG_extensionName__",
+  "version": "3.0.0",
+  "description": "__MSG_extensionDescription__",
+  "default_locale": "en",
   "author": "Kief Studio",
   "homepage_url": "https://kief.studio",
   "permissions": [
     "storage",
     "activeTab",
     "declarativeNetRequest",
-    "sidePanel"
+    "sidePanel",
+    "scripting"
   ],
   "host_permissions": [
     "<all_urls>"
@@ -17,14 +19,14 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js"],
+      "js": ["patterns/registry.js", "patterns/en.js", "content.js"],
       "css": ["content.css"],
       "run_at": "document_idle"
     },
     {
       "matches": ["*://*.linkedin.com/*"],
       "js": ["linkedin-fixer.js"],
-      "run_at": "document_idle"
+      "run_at": "document_start"
     }
   ],
   "action": {
@@ -53,5 +55,17 @@
         "path": "rules.json"
       }
     ]
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "patterns/*.js",
+        "scoring-engine.js",
+        "languages.js",
+        "i18n-helper.js",
+        "_locales/*/messages.json"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }

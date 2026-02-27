@@ -104,3 +104,22 @@
   padding: 4px 6px !important;
   text-align: center !important;
 }
+
+/* Suggestion display in tooltips */
+.deslop-match {
+  font-size: 11px !important;
+  color: #FF6B6B !important;
+  margin-bottom: 4px !important;
+  font-weight: bold !important;
+}
+
+.deslop-suggestion {
+  font-size: 10px !important;
+  color: #4CAF50 !important;
+  padding: 3px 6px !important;
+  background: rgba(76, 175, 80, 0.1) !important;
+  border-radius: 2px !important;
+  border-left: 2px solid #4CAF50 !important;
+  margin-top: 2px !important;
+  font-style: italic !important;
+}

@@ -9,7 +9,7 @@ html, body {
   height: 100vh;
   margin: 0;
   overflow-y: auto;
-  font-family: 'Courier New', 'Courier', monospace;
+  font-family: 'Courier New', 'Courier', monospace, 'Noto Sans CJK SC', 'Microsoft YaHei', 'Meiryo', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
   background: #2b2b2b;
   color: #e0e0e0;
 }
@@ -26,6 +26,41 @@ header {
   margin-bottom: 20px;
   padding-bottom: 16px;
   border-bottom: 2px solid #555;
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.header-actions {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.header-btn {
+  background: transparent;
+  border: 1px solid #444;
+  border-radius: 4px;
+  color: #888;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.header-btn:hover {
+  color: #FF6B6B;
+  border-color: #FF6B6B;
+  background: rgba(255, 107, 107, 0.08);
 }
 
 h1 {
@@ -181,6 +216,45 @@ input:checked + .slider:before {
   color: #FF6B6B;
 }
 
+/* Language selector dropdown */
+.language-select {
+  width: 100%;
+  background: #2b2b2b;
+  color: #e0e0e0;
+  border: 1px solid #555;
+  border-radius: 3px;
+  padding: 10px 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6' fill='%23999'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+  transition: border-color 0.2s;
+}
+
+.language-select:hover {
+  border-color: #777;
+  background-color: #333;
+}
+
+.language-select:focus {
+  outline: none;
+  border-color: #FF6B6B;
+}
+
+.language-select option {
+  background: #2b2b2b;
+  color: #e0e0e0;
+  font-family: 'Courier New', monospace;
+  padding: 8px;
+}
+
 .actions {
   display: flex;
   flex-direction: column;
@@ -247,6 +321,43 @@ input:checked + .slider:before {
   background: linear-gradient(135deg, #ff5252 0%, #ff8700 100%);
   transform: scale(1.02);
   box-shadow: 0 4px 12px rgba(255, 107, 107, 0.5);
+}
+
+/* Collapsible Sections */
+.collapsible-section {
+  background: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.section-header-collapsible {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #e0e0e0;
+  letter-spacing: 1px;
+  transition: background 0.2s;
+  user-select: none;
+}
+
+.section-header-collapsible:hover {
+  background: #222;
+}
+
+.section-header-collapsible .collapse-indicator {
+  color: #FF6B6B;
+  font-size: 12px;
+  font-weight: bold;
+  min-width: 24px;
+}
+
+.collapsible-content {
+  padding: 0 16px 16px;
 }
 
 .linkedin-fixer {

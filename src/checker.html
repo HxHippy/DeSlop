@@ -10,43 +10,44 @@
   <div class="container">
     <header>
       <h1>DE-SLOP</h1>
-      <p class="tagline">[ SLOP DETECTOR ]</p>
-      <p class="subtitle">Check if your post would be flagged as slop</p>
+      <p class="tagline" data-i18n="checkerTagline">[ SLOP DETECTOR ]</p>
+      <p class="subtitle" data-i18n="checkerSubtitle">Check if your post would be flagged as slop</p>
     </header>
 
     <div class="checker-section">
       <div class="editor-layout">
         <div class="input-section">
           <div class="section-header">
-            <label for="textInput">Edit your content:</label>
-            <button id="clearBtn" class="btn-clear">[ CLEAR ]</button>
+            <label for="textInput" data-i18n="checkerEditLabel">Edit your content:</label>
+            <button id="clearBtn" class="btn-clear">[ <span data-i18n="checkerClear">CLEAR</span> ]</button>
           </div>
           <textarea
             id="textInput"
+            data-i18n-placeholder="checkerPlaceholder"
             placeholder="Paste your LinkedIn post, article, or any text here to check if it would be detected as slop..."
             rows="16"
           ></textarea>
           <div class="input-controls">
-            <span class="live-indicator">⚡ Live analysis enabled</span>
+            <span class="live-indicator" data-i18n="checkerLiveAnalysis">Live analysis enabled</span>
           </div>
         </div>
 
         <div class="preview-section">
           <div class="section-header">
-            <label>Highlighted preview:</label>
+            <label data-i18n="checkerHighlightedPreview">Highlighted preview:</label>
             <button id="markdownToggle" class="btn-toggle" title="Toggle markdown rendering">
-              <span class="toggle-label">[ RENDER MARKDOWN ]</span>
+              <span class="toggle-label" data-i18n="checkerRenderMarkdown">[ RENDER MARKDOWN ]</span>
             </button>
           </div>
           <div id="highlightedPreview" class="highlighted-preview">
-            <div class="placeholder-text">Your content will appear here with slop phrases highlighted...</div>
+            <div class="placeholder-text" data-i18n="checkerPreviewPlaceholder">Your content will appear here with slop phrases highlighted...</div>
           </div>
         </div>
       </div>
 
       <div class="results-section" id="results">
         <div class="score-display">
-          <div class="score-label">SLOP SCORE</div>
+          <div class="score-label" data-i18n="checkerSlopScore">SLOP SCORE</div>
           <div class="score-value" id="scoreValue">0</div>
           <div class="score-status" id="scoreStatus"></div>
         </div>
@@ -54,53 +55,53 @@
         <div class="threshold-info">
           <div class="threshold-item">
             <span>Sensitivity 1 (15pts):</span>
-            <span id="thresh1" class="status-indicator">—</span>
+            <span id="thresh1" class="status-indicator">&mdash;</span>
           </div>
           <div class="threshold-item">
             <span>Sensitivity 2 (12pts):</span>
-            <span id="thresh2" class="status-indicator">—</span>
+            <span id="thresh2" class="status-indicator">&mdash;</span>
           </div>
           <div class="threshold-item">
             <span>Sensitivity 3 (9pts):</span>
-            <span id="thresh3" class="status-indicator">—</span>
+            <span id="thresh3" class="status-indicator">&mdash;</span>
           </div>
           <div class="threshold-item">
             <span>Sensitivity 4 (6pts):</span>
-            <span id="thresh4" class="status-indicator">—</span>
+            <span id="thresh4" class="status-indicator">&mdash;</span>
           </div>
           <div class="threshold-item">
             <span>Sensitivity 5 (4pts):</span>
-            <span id="thresh5" class="status-indicator">—</span>
+            <span id="thresh5" class="status-indicator">&mdash;</span>
           </div>
         </div>
 
         <div class="breakdown" id="breakdown">
-          <h3>Score Breakdown</h3>
+          <h3 data-i18n="checkerScoreBreakdown">Score Breakdown</h3>
           <div id="breakdownContent"></div>
         </div>
 
         <div class="matches" id="matches" style="display: none;">
-          <h3>Detected Patterns</h3>
+          <h3 data-i18n="checkerDetectedPatterns">Detected Patterns</h3>
           <div id="matchesContent"></div>
         </div>
 
         <div class="suggestions" id="suggestions">
-          <h3>Suggestions</h3>
+          <h3 data-i18n="checkerSuggestions">Suggestions</h3>
           <div id="suggestionsContent"></div>
         </div>
       </div>
     </div>
 
     <footer>
-      <button id="backBtn" class="btn btn-link">← Back to Popup</button>
-      <p class="version">v2.4.4 | Kief Studio | HxHippy</p>
+      <button id="backBtn" class="btn btn-link" data-i18n="checkerBackToPopup">Back to Popup</button>
+      <p class="version">v3.0.0 | Kief Studio | HxHippy</p>
     </footer>
 
     <!-- Fix suggestion tooltip -->
     <div id="fixTooltip" class="fix-tooltip" style="display: none;">
       <div class="tooltip-header">
-        <span class="tooltip-title">SLOP DETECTED</span>
-        <button class="tooltip-close">×</button>
+        <span class="tooltip-title" data-i18n="checkerSlopDetected">SLOP DETECTED</span>
+        <button class="tooltip-close">&times;</button>
       </div>
       <div class="tooltip-content">
         <div class="tooltip-phrase"></div>
@@ -109,6 +110,11 @@
     </div>
   </div>
 
+  <script src="patterns/registry.js"></script>
+  <script src="patterns/en.js"></script>
+  <script src="languages.js"></script>
+  <script src="i18n-helper.js"></script>
+  <script src="scoring-engine.js"></script>
   <script src="checker.js"></script>
 </body>
 </html>

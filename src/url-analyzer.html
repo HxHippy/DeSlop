@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De-Slop - URL Analyzer</title>
+  <link rel="stylesheet" href="url-analyzer.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>DE-SLOP</h1>
+      <p class="tagline" data-i18n="urlAnalyzerTagline">[ URL ANALYZER ]</p>
+      <p class="subtitle" data-i18n="urlAnalyzerSubtitle">Scan any webpage for slop content</p>
+    </header>
+
+    <div class="url-input-section">
+      <div class="url-bar">
+        <input
+          type="url"
+          id="urlInput"
+          data-i18n-placeholder="urlAnalyzerPlaceholder"
+          placeholder="https://example.com/article"
+          autocomplete="off"
+          spellcheck="false"
+        >
+        <button id="analyzeBtn" class="btn btn-primary">[ <span data-i18n="urlAnalyzerAnalyze">ANALYZE</span> ]</button>
+      </div>
+      <p class="url-hint" data-i18n="urlAnalyzerHint">Enter a full URL starting with https:// or http://</p>
+    </div>
+
+    <!-- Fallback textarea: shown when fetch fails -->
+    <div class="fallback-section" id="fallbackSection" style="display: none;">
+      <div class="fallback-header">
+        <span class="fallback-label" data-i18n="urlAnalyzerFallbackLabel">Could not fetch URL? Paste the content here:</span>
+        <button id="analyzeFallbackBtn" class="btn btn-secondary">[ <span data-i18n="urlAnalyzerAnalyzePasted">ANALYZE PASTED TEXT</span> ]</button>
+      </div>
+      <textarea
+        id="fallbackTextarea"
+        data-i18n-placeholder="urlAnalyzerFallbackPlaceholder"
+        placeholder="Paste the page text or article content here..."
+        rows="10"
+      ></textarea>
+    </div>
+
+    <!-- Loading indicator -->
+    <div class="loading-section" id="loadingSection" style="display: none;">
+      <div class="spinner"></div>
+      <p class="loading-text" data-i18n="urlAnalyzerLoading">Fetching and analyzing page content...</p>
+    </div>
+
+    <!-- Error message -->
+    <div class="error-section" id="errorSection" style="display: none;">
+      <p class="error-label" data-i18n="urlAnalyzerErrorLabel">FETCH ERROR</p>
+      <p class="error-message" id="errorMessage"></p>
+      <p class="error-hint" data-i18n="urlAnalyzerErrorHint">You can paste the page content manually in the text area above.</p>
+    </div>
+
+    <!-- Results section -->
+    <div class="results-section" id="resultsSection" style="display: none;">
+
+      <div class="result-meta">
+        <div class="meta-item">
+          <span class="meta-label" data-i18n="urlAnalyzerMetaUrl">URL ANALYZED</span>
+          <span class="meta-value" id="metaUrl"></span>
+        </div>
+        <div class="meta-row">
+          <div class="meta-item">
+            <span class="meta-label" data-i18n="urlAnalyzerMetaWords">WORD COUNT</span>
+            <span class="meta-value" id="metaWordCount"></span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label" data-i18n="urlAnalyzerMetaTime">ANALYZED AT</span>
+            <span class="meta-value" id="metaTimestamp"></span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label" data-i18n="urlAnalyzerMetaSource">SOURCE</span>
+            <span class="meta-value" id="metaSource"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="score-display">
+        <div class="score-label" data-i18n="urlAnalyzerSlopScore">SLOP SCORE</div>
+        <div class="score-value" id="scoreValue">0</div>
+        <div class="score-status" id="scoreStatus"></div>
+      </div>
+
+      <div class="breakdown" id="breakdown">
+        <h3 data-i18n="urlAnalyzerScoreBreakdown">Score Breakdown</h3>
+        <div id="breakdownContent"></div>
+      </div>
+
+      <div class="top-matches" id="topMatches" style="display: none;">
+        <h3 data-i18n="urlAnalyzerTopMatches">Top Slop Matches</h3>
+        <div id="topMatchesContent"></div>
+      </div>
+
+    </div>
+
+    <!-- History section -->
+    <div class="history-section" id="historySection" style="display: none;">
+      <h3 data-i18n="urlAnalyzerRecentScans">Recent Scans</h3>
+      <div class="history-list" id="historyList"></div>
+    </div>
+
+    <footer>
+      <button id="backBtn" class="btn btn-link" data-i18n="urlAnalyzerBackToPopup">Back to Popup</button>
+      <p class="version">v3.0.0 | Kief Studio | HxHippy</p>
+    </footer>
+  </div>
+
+  <script src="patterns/registry.js"></script>
+  <script src="patterns/en.js"></script>
+  <script src="languages.js"></script>
+  <script src="i18n-helper.js"></script>
+  <script src="scoring-engine.js"></script>
+  <script src="url-analyzer.js"></script>
+</body>
+</html>

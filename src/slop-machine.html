@@ -9,16 +9,16 @@
 <body>
   <div class="container">
     <header>
-      <h1>SLOP MACHINE</h1>
-      <p class="tagline">[ SPIN FOR BETTER WORDS ]</p>
-      <p class="subtitle">Replace slop with authentic language</p>
+      <h1 data-i18n="slopMachineTitle">SLOP MACHINE</h1>
+      <p class="tagline" data-i18n="slopMachineTagline">[ SPIN FOR BETTER WORDS ]</p>
+      <p class="subtitle" data-i18n="slopMachineSubtitle">Replace slop with authentic language</p>
     </header>
 
     <div class="machine-container">
       <div class="slot-machine">
         <div class="reels">
           <div class="reel">
-            <div class="reel-label">SLOP</div>
+            <div class="reel-label" data-i18n="slopMachineSlop">SLOP</div>
             <div class="reel-window">
               <div class="reel-strip" id="reel1">
                 <!-- Populated by JS -->
@@ -27,14 +27,14 @@
           </div>
 
           <div class="reel arrow-reel">
-            <div class="reel-label">→</div>
+            <div class="reel-label">&rarr;</div>
             <div class="reel-window">
-              <div class="arrow">→</div>
+              <div class="arrow">&rarr;</div>
             </div>
           </div>
 
           <div class="reel">
-            <div class="reel-label">BETTER</div>
+            <div class="reel-label" data-i18n="slopMachineBetter">BETTER</div>
             <div class="reel-window">
               <div class="reel-strip" id="reel3">
                 <!-- Populated by JS -->
@@ -43,22 +43,22 @@
           </div>
         </div>
 
-        <button id="spinBtn" class="spin-btn">[ SPIN THE MACHINE ]</button>
+        <button id="spinBtn" class="spin-btn" data-i18n="slopMachineSpin">[ SPIN THE MACHINE ]</button>
 
         <div class="result-display" id="resultDisplay" style="display: none;">
           <div class="result-slop" id="resultSlop"></div>
-          <div class="result-arrow">→</div>
+          <div class="result-arrow">&rarr;</div>
           <div class="result-better" id="resultBetter"></div>
         </div>
       </div>
 
       <div class="stats">
         <div class="stat">
-          <span class="stat-label">Spins:</span>
+          <span class="stat-label" data-i18n="slopMachineSpins">Spins:</span>
           <span class="stat-value" id="spinCount">0</span>
         </div>
         <div class="stat">
-          <span class="stat-label">Alternatives learned:</span>
+          <span class="stat-label" data-i18n="slopMachineAlternatives">Alternatives learned:</span>
           <span class="stat-value" id="learnedCount">0</span>
         </div>
       </div>
@@ -66,17 +66,17 @@
 
     <div class="index-container">
       <div class="index-header">
-        <h2>FULL SLOP INDEX</h2>
-        <p>Don't like gambling? Here's the full list.</p>
-        <input type="text" id="searchInput" placeholder="Search slop words..." class="search-input">
+        <h2 data-i18n="slopMachineFullIndex">FULL SLOP INDEX</h2>
+        <p data-i18n="slopMachineIndexDesc">Don't like gambling? Here's the full list.</p>
+        <input type="text" id="searchInput" data-i18n-placeholder="slopMachineSearch" placeholder="Search slop words..." class="search-input">
       </div>
 
       <div class="index-tabs">
-        <button class="tab active" data-filter="all">All</button>
-        <button class="tab" data-filter="tier1">AI Slop</button>
-        <button class="tab" data-filter="tier2">Corporate</button>
-        <button class="tab" data-filter="tier3">Marketing</button>
-        <button class="tab" data-filter="stopwords">Stop Words</button>
+        <button class="tab active" data-filter="all" data-i18n="slopMachineAll">All</button>
+        <button class="tab" data-filter="tier1" data-i18n="slopMachineAISlop">AI Slop</button>
+        <button class="tab" data-filter="tier2" data-i18n="slopMachineCorporate">Corporate</button>
+        <button class="tab" data-filter="tier3" data-i18n="slopMachineMarketing">Marketing</button>
+        <button class="tab" data-filter="stopwords" data-i18n="slopMachineStopWords">Stop Words</button>
       </div>
 
       <div class="index-list" id="indexList">
@@ -85,11 +85,15 @@
     </div>
 
     <footer>
-      <button id="backBtn" class="btn-link">← Back to Popup</button>
-      <p class="version">v2.4.3 | Kief Studio | HxHippy</p>
+      <button id="backBtn" class="btn-link" data-i18n="slopMachineBackToPopup">Back to Popup</button>
+      <p class="version">v3.0.0 | Kief Studio | HxHippy</p>
     </footer>
   </div>
 
+  <script src="patterns/registry.js"></script>
+  <script src="patterns/en.js"></script>
+  <script src="languages.js"></script>
+  <script src="i18n-helper.js"></script>
   <script src="slop-machine.js"></script>
 </body>
 </html>

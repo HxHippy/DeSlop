@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De-Slop - Pattern Test Suite</title>
+  <link rel="stylesheet" href="test.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>DE-SLOP</h1>
+      <p class="tagline" data-i18n="testPageTagline">[ PATTERN TEST SUITE ]</p>
+      <p class="subtitle" data-i18n="testPageSubtitle">Verify pattern detection across all supported languages</p>
+    </header>
+
+    <div class="global-controls">
+      <button id="testAllBtn" class="btn btn-primary">[ <span data-i18n="testAllLanguages">TEST ALL LANGUAGES</span> ]</button>
+      <button id="expandAllBtn" class="btn btn-secondary">[ <span data-i18n="testExpandAll">EXPAND ALL</span> ]</button>
+      <button id="collapseAllBtn" class="btn btn-secondary">[ <span data-i18n="testCollapseAll">COLLAPSE ALL</span> ]</button>
+    </div>
+
+    <div class="summary-bar" id="summaryBar" style="display: none;">
+      <span class="summary-label" data-i18n="testSummaryLabel">RESULTS:</span>
+      <span class="summary-count" id="summaryCount">[ 0/11 LANGUAGES PASSED ]</span>
+    </div>
+
+    <div class="language-sections" id="languageSections">
+
+      <!-- English -->
+      <div class="lang-section" data-lang="en">
+        <div class="lang-header" data-target="lang-en">
+          <span class="collapse-indicator">[ + ]</span>
+          <span class="lang-flag">&#x1F1FA;&#x1F1F8;</span>
+          <span class="lang-name">English</span>
+          <span class="lang-code">en</span>
+          <span class="pattern-badge" id="badge-en">...</span>
+          <span class="test-status" id="status-en"></span>
+        </div>
+        <div id="lang-en" class="lang-content" style="display: none;">
+          <div class="sample-section">
+            <div class="sample-label" data-i18n="testSampleText">Sample text:</div>
+            <div class="sample-text" id="sample-en"></div>
+          </div>
+          <div class="test-controls">
+            <button class="btn btn-test" data-lang="en" data-i18n="testRunTest">[ RUN TEST ]</button>
+          </div>
+          <div class="test-results" id="results-en" style="display: none;">
+            <div class="results-header">
+              <span class="results-verdict" id="verdict-en"></span>
+              <span class="results-count" id="count-en"></span>
+            </div>
+            <div class="tier-results" id="tier-results-en"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spanish -->
+      <div class="lang-section" data-lang="es">
+        <div class="lang-header" data-target="lang-es">
+          <span class="collapse-indicator">[ + ]</span>
+          <span class="lang-flag">&#x1F1EA;&#x1F1F8;</span>
+          <span class="lang-name">Español</span>
+          <span class="lang-code">es</span>
+          <span class="pattern-badge" id="badge-es">...</span>
+          <span class="test-status" id="status-es"></span>
+        </div>
+        <div id="lang-es" class="lang-content" style="display: none;">
+          <div class="sample-section">
+            <div class="sample-label" data-i18n="testSampleText">Sample text:</div>
+            <div class="sample-text" id="sample-es"></div>
+          </div>
+          <div class="test-controls">
+            <button class="btn btn-test" data-lang="es" data-i18n="testRunTest">[ RUN TEST ]</button>
+          </div>
+          <div class="test-results" id="results-es" style="display: none;">
+            <div class="results-header">
+              <span class="results-verdict" id="verdict-es"></span>
+              <span class="results-count" id="count-es"></span>
+            </div>
+            <div class="tier-results" id="tier-results-es"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- French -->
+      <div class="lang-section" data-lang="fr">
+        <div class="lang-header" data-target="lang-fr">
+          <span class="collapse-indicator">[ + ]</span>
+          <span class="lang-flag">&#x1F1EB;&#x1F1F7;</span>
+          <span class="lang-name">Français</span>
+          <span class="lang-code">fr</span>
+          <span class="pattern-badge" id="badge-fr">...</span>
+          <span class="test-status" id="status-fr"></span>
+        </div>
+        <div id="lang-fr" class="lang-content" style="display: none;">
+          <div class="sample-section">
+            <div class="sample-label" data-i18n="testSampleText">Sample text:</div>
+            <div class="sample-text" id="sample-fr"></div>
+          </div>
+          <div class="test-controls">
+            <button class="btn btn-test" data-lang="fr" data-i18n="testRunTest">[ RUN TEST ]</button>
+          </div>
+          <div class="test-results" id="results-fr" style="display: none;">
+            <div class="results-header">
+              <span class="results-verdict" id="verdict-fr"></span>
+              <span class="results-count" id="count-fr"></span>
+            </div>
+            <div class="tier-results" id="tier-results-fr"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- German -->
+      <div class="lang-section" data-lang="de">
+        <div class="lang-header" data-target="lang-de">
+          <span class="collapse-indicator">[ + ]</span>
+          <span class="lang-flag">&#x1F1E9;&#x1F1EA;</span>
+          <span class="lang-name">Deutsch</span>
+          <span class="lang-code">de</span>
+          <span class="pattern-badge" id="badge-de">...</span>
+          <span class="test-status" id="status-de"></span>
+        </div>
+        <div id="lang-de" class="lang-content" style="display: none;">
+          <div class="sample-section">
+            <div class="sample-label" data-i18n="testSampleText">Sample text:</div>
+            <div class="sample-text" id="sample-de"></div>
+          </div>
+          <div class="test-controls">
+            <button class="btn btn-test" data-lang="de" data-i18n="testRunTest">[ RUN TEST ]</button>
+          </div>
+          <div class="test-results" id="results-de" style="display: none;">
+            <div class="results-header">
+              <span class="results-verdict" id="verdict-de"></span>
+              <span class="results-count" id="count-de"></span>
+            </div>
+            <div class="tier-results" id="tier-results-de"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Italian -->
+      <div class="lang-section" data-lang="it">
+        <div class="lang-header" data-target="lang-it">
+          <span class="collapse-indicator">[ + ]</span>
+          <span class="lang-flag">&#x1F1EE;&#x1F1F9;</span>
+          <span class="lang-name">Italiano</span>
+          <span class="lang-code">it</span>
+          <span class="pattern-badge" id="badge-it">...</span>
+          <span class="test-status" id="status-it"></span>
+        </div>
+        <div id="lang-it" class="lang-content" style="display: none;">
+          <div class="sample-section">
+            <div class="sample-label" data-i18n="testSampleText">Sample text:</div>
+            <div class="sample-text" id="sample-it"></div>
+          </div>
+          <div class="test-controls">
+            <button class="btn btn-test" data-lang="it" data-i18n="testRunTest">[ RUN TEST ]</button>
+          </div>
+          <div class="test-results" id="results-it" style="display: none;">
+            <div class="results-header">
+              <span class="results-verdict" id="verdict-it"></span>
+              <span class="results-count" id="count-it"></span>
+            </div>
+            <div class="tier-results" id="tier-results-it"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portuguese -->
+      <div class="lang-section" data-lang="pt">
+        <div class="lang-header" data-target="lang-pt">
+          <span class="collapse-indicator">[ + ]</span>
+          <span class="lang-flag">&#x1F1E7;&#x1F1F7;</span>
+          <span class="lang-name">Português</span>
+          <span class="lang-code">pt</span>
+          <span class="pattern-badge" id="badge-pt">...</span>
+          <span class="test-status" id="status-pt"></span>
+        </div>
+        <div id="lang-pt" class="lang-content" style="display: none;">
+          <div class="sample-section">
+            <div class="sample-label" data-i18n="testSampleText">Sample text:</div>
+            <div class="sample-text" id="sample-pt"></div>
+          </div>
+          <div class="test-controls">
+            <button class="btn btn-test" data-lang="pt" data-i18n="testRunTest">[ RUN TEST ]</button>
+          </div>
+          <div class="test-results" id="results-pt" style="display: none;">
+            <div class="results-header">
+              <span class="results-verdict" id="verdict-pt"></span>
+              <span class="results-count" id="count-pt"></span>
+            </div>
+            <div class="tier-results" id="tier-results-pt"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Swedish -->
+      <div class="lang-section" data-lang="sv">
+        <div class="lang-header" data-target="lang-sv">
+          <span class="collapse-indicator">[ + ]</span>
+          <span class="lang-flag">&#x1F1F8;&#x1F1EA;</span>
+          <span class="lang-name">Svenska</span>
+          <span class="lang-code">sv</span>
+          <span class="pattern-badge" id="badge-sv">...</span>
+          <span class="test-status" id="status-sv"></span>
+        </div>
+        <div id="lang-sv" class="lang-content" style="display: none;">
+          <div class="sample-section">
+            <div class="sample-label" data-i18n="testSampleText">Sample text:</div>
+            <div class="sample-text" id="sample-sv"></div>
+          </div>
+          <div class="test-controls">
+            <button class="btn btn-test" data-lang="sv" data-i18n="testRunTest">[ RUN TEST ]</button>
+          </div>
+          <div class="test-results" id="results-sv" style="display: none;">
+            <div class="results-header">
+              <span class="results-verdict" id="verdict-sv"></span>
+              <span class="results-count" id="count-sv"></span>
+            </div>
+            <div class="tier-results" id="tier-results-sv"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Polish -->
+      <div class="lang-section" data-lang="pl">
+        <div class="lang-header" data-target="lang-pl">
+          <span class="collapse-indicator">[ + ]</span>
+          <span class="lang-flag">&#x1F1F5;&#x1F1F1;</span>
+          <span class="lang-name">Polski</span>
+          <span class="lang-code">pl</span>
+          <span class="pattern-badge" id="badge-pl">...</span>
+          <span class="test-status" id="status-pl"></span>
+        </div>
+        <div id="lang-pl" class="lang-content" style="display: none;">
+          <div class="sample-section">
+            <div class="sample-label" data-i18n="testSampleText">Sample text:</div>
+            <div class="sample-text" id="sample-pl"></div>
+          </div>
+          <div class="test-controls">
+            <button class="btn btn-test" data-lang="pl" data-i18n="testRunTest">[ RUN TEST ]</button>
+          </div>
+          <div class="test-results" id="results-pl" style="display: none;">
+            <div class="results-header">
+              <span class="results-verdict" id="verdict-pl"></span>
+              <span class="results-count" id="count-pl"></span>
+            </div>
+            <div class="tier-results" id="tier-results-pl"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Japanese -->
+      <div class="lang-section" data-lang="ja">
+        <div class="lang-header" data-target="lang-ja">
+          <span class="collapse-indicator">[ + ]</span>
+          <span class="lang-flag">&#x1F1EF;&#x1F1F5;</span>
+          <span class="lang-name">日本語</span>
+          <span class="lang-code">ja</span>
+          <span class="pattern-badge" id="badge-ja">...</span>
+          <span class="test-status" id="status-ja"></span>
+        </div>
+        <div id="lang-ja" class="lang-content" style="display: none;">
+          <div class="sample-section">
+            <div class="sample-label" data-i18n="testSampleText">Sample text:</div>
+            <div class="sample-text" id="sample-ja"></div>
+          </div>
+          <div class="test-controls">
+            <button class="btn btn-test" data-lang="ja" data-i18n="testRunTest">[ RUN TEST ]</button>
+          </div>
+          <div class="test-results" id="results-ja" style="display: none;">
+            <div class="results-header">
+              <span class="results-verdict" id="verdict-ja"></span>
+              <span class="results-count" id="count-ja"></span>
+            </div>
+            <div class="tier-results" id="tier-results-ja"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Korean -->
+      <div class="lang-section" data-lang="ko">
+        <div class="lang-header" data-target="lang-ko">
+          <span class="collapse-indicator">[ + ]</span>
+          <span class="lang-flag">&#x1F1F0;&#x1F1F7;</span>
+          <span class="lang-name">한국어</span>
+          <span class="lang-code">ko</span>
+          <span class="pattern-badge" id="badge-ko">...</span>
+          <span class="test-status" id="status-ko"></span>
+        </div>
+        <div id="lang-ko" class="lang-content" style="display: none;">
+          <div class="sample-section">
+            <div class="sample-label" data-i18n="testSampleText">Sample text:</div>
+            <div class="sample-text" id="sample-ko"></div>
+          </div>
+          <div class="test-controls">
+            <button class="btn btn-test" data-lang="ko" data-i18n="testRunTest">[ RUN TEST ]</button>
+          </div>
+          <div class="test-results" id="results-ko" style="display: none;">
+            <div class="results-header">
+              <span class="results-verdict" id="verdict-ko"></span>
+              <span class="results-count" id="count-ko"></span>
+            </div>
+            <div class="tier-results" id="tier-results-ko"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chinese -->
+      <div class="lang-section" data-lang="zh">
+        <div class="lang-header" data-target="lang-zh">
+          <span class="collapse-indicator">[ + ]</span>
+          <span class="lang-flag">&#x1F1E8;&#x1F1F3;</span>
+          <span class="lang-name">中文</span>
+          <span class="lang-code">zh</span>
+          <span class="pattern-badge" id="badge-zh">...</span>
+          <span class="test-status" id="status-zh"></span>
+        </div>
+        <div id="lang-zh" class="lang-content" style="display: none;">
+          <div class="sample-section">
+            <div class="sample-label" data-i18n="testSampleText">Sample text:</div>
+            <div class="sample-text" id="sample-zh"></div>
+          </div>
+          <div class="test-controls">
+            <button class="btn btn-test" data-lang="zh" data-i18n="testRunTest">[ RUN TEST ]</button>
+          </div>
+          <div class="test-results" id="results-zh" style="display: none;">
+            <div class="results-header">
+              <span class="results-verdict" id="verdict-zh"></span>
+              <span class="results-count" id="count-zh"></span>
+            </div>
+            <div class="tier-results" id="tier-results-zh"></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end language-sections -->
+
+    <footer>
+      <button id="backBtn" class="btn btn-link" data-i18n="testBackToPopup">Back to Popup</button>
+      <p class="version">v3.0.0 | Kief Studio | HxHippy</p>
+    </footer>
+  </div>
+
+  <script src="patterns/registry.js"></script>
+  <script src="patterns/en.js"></script>
+  <script src="patterns/es.js"></script>
+  <script src="patterns/fr.js"></script>
+  <script src="patterns/de.js"></script>
+  <script src="patterns/it.js"></script>
+  <script src="patterns/pt.js"></script>
+  <script src="patterns/sv.js"></script>
+  <script src="patterns/pl.js"></script>
+  <script src="patterns/ja.js"></script>
+  <script src="patterns/ko.js"></script>
+  <script src="patterns/zh.js"></script>
+  <script src="languages.js"></script>
+  <script src="i18n-helper.js"></script>
+  <script src="test.js"></script>
+</body>
+</html>

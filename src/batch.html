@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De-Slop - Batch Checker</title>
+  <link rel="stylesheet" href="batch.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>DE-SLOP</h1>
+      <p class="tagline" data-i18n="batchTagline">[ BATCH CHECKER ]</p>
+      <p class="subtitle" data-i18n="batchSubtitle">Score multiple texts at once</p>
+    </header>
+
+    <div class="input-section">
+      <div class="section-header">
+        <label for="batchInput" data-i18n="batchInputLabel">Paste your texts below:</label>
+        <button id="clearBtn" class="btn-clear">[ <span data-i18n="batchClear">CLEAR</span> ]</button>
+      </div>
+      <textarea
+        id="batchInput"
+        data-i18n-placeholder="batchPlaceholder"
+        placeholder="Paste multiple texts here. Separate them with --- on its own line, or use numbered format (1. text one 2. text two). Each block is scored independently."
+        rows="12"
+      ></textarea>
+      <div class="input-hint">
+        <span data-i18n="batchSeparatorHint">Separators: blank line with</span>
+        <code>---</code>
+        <span data-i18n="batchOrNumbered">or numbered list</span>
+        <code>1. 2. 3.</code>
+      </div>
+      <div class="input-controls">
+        <button id="analyzeBtn" class="btn btn-primary">[ <span data-i18n="batchAnalyze">ANALYZE BATCH</span> ]</button>
+      </div>
+    </div>
+
+    <div id="summaryBar" class="summary-bar" style="display: none;">
+      <div class="summary-item">
+        <span class="summary-label" data-i18n="batchPassed">Passed</span>
+        <span class="summary-value safe" id="summaryPassed">0</span>
+      </div>
+      <div class="summary-divider">/</div>
+      <div class="summary-item">
+        <span class="summary-label" data-i18n="batchTotal">Total</span>
+        <span class="summary-value" id="summaryTotal">0</span>
+      </div>
+      <div class="summary-sep">|</div>
+      <div class="summary-item">
+        <span class="summary-label" data-i18n="batchAvgScore">Avg Score</span>
+        <span class="summary-value" id="summaryAvg">0</span>
+      </div>
+      <div class="summary-sep">|</div>
+      <div class="summary-item">
+        <span class="summary-label" data-i18n="batchWorstBlock">Worst Block</span>
+        <span class="summary-value danger" id="summaryWorst">&mdash;</span>
+      </div>
+    </div>
+
+    <div id="resultsSection" class="results-section" style="display: none;">
+      <div class="results-header">
+        <h2 data-i18n="batchResults">RESULTS</h2>
+        <button id="exportBtn" class="btn btn-secondary">[ <span data-i18n="batchExportCSV">EXPORT CSV</span> ]</button>
+      </div>
+
+      <table class="results-table" id="resultsTable">
+        <thead>
+          <tr>
+            <th class="col-num" data-i18n="batchColNum">#</th>
+            <th class="col-preview" data-i18n="batchColPreview">Preview</th>
+            <th class="col-score" data-i18n="batchColScore">Score</th>
+            <th class="col-status" data-i18n="batchColStatus">Status</th>
+            <th class="col-issues" data-i18n="batchColIssues">Top Issues</th>
+          </tr>
+        </thead>
+        <tbody id="resultsBody">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <div id="emptyState" class="empty-state" style="display: none;">
+      <p data-i18n="batchNoBlocks">No text blocks found. Try pasting more content or check your separator format.</p>
+    </div>
+
+    <footer>
+      <button id="backBtn" class="btn btn-link" data-i18n="batchBackToPopup">Back to Popup</button>
+      <p class="version">v3.0.0 | Kief Studio | HxHippy</p>
+    </footer>
+  </div>
+
+  <script src="patterns/registry.js"></script>
+  <script src="patterns/en.js"></script>
+  <script src="languages.js"></script>
+  <script src="i18n-helper.js"></script>
+  <script src="scoring-engine.js"></script>
+  <script src="batch.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De-Slop - Text Rewriter</title>
+  <link rel="stylesheet" href="rewriter.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>DE-SLOP</h1>
+      <p class="tagline" data-i18n="rewriterTagline">[ TEXT REWRITER ]</p>
+      <p class="subtitle" data-i18n="rewriterSubtitle">Fix slop phrases in your text</p>
+    </header>
+
+    <div class="rewriter-section">
+      <div class="editor-layout">
+        <div class="input-section">
+          <div class="section-header">
+            <label for="textInput" data-i18n="rewriterInputLabel">Paste your text:</label>
+            <button id="clearBtn" class="btn-clear">[ <span data-i18n="rewriterClear">CLEAR</span> ]</button>
+          </div>
+          <textarea
+            id="textInput"
+            data-i18n-placeholder="rewriterPlaceholder"
+            placeholder="Paste your text here to detect and fix slop phrases..."
+            rows="16"
+          ></textarea>
+          <div class="input-controls">
+            <span class="live-indicator" data-i18n="rewriterLiveAnalysis">Live analysis enabled</span>
+          </div>
+        </div>
+
+        <div class="preview-section">
+          <div class="section-header">
+            <label data-i18n="rewriterPreviewLabel">Fixed preview:</label>
+            <span class="match-counter" id="matchCounter"></span>
+          </div>
+          <div id="fixedPreview" class="fixed-preview">
+            <div class="placeholder-text" data-i18n="rewriterPreviewPlaceholder">Your text will appear here with slop phrases highlighted and fix buttons...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-bar" id="actionBar" style="display: none;">
+        <button id="fixAllBtn" class="btn btn-primary">[ <span data-i18n="rewriterFixAll">FIX ALL</span> ]</button>
+        <button id="copyBtn" class="btn btn-secondary">[ <span data-i18n="rewriterCopy">COPY FIXED TEXT</span> ]</button>
+        <button id="resetFixesBtn" class="btn btn-link">[ <span data-i18n="rewriterReset">RESET FIXES</span> ]</button>
+        <span class="copy-status" id="copyStatus"></span>
+      </div>
+
+      <div class="score-comparison" id="scoreComparison" style="display: none;">
+        <div class="score-block">
+          <div class="score-block-label" data-i18n="rewriterOriginalScore">ORIGINAL SCORE</div>
+          <div class="score-block-value" id="originalScoreValue">0</div>
+          <div class="score-block-status" id="originalScoreStatus"></div>
+        </div>
+
+        <div class="score-arrow">
+          <div class="arrow-line"></div>
+          <div class="arrow-label" id="improvementLabel"></div>
+        </div>
+
+        <div class="score-block">
+          <div class="score-block-label" data-i18n="rewriterCurrentScore">CURRENT SCORE</div>
+          <div class="score-block-value" id="currentScoreValue">0</div>
+          <div class="score-block-status" id="currentScoreStatus"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <button id="backBtn" class="btn btn-link" data-i18n="rewriterBackToPopup">Back to Popup</button>
+      <p class="version">v3.0.0 | Kief Studio | HxHippy</p>
+    </footer>
+  </div>
+
+  <script src="patterns/registry.js"></script>
+  <script src="patterns/en.js"></script>
+  <script src="languages.js"></script>
+  <script src="i18n-helper.js"></script>
+  <script src="scoring-engine.js"></script>
+  <script src="rewriter.js"></script>
+</body>
+</html>

@@ -10,122 +10,317 @@
   <div class="container">
     <header>
       <h1>DE-SLOP</h1>
-      <p class="tagline">[ PATTERN CUSTOMIZATION ]</p>
+      <p class="tagline" data-i18n="settingsTagline">[ PATTERN CUSTOMIZATION ]</p>
     </header>
 
     <nav class="tabs">
-      <button class="tab active" data-tab="tier1">TIER 1: AI SLOP</button>
-      <button class="tab" data-tab="tier2">TIER 2: CORPORATE</button>
-      <button class="tab" data-tab="tier3">TIER 3: MARKETING</button>
-      <button class="tab" data-tab="custom">CUSTOM PATTERNS</button>
-      <button class="tab" data-tab="tester">PATTERN TESTER</button>
+      <button class="tab active" data-tab="overview">OVERVIEW</button>
+      <button class="tab" data-tab="tier1">TIER 1: AI SLOP <span class="tab-badge" id="tier1Badge">0</span></button>
+      <button class="tab" data-tab="tier2">TIER 2: CORPORATE <span class="tab-badge" id="tier2Badge">0</span></button>
+      <button class="tab" data-tab="tier3">TIER 3: MARKETING <span class="tab-badge" id="tier3Badge">0</span></button>
+      <button class="tab" data-tab="custom" data-i18n="settingsCustomTab">CUSTOM PATTERNS</button>
+      <button class="tab" data-tab="help">HELP</button>
     </nav>
 
     <div class="tab-content">
+
+      <!-- Overview -->
+      <div id="overview" class="panel active">
+
+        <div class="dashboard-stats">
+          <div class="stat-card">
+            <div class="stat-number" id="totalPatternCount">0</div>
+            <div class="stat-label">Total Patterns</div>
+          </div>
+          <div class="stat-card stat-card-interactive">
+            <select id="detectionLangSelect" class="stat-select">
+              <option value="auto">AUTO</option>
+            </select>
+            <div class="stat-label">Detection Language</div>
+            <div class="stat-hint">click to change</div>
+          </div>
+          <div class="stat-card stat-card-interactive">
+            <select id="sensitivitySelect" class="stat-select">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3" selected>3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <div class="stat-label">Sensitivity Level</div>
+            <div class="stat-hint">click to change</div>
+          </div>
+        </div>
+
+        <div class="tier-cards">
+          <div class="tier-card tier1-card" data-navigate="tier1">
+            <div class="tier-card-header">
+              <h3>Tier 1: AI Slop</h3>
+              <span class="tier-card-count" id="tier1CardCount">0</span>
+            </div>
+            <div class="tier-card-desc">Weight: 3 points per match | Always active</div>
+            <div class="tier-progress">
+              <div class="tier-progress-bar tier1-bar" id="tier1Bar"></div>
+            </div>
+          </div>
+
+          <div class="tier-card tier2-card" data-navigate="tier2">
+            <div class="tier-card-header">
+              <h3>Tier 2: Corporate</h3>
+              <span class="tier-card-count" id="tier2CardCount">0</span>
+            </div>
+            <div class="tier-card-desc">Weight: 2 points per match | Active at sensitivity 3+</div>
+            <div class="tier-progress">
+              <div class="tier-progress-bar tier2-bar" id="tier2Bar"></div>
+            </div>
+          </div>
+
+          <div class="tier-card tier3-card" data-navigate="tier3">
+            <div class="tier-card-header">
+              <h3>Tier 3: Marketing</h3>
+              <span class="tier-card-count" id="tier3CardCount">0</span>
+            </div>
+            <div class="tier-card-desc">Weight: 1 point per match | Active at sensitivity 4+</div>
+            <div class="tier-progress">
+              <div class="tier-progress-bar tier3-bar" id="tier3Bar"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="scoring-explainer">
+          <h3>How Scoring Works</h3>
+          <div class="scoring-steps">
+            <div class="scoring-step">
+              <div class="step-circle">1</div>
+              <div class="step-label">SCAN</div>
+              <div class="step-desc">Text is scanned against all active tier patterns</div>
+            </div>
+            <div class="scoring-connector"></div>
+            <div class="scoring-step">
+              <div class="step-circle">2</div>
+              <div class="step-label">SCORE</div>
+              <div class="step-desc">Each match adds points: Tier 1 = 3pts, Tier 2 = 2pts, Tier 3 = 1pt</div>
+            </div>
+            <div class="scoring-connector"></div>
+            <div class="scoring-step">
+              <div class="step-circle">3</div>
+              <div class="step-label">THRESHOLD</div>
+              <div class="step-desc">Score is compared against sensitivity threshold (4-15 points)</div>
+            </div>
+            <div class="scoring-connector"></div>
+            <div class="scoring-step">
+              <div class="step-circle">4</div>
+              <div class="step-label">FLAG</div>
+              <div class="step-desc">Content exceeding threshold is flagged or hidden</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
       <!-- Tier 1 -->
-      <div id="tier1" class="panel active">
+      <div id="tier1" class="panel">
         <div class="panel-header">
-          <h2>Tier 1: AI-Specific Indicators</h2>
-          <p>Weight: 3 points per match | Always active</p>
+          <h2 data-i18n="settingsTier1Title">Tier 1: AI-Specific Indicators</h2>
+          <p data-i18n="settingsTier1Desc">Weight: 3 points per match | Always active</p>
+        </div>
+        <div class="pattern-toolbar">
+          <input type="text" class="pattern-search" id="tier1Search" placeholder="Search patterns...">
         </div>
         <div class="pattern-list" id="tier1List"></div>
         <div class="pattern-add">
-          <input type="text" id="tier1Input" placeholder='Enter regex pattern (e.g., /\bdelve into\b/gi)'>
-          <button id="tier1Add" class="btn btn-add">[ ADD PATTERN ]</button>
+          <div class="input-mode-toggle">
+            <button class="mode-btn active" data-tier="tier1" data-mode="regex">REGEX</button>
+            <button class="mode-btn" data-tier="tier1" data-mode="plain">PLAIN TEXT</button>
+          </div>
+          <input type="text" id="tier1Input" data-i18n-placeholder="settingsTier1Placeholder" placeholder='Enter regex pattern (e.g., /\bdelve into\b/gi)'>
+          <button id="tier1Add" class="btn btn-add">[ <span data-i18n="settingsAddPattern">ADD PATTERN</span> ]</button>
         </div>
       </div>
 
       <!-- Tier 2 -->
       <div id="tier2" class="panel">
         <div class="panel-header">
-          <h2>Tier 2: Corporate Buzzwords</h2>
-          <p>Weight: 2 points per match | Active at sensitivity 3+</p>
+          <h2 data-i18n="settingsTier2Title">Tier 2: Corporate Buzzwords</h2>
+          <p data-i18n="settingsTier2Desc">Weight: 2 points per match | Active at sensitivity 3+</p>
+        </div>
+        <div class="pattern-toolbar">
+          <input type="text" class="pattern-search" id="tier2Search" placeholder="Search patterns...">
         </div>
         <div class="pattern-list" id="tier2List"></div>
         <div class="pattern-add">
-          <input type="text" id="tier2Input" placeholder='Enter regex pattern (e.g., /\bsynergy\b/gi)'>
-          <button id="tier2Add" class="btn btn-add">[ ADD PATTERN ]</button>
+          <div class="input-mode-toggle">
+            <button class="mode-btn active" data-tier="tier2" data-mode="regex">REGEX</button>
+            <button class="mode-btn" data-tier="tier2" data-mode="plain">PLAIN TEXT</button>
+          </div>
+          <input type="text" id="tier2Input" data-i18n-placeholder="settingsTier2Placeholder" placeholder='Enter regex pattern (e.g., /\bsynergy\b/gi)'>
+          <button id="tier2Add" class="btn btn-add">[ <span data-i18n="settingsAddPattern">ADD PATTERN</span> ]</button>
         </div>
       </div>
 
       <!-- Tier 3 -->
       <div id="tier3" class="panel">
         <div class="panel-header">
-          <h2>Tier 3: Marketing Spam</h2>
-          <p>Weight: 1 point per match | Active at sensitivity 4+</p>
+          <h2 data-i18n="settingsTier3Title">Tier 3: Marketing Spam</h2>
+          <p data-i18n="settingsTier3Desc">Weight: 1 point per match | Active at sensitivity 4+</p>
+        </div>
+        <div class="pattern-toolbar">
+          <input type="text" class="pattern-search" id="tier3Search" placeholder="Search patterns...">
         </div>
         <div class="pattern-list" id="tier3List"></div>
         <div class="pattern-add">
-          <input type="text" id="tier3Input" placeholder='Enter regex pattern (e.g., /\bfree\b/gi)'>
-          <button id="tier3Add" class="btn btn-add">[ ADD PATTERN ]</button>
+          <div class="input-mode-toggle">
+            <button class="mode-btn active" data-tier="tier3" data-mode="regex">REGEX</button>
+            <button class="mode-btn" data-tier="tier3" data-mode="plain">PLAIN TEXT</button>
+          </div>
+          <input type="text" id="tier3Input" data-i18n-placeholder="settingsTier3Placeholder" placeholder='Enter regex pattern (e.g., /\bfree\b/gi)'>
+          <button id="tier3Add" class="btn btn-add">[ <span data-i18n="settingsAddPattern">ADD PATTERN</span> ]</button>
         </div>
       </div>
 
       <!-- Custom Patterns -->
       <div id="custom" class="panel">
         <div class="panel-header">
-          <h2>Custom Patterns</h2>
-          <p>Your own patterns with custom weights</p>
+          <h2 data-i18n="settingsCustomTitle">Custom Patterns</h2>
+          <p data-i18n="settingsCustomDesc">Your own patterns with custom weights</p>
         </div>
         <div class="pattern-list" id="customList"></div>
         <div class="pattern-add custom-add">
-          <input type="text" id="customInput" placeholder='Enter regex pattern'>
+          <input type="text" id="customInput" data-i18n-placeholder="settingsCustomPlaceholder" placeholder='Enter regex pattern'>
           <select id="customWeight" class="weight-select">
-            <option value="1">1 point</option>
-            <option value="2">2 points</option>
-            <option value="3" selected>3 points</option>
-            <option value="5">5 points</option>
+            <option value="1" data-i18n="settings1Point">1 point</option>
+            <option value="2" data-i18n="settings2Points">2 points</option>
+            <option value="3" selected data-i18n="settings3Points">3 points</option>
+            <option value="5" data-i18n="settings5Points">5 points</option>
           </select>
-          <button id="customAdd" class="btn btn-add">[ ADD CUSTOM ]</button>
+          <button id="customAdd" class="btn btn-add">[ <span data-i18n="settingsAddCustom">ADD CUSTOM</span> ]</button>
         </div>
       </div>
 
-      <!-- Pattern Tester -->
-      <div id="tester" class="panel">
+      <!-- Help -->
+      <div id="help" class="panel">
         <div class="panel-header">
-          <h2>Pattern Tester</h2>
-          <p>Test your regex patterns before adding them</p>
+          <h2>Pattern Help</h2>
         </div>
-        <div class="tester-container">
-          <div class="tester-input">
-            <label for="testPattern">Pattern to test:</label>
-            <input type="text" id="testPattern" placeholder='/\byour pattern\b/gi'>
-            <button id="testBtn" class="btn btn-primary">[ TEST PATTERN ]</button>
-          </div>
-          <div class="tester-text">
-            <label for="testText">Sample text:</label>
-            <textarea id="testText" placeholder="Paste or type text here to test your pattern..."></textarea>
-          </div>
-          <div class="tester-results" id="testResults" style="display: none;">
-            <div class="result-header">
-              <h3>Test Results</h3>
-              <span id="matchCount" class="match-count"></span>
+
+        <div class="help-section">
+          <h3>Regex Format</h3>
+          <p>Patterns use JavaScript regular expression format: <code>/pattern/flags</code></p>
+          <div class="help-examples">
+            <div class="help-example">
+              <code>/\bdelve into\b/gi</code>
+              <span>Matches "delve into" as whole words, case-insensitive</span>
             </div>
-            <div id="matchList" class="match-list"></div>
-            <div id="highlightedText" class="highlighted-text"></div>
+            <div class="help-example">
+              <code>/\b(synergy|leverage)\b/gi</code>
+              <span>Matches either "synergy" or "leverage"</span>
+            </div>
+            <div class="help-example">
+              <code>/^I'm excited to/gim</code>
+              <span>Matches lines starting with "I'm excited to"</span>
+            </div>
           </div>
+        </div>
+
+        <div class="help-section">
+          <h3>Plain Text Mode</h3>
+          <p>In plain text mode, type a phrase like <code>delve into</code> and it auto-wraps as <code>/\bdelve into\b/gi</code></p>
+          <p>Word boundaries (\b) ensure partial words are not matched.</p>
+        </div>
+
+        <div class="help-section">
+          <h3>Common Regex Elements</h3>
+          <div class="regex-reference">
+            <div class="regex-item"><code>\b</code><span>Word boundary</span></div>
+            <div class="regex-item"><code>.</code><span>Any character</span></div>
+            <div class="regex-item"><code>+</code><span>One or more</span></div>
+            <div class="regex-item"><code>*</code><span>Zero or more</span></div>
+            <div class="regex-item"><code>?</code><span>Optional</span></div>
+            <div class="regex-item"><code>(a|b)</code><span>Either a or b</span></div>
+            <div class="regex-item"><code>[abc]</code><span>Any of a, b, c</span></div>
+            <div class="regex-item"><code>^</code><span>Start of line</span></div>
+            <div class="regex-item"><code>$</code><span>End of line</span></div>
+            <div class="regex-item"><code>g</code><span>Global (find all)</span></div>
+            <div class="regex-item"><code>i</code><span>Case insensitive</span></div>
+            <div class="regex-item"><code>m</code><span>Multiline</span></div>
+          </div>
+        </div>
+
+        <div class="help-section">
+          <h3>Scoring System</h3>
+          <div class="help-scoring">
+            <div class="help-tier tier1-color">Tier 1 - AI Slop: 3 points per match (always active)</div>
+            <div class="help-tier tier2-color">Tier 2 - Corporate: 2 points per match (sensitivity 3+)</div>
+            <div class="help-tier tier3-color">Tier 3 - Marketing: 1 point per match (sensitivity 4+)</div>
+            <div class="help-tier custom-color">Custom: User-defined weight per match</div>
+          </div>
+        </div>
+
+        <div class="help-section">
+          <h3>Generate Patterns with AI</h3>
+          <p>Don't know regex? No problem. Copy the prompt below into ChatGPT, Claude, or any AI chat and paste the results back into the tier inputs above.</p>
+          <div class="prompt-block">
+            <div class="prompt-header">
+              <span class="prompt-label">AI PROMPT</span>
+              <button id="copyPromptBtn" class="btn-copy">[ COPY ]</button>
+            </div>
+            <pre class="prompt-text" id="aiPrompt">I'm using a browser extension called De-Slop that detects AI-generated "slop" content using regex patterns. I need you to generate new detection patterns for me.
+
+The patterns must be in JavaScript regex format: /pattern/gi
+Each pattern should use \b word boundaries to avoid partial matches.
+Group related words with (word1|word2|word3) syntax.
+
+The extension has 3 tiers:
+- Tier 1 (3pts): AI-specific phrases that almost exclusively appear in AI-generated text (e.g., "delve into", "tapestry of", "it's worth noting that")
+- Tier 2 (2pts): Corporate buzzwords that are common in AI text but also used by humans (e.g., "synergy", "leverage", "stakeholder")
+- Tier 3 (1pt): Generic filler/marketing words that inflate AI text (e.g., "comprehensive", "robust", "cutting-edge")
+
+Please generate 10 new patterns for each tier that are NOT in common use already. Focus on [DESCRIBE YOUR FOCUS HERE - e.g., "LinkedIn posts", "tech blog articles", "academic writing", "marketing emails"].
+
+Format your response exactly like this so I can copy-paste directly:
+
+TIER 1:
+/\bphrase here\b/gi
+/\b(word1|word2)\b/gi
+
+TIER 2:
+/\bphrase here\b/gi
+
+TIER 3:
+/\bphrase here\b/gi</pre>
+          </div>
+          <p>Replace <code>[DESCRIBE YOUR FOCUS HERE]</code> with your use case, then paste each pattern into the matching tier tab.</p>
+        </div>
+
+        <div class="help-section">
+          <button id="openTestPageBtn" class="btn btn-primary">[ OPEN TEST PAGE ]</button>
         </div>
       </div>
+
     </div>
 
     <div class="actions">
       <div class="action-group">
-        <button id="exportBtn" class="btn btn-secondary">[ EXPORT PATTERNS ]</button>
-        <button id="importBtn" class="btn btn-secondary">[ IMPORT PATTERNS ]</button>
+        <button id="exportBtn" class="btn btn-secondary">[ <span data-i18n="settingsExport">EXPORT PATTERNS</span> ]</button>
+        <button id="importBtn" class="btn btn-secondary">[ <span data-i18n="settingsImport">IMPORT PATTERNS</span> ]</button>
         <input type="file" id="importFile" accept=".json" style="display: none;">
       </div>
       <div class="action-group">
-        <button id="resetBtn" class="btn btn-warning">[ RESET TO DEFAULTS ]</button>
-        <button id="saveBtn" class="btn btn-primary">[ CLOSE ]</button>
+        <button id="resetBtn" class="btn btn-warning">[ <span data-i18n="settingsReset">RESET TO DEFAULTS</span> ]</button>
+        <button id="saveBtn" class="btn btn-primary">[ <span data-i18n="settingsClose">CLOSE</span> ]</button>
       </div>
     </div>
 
     <footer>
       <p class="status" id="status"></p>
-      <p class="version">v2.4.3 | Kief Studio | HxHippy</p>
+      <p class="version">v3.0.0 | Kief Studio | HxHippy</p>
     </footer>
   </div>
 
+  <script src="patterns/registry.js"></script>
+  <script src="patterns/en.js"></script>
+  <script src="languages.js"></script>
+  <script src="i18n-helper.js"></script>
   <script src="settings.js"></script>
 </body>
 </html>

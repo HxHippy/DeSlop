@@ -3,19 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>De-Slop</title>
+  <title data-i18n="extensionName">De-Slop</title>
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>DE-SLOP</h1>
-      <p class="tagline">[ SLOP DETECTION SYSTEM ]</p>
+      <div class="header-row">
+        <h1>DE-SLOP</h1>
+        <div class="header-actions">
+          <button id="headerSettingsBtn" class="header-btn" title="Settings">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </button>
+        </div>
+      </div>
+      <p class="tagline" data-i18n="tagline">[ SLOP DETECTION SYSTEM ]</p>
     </header>
 
     <div class="stats">
       <div class="stat-item">
-        <span class="stat-label">Slop Blocked</span>
+        <span class="stat-label" data-i18n="slopBlocked">Slop Blocked</span>
         <span class="stat-value" id="slopCount">0</span>
       </div>
     </div>
@@ -26,7 +33,23 @@
           <input type="checkbox" id="enabledToggle" checked>
           <span class="slider"></span>
         </label>
-        <span class="toggle-label">Extension Enabled</span>
+        <span class="toggle-label" data-i18n="extensionEnabled">Extension Enabled</span>
+      </div>
+
+      <div class="toggle-group">
+        <label class="switch">
+          <input type="checkbox" id="detectionOnlyToggle">
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label" data-i18n="detectionOnlyMode">Detection Only Mode</span>
+      </div>
+
+      <div class="toggle-group">
+        <label class="switch">
+          <input type="checkbox" id="showSuggestionsToggle">
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label" data-i18n="showImprovementSuggestions">Show Improvement Suggestions</span>
       </div>
 
       <div class="toggle-group">
@@ -38,7 +61,7 @@
       </div>
 
       <div class="sensitivity">
-        <label for="sensitivitySlider">Detection Sensitivity</label>
+        <label for="sensitivitySlider" data-i18n="detectionSensitivity">Detection Sensitivity</label>
         <input type="range" id="sensitivitySlider" min="1" max="5" value="3" step="1">
         <div class="sensitivity-labels">
           <span>1</span>
@@ -53,21 +76,35 @@
       </div>
     </div>
 
+    <!-- Detection Language Selector -->
+    <div class="collapsible-section">
+      <div class="section-header-collapsible" data-target="languageSection">
+        <span class="collapse-indicator">[+]</span>
+        <span data-i18n="detectionLanguage">Detection Language</span>
+      </div>
+      <div id="languageSection" class="collapsible-content" style="display: none;">
+        <select id="languageSelect" class="language-select">
+          <option value="auto" data-i18n="autoDetect">Auto-detect</option>
+          <!-- Populated dynamically from languages.js -->
+        </select>
+      </div>
+    </div>
+
     <!-- Collapsible Additional Patterns Section -->
     <div class="collapsible-section">
       <div class="section-header-collapsible" data-target="additionalPatterns">
         <span class="collapse-indicator">[+]</span>
-        <span>Additional Patterns</span>
+        <span data-i18n="additionalPatterns">Additional Patterns</span>
       </div>
       <div id="additionalPatterns" class="collapsible-content" style="display: none;">
-        <p class="section-description">Optional pattern detection on top of tier-based detection</p>
+        <p class="section-description" data-i18n="additionalPatternsDesc">Optional pattern detection on top of tier-based detection</p>
 
         <div class="toggle-group">
           <label class="switch">
             <input type="checkbox" id="blockEmojis">
             <span class="slider"></span>
           </label>
-          <span class="toggle-label">Emoji Slop</span>
+          <span class="toggle-label" data-i18n="emojiSlop">Emoji Slop</span>
         </div>
 
         <div class="toggle-group">
@@ -75,7 +112,7 @@
             <input type="checkbox" id="blockStopWords" checked>
             <span class="slider"></span>
           </label>
-          <span class="toggle-label">Stop Words ("I'm excited...")</span>
+          <span class="toggle-label" data-i18n="stopWords">Stop Words ("I'm excited...")</span>
         </div>
 
         <div class="toggle-group">
@@ -83,33 +120,41 @@
             <input type="checkbox" id="blockEmDashes" checked>
             <span class="slider"></span>
           </label>
-          <span class="toggle-label">Em Dash Overuse (—)</span>
+          <span class="toggle-label" data-i18n="emDashOveruse">Em Dash Overuse (—)</span>
+        </div>
+
+        <div class="toggle-group">
+          <label class="switch">
+            <input type="checkbox" id="blockPolitics">
+            <span class="slider"></span>
+          </label>
+          <span class="toggle-label" data-i18n="politicalContent">Political Content (All Sides)</span>
         </div>
       </div>
     </div>
 
     <div class="linkedin-fixer" id="linkedinFixer" style="display: none;">
-      <div class="section-header">LinkedIn Fixer</div>
+      <div class="section-header" data-i18n="linkedinFixer">LinkedIn Fixer</div>
       <div class="toggle-group">
         <label class="switch">
           <input type="checkbox" id="blockVideos">
           <span class="slider"></span>
         </label>
-        <span class="toggle-label">Block Auto-Play Videos</span>
+        <span class="toggle-label" data-i18n="blockAutoPlayVideos">Block Auto-Play Videos</span>
       </div>
       <div class="toggle-group">
         <label class="switch">
           <input type="checkbox" id="blockAds">
           <span class="slider"></span>
         </label>
-        <span class="toggle-label">Block Ad Tracking</span>
+        <span class="toggle-label" data-i18n="blockAdTracking">Block Ad Tracking</span>
       </div>
       <div class="toggle-group">
         <label class="switch">
           <input type="checkbox" id="darkerMode">
           <span class="slider"></span>
         </label>
-        <span class="toggle-label">Darker Mode</span>
+        <span class="toggle-label" data-i18n="darkerMode">Darker Mode</span>
       </div>
     </div>
 
@@ -117,24 +162,24 @@
     <div class="collapsible-section">
       <div class="section-header-collapsible" data-target="whitelistSection">
         <span class="collapse-indicator">[+]</span>
-        <span>Domain Whitelist</span>
+        <span data-i18n="domainWhitelist">Domain Whitelist</span>
       </div>
       <div id="whitelistSection" class="collapsible-content" style="display: none;">
-        <p class="section-description">Exclude specific domains, pages, or paths from slop detection</p>
+        <p class="section-description" data-i18n="whitelistDesc">Exclude specific domains, pages, or paths from slop detection</p>
 
         <div class="whitelist-controls">
           <div class="input-group">
-            <input type="text" id="whitelistInput" placeholder="example.com, subdomain.site.com, site.com/path" />
-            <button id="addWhitelistBtn" class="btn btn-small">[ ADD ]</button>
+            <input type="text" id="whitelistInput" data-i18n-placeholder="whitelistPlaceholder" placeholder="example.com, subdomain.site.com, site.com/path" />
+            <button id="addWhitelistBtn" class="btn btn-small">[ <span data-i18n="whitelistAdd">ADD</span> ]</button>
           </div>
 
           <div class="whitelist-examples">
-            <small>Examples:</small>
+            <small data-i18n="whitelistExamples">Examples:</small>
             <ul class="example-list">
-              <li><code>example.com</code> - entire domain</li>
-              <li><code>blog.example.com</code> - specific subdomain</li>
-              <li><code>example.com/news</code> - specific path</li>
-              <li><code>example.com/page.html</code> - specific page</li>
+              <li><code>example.com</code> - <span data-i18n="whitelistExampleDomain">entire domain</span></li>
+              <li><code>blog.example.com</code> - <span data-i18n="whitelistExampleSubdomain">specific subdomain</span></li>
+              <li><code>example.com/news</code> - <span data-i18n="whitelistExamplePath">specific path</span></li>
+              <li><code>example.com/page.html</code> - <span data-i18n="whitelistExamplePage">specific page</span></li>
             </ul>
           </div>
 
@@ -146,18 +191,27 @@
     </div>
 
     <div class="actions">
-      <button id="rescanBtn" class="btn btn-primary">[ RESCAN PAGE ]</button>
-      <button id="resetBtn" class="btn btn-secondary">[ RESET STATS ]</button>
-      <button id="checkerBtn" class="btn btn-settings">[ IS MY POST SLOP? ]</button>
-      <button id="slopMachineBtn" class="btn btn-fun">[ SLOP MACHINE ]</button>
-      <button id="settingsBtn" class="btn btn-settings">[ CUSTOMIZE PATTERNS ]</button>
+      <button id="rescanBtn" class="btn btn-primary">[ <span data-i18n="rescanPage">RESCAN PAGE</span> ]</button>
+      <button id="resetBtn" class="btn btn-secondary">[ <span data-i18n="resetStats">RESET STATS</span> ]</button>
+      <button id="checkerBtn" class="btn btn-settings">[ <span data-i18n="isMyPostSlop">IS MY POST SLOP?</span> ]</button>
+      <button id="humanizeBtn" class="btn btn-settings">[ <span data-i18n="humanizeScore">HUMANIZE SCORE</span> ]</button>
+      <button id="batchBtn" class="btn btn-settings">[ <span data-i18n="batchChecker">BATCH CHECKER</span> ]</button>
+      <button id="rewriterBtn" class="btn btn-settings">[ <span data-i18n="rewriteMyText">REWRITE MY TEXT</span> ]</button>
+      <button id="compareBtn" class="btn btn-settings">[ <span data-i18n="compareTextComparator">TEXT COMPARATOR</span> ]</button>
+      <button id="urlAnalyzerBtn" class="btn btn-settings">[ <span data-i18n="analyzeUrl">ANALYZE URL</span> ]</button>
+      <button id="slopMachineBtn" class="btn btn-fun">[ <span data-i18n="slopMachine">SLOP MACHINE</span> ]</button>
+      <button id="testBtn" class="btn btn-settings">[ <span data-i18n="testPatterns">TEST PATTERNS</span> ]</button>
+      <button id="settingsBtn" class="btn btn-settings">[ <span data-i18n="customizePatterns">CUSTOMIZE PATTERNS</span> ]</button>
     </div>
 
     <footer>
-      <p class="version">v2.4.4</p>
+      <p class="version">v3.0.0</p>
     </footer>
   </div>
 
+  <script src="patterns/registry.js"></script>
+  <script src="languages.js"></script>
+  <script src="i18n-helper.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

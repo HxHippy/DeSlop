@@ -4,9 +4,15 @@
 let currentTab = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
+  // Initialize i18n
+  const langSettings = await chrome.storage.sync.get({ patternLanguage: 'auto' });
+  await window.DESLOP_I18N.init(langSettings.patternLanguage);
+  window.DESLOP_I18N.applyTranslations();
+
   const slopCountEl = document.getElementById('slopCount');
   const enabledToggle = document.getElementById('enabledToggle');
   const detectionOnlyToggle = document.getElementById('detectionOnlyToggle');
+  const showSuggestionsToggle = document.getElementById('showSuggestionsToggle');
   const sensitivitySlider = document.getElementById('sensitivitySlider');
   const rescanBtn = document.getElementById('rescanBtn');
   const resetBtn = document.getElementById('resetBtn');
@@ -14,6 +20,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const blockEmojisToggle = document.getElementById('blockEmojis');
   const blockStopWordsToggle = document.getElementById('blockStopWords');
   const blockEmDashesToggle = document.getElementById('blockEmDashes');
+  const blockPoliticsToggle = document.getElementById('blockPolitics');
+  const languageSelect = document.getElementById('languageSelect');
 
   // LinkedIn Fixer elements
   const linkedinFixerSection = document.getElementById('linkedinFixer');
@@ -26,29 +34,49 @@ document.addEventListener('DOMContentLoaded', async () => {
   const addWhitelistBtn = document.getElementById('addWhitelistBtn');
   const whitelistList = document.getElementById('whitelistList');
 
+  // Populate language selector
+  if (window.DESLOP_LANGUAGES && languageSelect) {
+    Object.entries(window.DESLOP_LANGUAGES).forEach(([code, name]) => {
+      const option = document.createElement('option');
+      option.value = code;
+      option.textContent = name;
+      languageSelect.appendChild(option);
+    });
+  }
+
   // Load saved settings
   const settings = await chrome.storage.sync.get({
     enabled: true,
     detectionOnly: false,
+    showSuggestions: false,
     sensitivity: 3,
     blockEmojis: false,
     blockStopWords: true,
     blockEmDashes: true,
+    blockPolitics: false,
     linkedinBlockVideos: false,
     linkedinBlockAds: false,
     linkedinDarkerMode: false,
-    whitelist: []
+    whitelist: [],
+    patternLanguage: 'auto'
   });
 
   enabledToggle.checked = settings.enabled;
   detectionOnlyToggle.checked = settings.detectionOnly;
+  showSuggestionsToggle.checked = settings.showSuggestions;
   sensitivitySlider.value = settings.sensitivity;
   blockEmojisToggle.checked = settings.blockEmojis;
   blockStopWordsToggle.checked = settings.blockStopWords;
   blockEmDashesToggle.checked = settings.blockEmDashes;
+  blockPoliticsToggle.checked = settings.blockPolitics;
   blockVideosToggle.checked = settings.linkedinBlockVideos;
   blockAdsToggle.checked = settings.linkedinBlockAds;
   darkerModeToggle.checked = settings.linkedinDarkerMode;
+
+  // Set language selector value
+  if (languageSelect) {
+    languageSelect.value = settings.patternLanguage || 'auto';
+  }
 
   // Get current tab and update count
   // For side panel, query the last focused window to get the actual active tab
@@ -78,7 +106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       if (content.style.display === 'none') {
         content.style.display = 'block';
-        indicator.textContent = '[−]';
+        indicator.textContent = '[-]';
       } else {
         content.style.display = 'none';
         indicator.textContent = '[+]';
@@ -102,15 +130,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (currentTab) chrome.tabs.reload(currentTab.id);
   });
 
+  // Toggle show suggestions mode
+  showSuggestionsToggle.addEventListener('change', async (e) => {
+    await chrome.storage.sync.set({ showSuggestions: e.target.checked });
+
+    // Reload the current tab to apply changes
+    if (currentTab) chrome.tabs.reload(currentTab.id);
+  });
+
   // Update tier info display
   const updateTierInfo = (sensitivity) => {
     const tierInfo = document.getElementById('tierInfo');
     const descriptions = {
-      1: '<strong>Tier 1 Only:</strong> AI-specific phrases (very conservative)',
-      2: '<strong>Tier 1 Only:</strong> AI-specific phrases (conservative)',
-      3: '<strong>Tiers 1 + 2:</strong> AI + Corporate buzzwords (balanced)',
-      4: '<strong>Tiers 1 + 2 + 3:</strong> AI + Corporate + Marketing (aggressive)',
-      5: '<strong>All Tiers:</strong> Maximum detection (very aggressive)'
+      1: window.DESLOP_I18N.msg('tierInfoLevel1'),
+      2: window.DESLOP_I18N.msg('tierInfoLevel2'),
+      3: window.DESLOP_I18N.msg('tierInfoLevel3'),
+      4: window.DESLOP_I18N.msg('tierInfoLevel4'),
+      5: window.DESLOP_I18N.msg('tierInfoLevel5')
     };
     tierInfo.innerHTML = descriptions[sensitivity] || descriptions[3];
   };
@@ -129,6 +165,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Initialize tier info display
   updateTierInfo(settings.sensitivity);
+
+  // Language selector
+  if (languageSelect) {
+    languageSelect.addEventListener('change', async (e) => {
+      const lang = e.target.value;
+      await chrome.storage.sync.set({ patternLanguage: lang });
+
+      // Reload the current tab to apply language change
+      if (currentTab) chrome.tabs.reload(currentTab.id);
+    });
+  }
 
   // Rescan page button
   rescanBtn.addEventListener('click', () => {
@@ -150,16 +197,68 @@ document.addEventListener('DOMContentLoaded', async () => {
     chrome.tabs.create({ url: 'checker.html' });
   });
 
+  // Humanize Score button
+  const humanizeBtn = document.getElementById('humanizeBtn');
+  if (humanizeBtn) {
+    humanizeBtn.addEventListener('click', () => {
+      chrome.tabs.create({ url: 'humanize.html' });
+    });
+  }
+
+  // Batch Checker button
+  const batchBtn = document.getElementById('batchBtn');
+  if (batchBtn) {
+    batchBtn.addEventListener('click', () => {
+      chrome.tabs.create({ url: 'batch.html' });
+    });
+  }
+
+  // Text Rewriter button
+  const rewriterBtn = document.getElementById('rewriterBtn');
+  if (rewriterBtn) {
+    rewriterBtn.addEventListener('click', () => {
+      chrome.tabs.create({ url: 'rewriter.html' });
+    });
+  }
+
+  // Text Comparator button
+  const compareBtn = document.getElementById('compareBtn');
+  if (compareBtn) {
+    compareBtn.addEventListener('click', () => {
+      chrome.tabs.create({ url: 'compare.html' });
+    });
+  }
+
+  // URL Analyzer button
+  const urlAnalyzerBtn = document.getElementById('urlAnalyzerBtn');
+  if (urlAnalyzerBtn) {
+    urlAnalyzerBtn.addEventListener('click', () => {
+      chrome.tabs.create({ url: 'url-analyzer.html' });
+    });
+  }
+
   // Slop Machine button
   const slopMachineBtn = document.getElementById('slopMachineBtn');
   slopMachineBtn.addEventListener('click', () => {
     chrome.tabs.create({ url: 'slop-machine.html' });
   });
 
-  // Settings button
+  // Test Patterns button
+  const testBtn = document.getElementById('testBtn');
+  testBtn.addEventListener('click', () => {
+    chrome.tabs.create({ url: 'test.html' });
+  });
+
+  // Settings buttons (bottom + header gear icon)
   settingsBtn.addEventListener('click', () => {
     chrome.tabs.create({ url: 'settings.html' });
   });
+  const headerSettingsBtn = document.getElementById('headerSettingsBtn');
+  if (headerSettingsBtn) {
+    headerSettingsBtn.addEventListener('click', () => {
+      chrome.tabs.create({ url: 'settings.html' });
+    });
+  }
 
   // Additional pattern toggles
   blockEmojisToggle.addEventListener('change', async (e) => {
@@ -174,6 +273,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   blockEmDashesToggle.addEventListener('change', async (e) => {
     await chrome.storage.sync.set({ blockEmDashes: e.target.checked });
+    if (currentTab) chrome.tabs.reload(currentTab.id);
+  });
+
+  blockPoliticsToggle.addEventListener('change', async (e) => {
+    await chrome.storage.sync.set({ blockPolitics: e.target.checked });
     if (currentTab) chrome.tabs.reload(currentTab.id);
   });
 
@@ -220,7 +324,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Display whitelist items
   function displayWhitelist() {
     if (whitelist.length === 0) {
-      whitelistList.innerHTML = '<div class="whitelist-empty">No domains whitelisted</div>';
+      whitelistList.innerHTML = `<div class="whitelist-empty">${window.DESLOP_I18N.msg('whitelistEmpty')}</div>`;
       return;
     }
 
@@ -244,18 +348,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Remove protocol if present
     input = input.replace(/^https?:\/\//, '');
-    
+
     // Remove www if present
     input = input.replace(/^www\./, '');
-    
+
     // Remove trailing slash
     input = input.replace(/\/$/, '');
-    
+
     // Basic validation
     if (!/^[a-z0-9.-]+(\.[a-z]{2,})?.*$/i.test(input)) {
       return null;
     }
-    
+
     return input;
   }
 
@@ -263,14 +367,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   async function addWhitelistItem() {
     const input = whitelistInput.value;
     const normalized = normalizeUrl(input);
-    
+
     if (!normalized) {
       alert('Please enter a valid domain, subdomain, or path:\n\n' +
             'Examples:\n' +
-            '• example.com\n' +
-            '• blog.example.com\n' +
-            '• example.com/news\n' +
-            '• example.com/page.html');
+            '  example.com\n' +
+            '  blog.example.com\n' +
+            '  example.com/news\n' +
+            '  example.com/page.html');
       return;
     }
 
@@ -283,7 +387,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await chrome.storage.sync.set({ whitelist });
     whitelistInput.value = '';
     displayWhitelist();
-    
+
     // Reload current tab to apply changes
     if (currentTab) chrome.tabs.reload(currentTab.id);
   }
@@ -294,14 +398,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     whitelist.splice(index, 1);
     await chrome.storage.sync.set({ whitelist });
     displayWhitelist();
-    
+
     // Reload current tab to apply changes
     if (currentTab) chrome.tabs.reload(currentTab.id);
   }
 
   // Event listeners for whitelist
   addWhitelistBtn.addEventListener('click', addWhitelistItem);
-  
+
   whitelistInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
       addWhitelistItem();

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De-Slop - Humanize Score</title>
+  <link rel="stylesheet" href="humanize.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>DE-SLOP</h1>
+      <p class="tagline" data-i18n="humanizeTagline">[ HUMANIZE SCORE ]</p>
+      <p class="subtitle" data-i18n="humanizeSubtitle">How human does your writing sound?</p>
+    </header>
+
+    <div class="input-section">
+      <div class="input-header">
+        <label for="textInput" data-i18n="humanizeInputLabel">Paste your text for analysis:</label>
+        <button id="clearBtn" class="btn-clear">[ <span data-i18n="humanizeClear">CLEAR</span> ]</button>
+      </div>
+      <textarea
+        id="textInput"
+        data-i18n-placeholder="humanizePlaceholder"
+        placeholder="Paste your text here to analyze how human it sounds..."
+        rows="10"
+      ></textarea>
+      <div class="input-footer">
+        <span class="char-count" id="charCount" data-i18n="humanizeCharCount">0 words</span>
+        <button id="analyzeBtn" class="btn-analyze">[ <span data-i18n="humanizeAnalyze">ANALYZE</span> ]</button>
+      </div>
+    </div>
+
+    <div id="resultsSection" class="results-section" style="display: none;">
+
+      <!-- Authenticity Score Gauge -->
+      <div class="gauge-section">
+        <div class="gauge-wrapper">
+          <div class="gauge-container">
+            <svg class="gauge-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <!-- Track: 270-degree arc (arcLength=377, gap=126 from full circumference 503) -->
+              <circle
+                class="gauge-track"
+                cx="100" cy="100" r="80"
+                fill="none"
+                stroke="#333"
+                stroke-width="16"
+                stroke-dasharray="377 126"
+                stroke-dashoffset="0"
+                stroke-linecap="round"
+                transform="rotate(135 100 100)"
+              />
+              <!-- Fill: starts at zero (dashoffset = arcLength), JS sets it on analysis -->
+              <circle
+                class="gauge-fill"
+                id="gaugeFill"
+                cx="100" cy="100" r="80"
+                fill="none"
+                stroke="#4CAF50"
+                stroke-width="16"
+                stroke-dasharray="377 126"
+                stroke-dashoffset="377"
+                stroke-linecap="round"
+                transform="rotate(135 100 100)"
+              />
+            </svg>
+            <div class="gauge-center">
+              <div class="gauge-score" id="gaugeScore">--</div>
+              <div class="gauge-label" id="gaugeLabel" data-i18n="humanizeEnterText">ENTER TEXT</div>
+            </div>
+          </div>
+          <div class="gauge-title" data-i18n="humanizeAuthenticityScore">AUTHENTICITY SCORE</div>
+          <div class="gauge-legend">
+            <span class="legend-item legend-human">
+              <span class="legend-dot"></span>
+              <span data-i18n="humanizeLikelyHuman">70-100: LIKELY HUMAN</span>
+            </span>
+            <span class="legend-item legend-mixed">
+              <span class="legend-dot"></span>
+              <span data-i18n="humanizeMixedSignals">40-69: MIXED SIGNALS</span>
+            </span>
+            <span class="legend-item legend-ai">
+              <span class="legend-dot"></span>
+              <span data-i18n="humanizeLikelyAI">0-39: LIKELY AI</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Language Notice (shown for non-English) -->
+      <div class="language-notice" id="languageNotice" style="display: none;">
+        <span class="notice-icon">[i]</span>
+        <span data-i18n="humanizeLanguageNotice">Note: Some metrics (passive voice, reading level) are optimized for English text.</span>
+      </div>
+
+      <!-- Metrics Grid -->
+      <div class="metrics-section">
+        <h2 class="section-title" data-i18n="humanizeMetricsTitle">WRITING QUALITY METRICS</h2>
+        <div class="metrics-grid" id="metricsGrid">
+
+          <div class="metric-card" id="metric-sentence-variety">
+            <div class="metric-header">
+              <span class="metric-name" data-i18n="humanizeMetricSentenceVariety">Sentence Variety</span>
+              <span class="metric-score" id="score-sentence-variety">--</span>
+            </div>
+            <div class="metric-bar-track">
+              <div class="metric-bar-fill" id="bar-sentence-variety"></div>
+            </div>
+            <div class="metric-desc" data-i18n="humanizeMetricSentenceVarietyDesc">Mix of short, medium, and long sentences</div>
+          </div>
+
+          <div class="metric-card" id="metric-active-voice">
+            <div class="metric-header">
+              <span class="metric-name" data-i18n="humanizeMetricActiveVoice">Active Voice Usage</span>
+              <span class="metric-score" id="score-active-voice">--</span>
+            </div>
+            <div class="metric-bar-track">
+              <div class="metric-bar-fill" id="bar-active-voice"></div>
+            </div>
+            <div class="metric-desc" data-i18n="humanizeMetricActiveVoiceDesc">Percentage of sentences in active voice</div>
+          </div>
+
+          <div class="metric-card" id="metric-avg-length">
+            <div class="metric-header">
+              <span class="metric-name" data-i18n="humanizeMetricAvgLength">Avg Sentence Length</span>
+              <span class="metric-score" id="score-avg-length">--</span>
+            </div>
+            <div class="metric-bar-track">
+              <div class="metric-bar-fill" id="bar-avg-length"></div>
+            </div>
+            <div class="metric-desc" data-i18n="humanizeMetricAvgLengthDesc">Ideal range is 15-20 words per sentence</div>
+          </div>
+
+          <div class="metric-card" id="metric-vocabulary">
+            <div class="metric-header">
+              <span class="metric-name" data-i18n="humanizeMetricVocabulary">Vocabulary Diversity</span>
+              <span class="metric-score" id="score-vocabulary">--</span>
+            </div>
+            <div class="metric-bar-track">
+              <div class="metric-bar-fill" id="bar-vocabulary"></div>
+            </div>
+            <div class="metric-desc" data-i18n="humanizeMetricVocabularyDesc">Ratio of unique words to total words</div>
+          </div>
+
+          <div class="metric-card" id="metric-repetition">
+            <div class="metric-header">
+              <span class="metric-name" data-i18n="humanizeMetricRepetition">Repetition Score</span>
+              <span class="metric-score" id="score-repetition">--</span>
+            </div>
+            <div class="metric-bar-track">
+              <div class="metric-bar-fill" id="bar-repetition"></div>
+            </div>
+            <div class="metric-desc" data-i18n="humanizeMetricRepetitionDesc">Frequency of repeated non-common words</div>
+          </div>
+
+          <div class="metric-card" id="metric-reading-level">
+            <div class="metric-header">
+              <span class="metric-name" data-i18n="humanizeMetricReadingLevel">Reading Level</span>
+              <span class="metric-score" id="score-reading-level">--</span>
+            </div>
+            <div class="metric-bar-track">
+              <div class="metric-bar-fill" id="bar-reading-level"></div>
+            </div>
+            <div class="metric-desc" data-i18n="humanizeMetricReadingLevelDesc">Flesch-Kincaid grade level (ideal: 8-12)</div>
+          </div>
+
+          <div class="metric-card" id="metric-paragraph-variety">
+            <div class="metric-header">
+              <span class="metric-name" data-i18n="humanizeMetricParagraphVariety">Paragraph Variety</span>
+              <span class="metric-score" id="score-paragraph-variety">--</span>
+            </div>
+            <div class="metric-bar-track">
+              <div class="metric-bar-fill" id="bar-paragraph-variety"></div>
+            </div>
+            <div class="metric-desc" data-i18n="humanizeMetricParagraphVarietyDesc">Variation in paragraph lengths</div>
+          </div>
+
+          <div class="metric-card" id="metric-slop">
+            <div class="metric-header">
+              <span class="metric-name" data-i18n="humanizeMetricSlop">De-Slop Score</span>
+              <span class="metric-score" id="score-slop">--</span>
+            </div>
+            <div class="metric-bar-track">
+              <div class="metric-bar-fill" id="bar-slop"></div>
+            </div>
+            <div class="metric-desc" data-i18n="humanizeMetricSlopDesc">AI slop points detected (lower is better)</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Writing Tips -->
+      <div class="tips-section" id="tipsSection">
+        <h2 class="section-title" data-i18n="humanizeTipsTitle">WRITING TIPS</h2>
+        <div class="tips-list" id="tipsList"></div>
+      </div>
+
+    </div>
+
+    <footer>
+      <button id="backBtn" class="btn-link" data-i18n="humanizeBackToPopup">Back to Popup</button>
+      <p class="version">v3.0.0 | Kief Studio | HxHippy</p>
+    </footer>
+  </div>
+
+  <script src="patterns/registry.js"></script>
+  <script src="patterns/en.js"></script>
+  <script src="languages.js"></script>
+  <script src="i18n-helper.js"></script>
+  <script src="scoring-engine.js"></script>
+  <script src="humanize.js"></script>
+</body>
+</html>
