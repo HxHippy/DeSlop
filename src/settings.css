@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: 'Courier New', 'Courier', monospace;
+  font-family: 'Courier New', 'Courier', monospace, 'Noto Sans CJK SC', 'Microsoft YaHei', 'Meiryo', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
   background: #1a1a1a;
   color: #e0e0e0;
   padding: 20px;
@@ -48,6 +48,7 @@ h1 {
   gap: 8px;
   margin-bottom: 24px;
   border-bottom: 2px solid #444;
+  flex-wrap: wrap;
 }
 
 .tab {
@@ -57,11 +58,14 @@ h1 {
   border-bottom: none;
   padding: 12px 24px;
   font-family: 'Courier New', monospace;
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.2s;
   border-radius: 4px 4px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 0;
 }
 
 .tab:hover {
@@ -74,6 +78,21 @@ h1 {
   color: #FF6B6B;
   border-color: #FF6B6B;
   border-bottom-color: #2b2b2b;
+}
+
+/* Tab badge */
+.tab-badge {
+  display: inline-block;
+  background: #FF6B6B;
+  color: #fff;
+  font-size: 11px;
+  font-family: 'Courier New', monospace;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 8px;
+  line-height: 1.4;
+  font-weight: normal;
+  letter-spacing: 0;
 }
 
 /* Panels */
@@ -103,9 +122,10 @@ h1 {
 }
 
 .panel-header p {
-  font-size: 12px;
-  color: #888;
+  font-size: 13px;
+  color: #aaa;
   letter-spacing: 1px;
+  line-height: 1.5;
 }
 
 /* Pattern List */
@@ -123,12 +143,13 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px;
+  padding: 12px 14px;
   margin-bottom: 8px;
   background: #0f0f0f;
   border: 1px solid #444;
   border-radius: 3px;
   font-size: 13px;
+  line-height: 1.5;
 }
 
 .pattern-item:last-child {
@@ -145,16 +166,17 @@ h1 {
 .pattern-weight {
   color: #FF6B6B;
   margin: 0 16px;
-  font-size: 11px;
+  font-size: 12px;
+  white-space: nowrap;
 }
 
 .pattern-delete {
   background: transparent;
   color: #888;
   border: 1px solid #555;
-  padding: 4px 12px;
+  padding: 6px 14px;
   font-family: 'Courier New', monospace;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 1px;
   cursor: pointer;
   border-radius: 2px;
@@ -179,10 +201,13 @@ h1 {
 .pattern-add {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .pattern-add input[type="text"] {
   flex: 1;
+  min-width: 200px;
   background: #1a1a1a;
   color: #e0e0e0;
   border: 1px solid #555;
@@ -304,8 +329,8 @@ footer {
 }
 
 .version {
-  font-size: 10px;
-  color: #666;
+  font-size: 11px;
+  color: #888;
   letter-spacing: 1px;
 }
 
@@ -325,4 +350,574 @@ footer {
 
 .pattern-list::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+/* ============================================================
+   OVERVIEW TAB - Dashboard
+   ============================================================ */
+
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.stat-card {
+  background: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 4px;
+  padding: 24px 16px;
+  text-align: center;
+  position: relative;
+}
+
+.stat-card-interactive {
+  cursor: pointer;
+  border: 1px dashed #555;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.stat-card-interactive:hover {
+  border-color: #FF6B6B;
+  border-style: solid;
+  background: #222;
+  box-shadow: 0 0 0 1px rgba(255, 107, 107, 0.15);
+}
+
+.stat-card-interactive:hover .stat-hint {
+  color: #FF6B6B;
+}
+
+.stat-number {
+  font-size: 36px;
+  font-family: 'Courier New', monospace;
+  color: #FF6B6B;
+  font-weight: normal;
+  letter-spacing: 2px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+/* Styled select that looks like the stat-number */
+.stat-select {
+  font-size: 32px;
+  font-family: 'Courier New', monospace;
+  color: #FF6B6B;
+  font-weight: normal;
+  letter-spacing: 2px;
+  line-height: 1;
+  margin-bottom: 8px;
+  background: transparent;
+  border: none;
+  text-align: center;
+  text-align-last: center;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 4px 24px 4px 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23FF6B6B' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  outline: none;
+}
+
+.stat-select option {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  font-size: 14px;
+  font-family: 'Courier New', monospace;
+  padding: 8px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #aaa;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.stat-hint {
+  font-size: 10px;
+  color: #555;
+  letter-spacing: 1px;
+  margin-top: 6px;
+  transition: color 0.2s;
+}
+
+/* Tier overview cards */
+.tier-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.tier-card {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-left: 4px solid #555;
+  border-radius: 4px;
+  padding: 20px 24px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.15s;
+}
+
+.tier-card:hover {
+  background: #222;
+}
+
+.tier1-card {
+  border-left-color: #FF6B6B;
+}
+
+.tier2-card {
+  border-left-color: #ff9800;
+}
+
+.tier3-card {
+  border-left-color: #ffc107;
+}
+
+.tier-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.tier-card-header h3 {
+  font-size: 15px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  color: #e0e0e0;
+}
+
+.tier-card-count {
+  font-size: 22px;
+  font-family: 'Courier New', monospace;
+  color: #999;
+  letter-spacing: 1px;
+}
+
+.tier1-card .tier-card-count { color: #FF6B6B; }
+.tier2-card .tier-card-count { color: #ff9800; }
+.tier3-card .tier-card-count { color: #ffc107; }
+
+.tier-card-desc {
+  font-size: 12px;
+  color: #999;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.tier-progress {
+  height: 4px;
+  background: #2b2b2b;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.tier-progress-bar {
+  height: 100%;
+  width: 0%;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+.tier1-bar { background: #FF6B6B; }
+.tier2-bar { background: #ff9800; }
+.tier3-bar { background: #ffc107; }
+
+/* Scoring explainer */
+.scoring-explainer {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 24px;
+  margin-bottom: 8px;
+}
+
+.scoring-explainer h3 {
+  font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 2px;
+  color: #bbb;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.scoring-steps {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.scoring-step {
+  flex: 1;
+  text-align: center;
+  padding: 0 8px;
+}
+
+.scoring-connector {
+  width: 32px;
+  height: 2px;
+  background: #333;
+  margin-top: 18px;
+  flex-shrink: 0;
+}
+
+.step-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #0f0f0f;
+  border: 2px solid #444;
+  color: #FF6B6B;
+  font-size: 16px;
+  font-family: 'Courier New', monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 8px;
+}
+
+.step-label {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #bbb;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.step-desc {
+  font-size: 12px;
+  color: #999;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   PATTERN TOOLBAR - Search
+   ============================================================ */
+
+.pattern-toolbar {
+  margin-bottom: 12px;
+}
+
+.pattern-search {
+  width: 100%;
+  background: #1a1a1a;
+  color: #e0e0e0;
+  border: 1px solid #444;
+  border-radius: 3px;
+  padding: 10px 14px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  transition: border-color 0.2s;
+}
+
+.pattern-search:focus {
+  outline: none;
+  border-color: #FF6B6B;
+}
+
+.pattern-search::placeholder {
+  color: #555;
+}
+
+/* ============================================================
+   INPUT MODE TOGGLE
+   ============================================================ */
+
+.input-mode-toggle {
+  display: flex;
+  gap: 0;
+  border: 1px solid #555;
+  border-radius: 3px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.mode-btn {
+  background: #1a1a1a;
+  color: #888;
+  border: none;
+  padding: 10px 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.mode-btn + .mode-btn {
+  border-left: 1px solid #555;
+}
+
+.mode-btn:hover {
+  background: #222;
+  color: #aaa;
+}
+
+.mode-btn.active {
+  background: #333;
+  color: #4CAF50;
+}
+
+/* ============================================================
+   PATTERN ITEM - Toggle switch
+   ============================================================ */
+
+.pattern-toggle {
+  position: relative;
+  display: inline-block;
+  width: 32px;
+  height: 16px;
+  margin: 0 12px;
+  flex-shrink: 0;
+}
+
+.pattern-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.toggle-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #333;
+  border: 1px solid #555;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.toggle-track::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  left: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #666;
+  border-radius: 50%;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.pattern-toggle input:checked + .toggle-track {
+  background: #1a3a1a;
+  border-color: #4CAF50;
+}
+
+.pattern-toggle input:checked + .toggle-track::before {
+  transform: translateX(16px) translateY(-50%);
+  background: #4CAF50;
+}
+
+/* ============================================================
+   HELP TAB
+   ============================================================ */
+
+.help-section {
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #333;
+}
+
+.help-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.help-section h3 {
+  font-size: 15px;
+  font-weight: normal;
+  letter-spacing: 2px;
+  color: #FF6B6B;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.help-section p {
+  font-size: 13px;
+  color: #bbb;
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+
+.help-section p:last-child {
+  margin-bottom: 0;
+}
+
+.help-section code {
+  font-family: 'Courier New', monospace;
+  background: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 2px;
+  padding: 2px 6px;
+  color: #4CAF50;
+  font-size: 12px;
+}
+
+.help-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.help-example {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 3px;
+  padding: 12px 16px;
+}
+
+.help-example code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.help-example span {
+  font-size: 12px;
+  color: #aaa;
+  line-height: 1.6;
+}
+
+/* Regex reference grid */
+.regex-reference {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.regex-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 3px;
+  padding: 10px 14px;
+}
+
+.regex-item code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  min-width: 48px;
+  font-size: 14px;
+}
+
+.regex-item span {
+  font-size: 12px;
+  color: #aaa;
+}
+
+/* Help scoring */
+.help-scoring {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.help-tier {
+  font-size: 12px;
+  padding: 10px 16px;
+  border-radius: 3px;
+  background: #1a1a1a;
+  border-left: 4px solid #444;
+  letter-spacing: 0.5px;
+}
+
+.help-tier.tier1-color { border-left-color: #FF6B6B; color: #e0e0e0; }
+.help-tier.tier2-color { border-left-color: #ff9800; color: #e0e0e0; }
+.help-tier.tier3-color { border-left-color: #ffc107; color: #e0e0e0; }
+.help-tier.custom-color { border-left-color: #4CAF50; color: #e0e0e0; }
+
+/* AI Prompt Block */
+.prompt-block {
+  background: #0f0f0f;
+  border: 1px solid #444;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 16px 0;
+}
+
+.prompt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background: #1a1a1a;
+  border-bottom: 1px solid #333;
+}
+
+.prompt-label {
+  font-size: 11px;
+  color: #888;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.btn-copy {
+  background: #1a1a1a;
+  color: #4CAF50;
+  border: 1px solid #4CAF50;
+  border-radius: 3px;
+  padding: 4px 14px;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-copy:hover {
+  background: #4CAF50;
+  color: #000;
+}
+
+.btn-copy.copied {
+  background: #4CAF50;
+  color: #000;
+  border-color: #4CAF50;
+}
+
+.prompt-text {
+  padding: 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #ccc;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 320px;
+  overflow-y: auto;
+  margin: 0;
+  user-select: all;
+}
+
+/* pattern-item hidden by search */
+.pattern-item.search-hidden {
+  display: none;
 }

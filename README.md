@@ -4,26 +4,28 @@
 
 ![De-Slop Banner](assets/Deslop.jpeg)
 
-A Chrome extension that automatically detects and removes AI-generated "slop" content from web pages.
+A Chrome extension that automatically detects and removes AI-generated "slop" content from web pages. Runs entirely locally with no external API calls or data collection.
 
 ## Features
 
 ### Core Detection
-- **Three-tier detection system** with weighted pattern matching (180+ patterns)
+- **Three-tier detection system** with weighted pattern matching (600+ patterns)
+- **Multi-language support** - 11 languages: English, Spanish, French, German, Italian, Portuguese, Swedish, Polish, Japanese, Korean, Chinese
 - **Real-time scanning** of dynamically loaded content
 - **Badge counter** showing blocked slop on current page
 - **Configurable sensitivity** (1-5 slider)
 - **Custom pattern editor** - add your own slop patterns with custom weights
+- **Detection-only mode** - highlight slop without removing it
 
-### Tools
-- **Interactive Slop Checker** - paste text and see what gets flagged
-  - Markdown rendering support
-  - Real-time highlighting
-  - Match explanations
-- **Slop Machine** - gamified learning tool
-  - Slot machine interface for discovering better word choices
-  - Full searchable index of 90+ slop terms and alternatives
-  - Track your progress
+### Analysis Tools
+- **Slop Checker** - paste text and see what gets flagged with real-time highlighting and suggestions
+- **Humanize Score** - 8-metric writing quality analysis with authenticity scoring
+- **Batch Checker** - score multiple text blocks at once with CSV export
+- **Text Rewriter** - inline fix suggestions for detected slop phrases
+- **Text Comparator** - side-by-side draft comparison with score deltas
+- **URL Analyzer** - fetch and score any webpage for slop content
+- **Slop Machine** - gamified slot machine for learning better word choices
+- **Pattern Tester** - validate detection patterns across all 11 languages
 
 ### LinkedIn Fixer
 When on LinkedIn.com, additional features activate:
@@ -32,9 +34,12 @@ When on LinkedIn.com, additional features activate:
 - **Darker mode** - true black LinkedIn theme
 
 ### Advanced Features
-- **Emoji slop detection** - flag emoji spam and engagement bait
+- **Emoji slop detection** - flag emoji spam and engagement bait (166 patterns)
 - **Stop-word filtering** - detect "I'm excited to announce" style posts
 - **Em dash detector** - AI loves em dashes
+- **Political content filter** - optional political content detection
+- **YouTube filtering** - video titles, descriptions, Shorts, and clickbait detection
+- **Improvement suggestions** - better alternatives for sloppy phrases
 - **Export/import** custom pattern sets
 
 ![Main Sidebar Interface](assets/Sidebar.png)
@@ -142,29 +147,43 @@ When on LinkedIn, additional toggles appear:
 - **LinkedIn**: `.feed-shared-update-v2` (individual posts)
 - **Twitter/X**: `[data-testid="tweet"]`
 - **Medium**: `article`, `.postArticle`
+- **YouTube**: Videos, Shorts, comments, clickbait detection
 - **All sites**: Generic article/post/card selectors
 
 ## Repository Structure
 
 ```
 DeSlop/
-├── src/                  # Extension source code
-│   ├── manifest.json     # Extension configuration
-│   ├── background.js     # Service worker for badge updates
-│   ├── content.js        # Main detection logic (180+ patterns)
-│   ├── content.css       # Styles for hiding detected slop
-│   ├── popup.*           # Main sidebar interface
-│   ├── checker.*         # Interactive slop checker
-│   ├── slop-machine.*    # Learning slot machine
-│   ├── settings.*        # Pattern customization UI
-│   ├── linkedin-fixer.js # Video blocking & darker mode
-│   ├── rules.json        # Ad blocking rules
-│   └── icons/            # Extension icons
-├── assets/               # Screenshots and marketing images
-├── De-Slop.png          # Logo
-├── privacy.html         # Privacy policy
-├── LICENSE              # GPL-3.0 license
-└── README.md            # This file
+├── src/
+│   ├── manifest.json        # Extension configuration (Manifest V3)
+│   ├── background.js        # Service worker
+│   ├── content.js           # Main detection engine
+│   ├── content.css          # Styles for hiding/highlighting slop
+│   ├── scoring-engine.js    # Shared scoring module
+│   ├── i18n-helper.js       # Internationalization helper
+│   ├── languages.js         # Language definitions
+│   ├── patterns/            # Externalized pattern system
+│   │   ├── registry.js      # Pattern registry & language resolution
+│   │   ├── en.js            # English patterns (600+)
+│   │   ├── es.js, fr.js ... # 10 additional languages
+│   ├── _locales/            # Chrome i18n message files (11 locales)
+│   ├── popup.*              # Main sidebar interface
+│   ├── checker.*            # Interactive slop checker
+│   ├── humanize.*           # Writing quality analyzer
+│   ├── batch.*              # Batch text analysis
+│   ├── rewriter.*           # Inline fix suggestions
+│   ├── compare.*            # Side-by-side comparison
+│   ├── url-analyzer.*       # URL content scoring
+│   ├── slop-machine.*       # Gamified learning tool
+│   ├── test.*               # Multi-language pattern tester
+│   ├── settings.*           # Pattern customization UI
+│   ├── linkedin-fixer.js    # LinkedIn-specific enhancements
+│   ├── rules.json           # Ad blocking rules
+│   └── icons/               # Extension icons
+├── assets/                  # Screenshots and marketing images
+├── privacy.html             # Privacy policy
+├── LICENSE                  # GPL-3.0 license
+└── README.md
 ```
 
 ## Privacy
@@ -180,6 +199,8 @@ De-Slop:
 
 - `storage` - Save your settings
 - `activeTab` - Access current page content
+- `scripting` - Dynamic language pattern injection
+- `sidePanel` - Sidebar interface
 - `declarativeNetRequest` - Block LinkedIn ads (optional)
 - `<all_urls>` - Scan any page for slop
 
@@ -192,38 +213,28 @@ De-Slop:
 
 ## Version History
 
-**v2.4.3** - Production release
-- Fixed pattern customization (Manifest V3 compliance)
-- All features stable and tested
+**v3.0.0** - Multi-language & Tools Suite
+- 11-language pattern system (en, es, fr, de, it, pt, sv, pl, ja, ko, zh)
+- Full i18n with localized UI
+- 6 new analysis tools (humanize, batch, rewriter, compare, url-analyzer, pattern tester)
+- Externalized pattern architecture with shared scoring engine
+- Expanded settings with pattern management overhaul
 
-**v2.4.2** - Slop Machine
-- Added gamified learning tool (slot machine)
-- 90+ slop/better pairs with searchable index
+**v2.7.2** - Political Content Filter & YouTube
+- Political content filter
+- YouTube video/Shorts/comment filtering
+- Clickbait pattern detection
+- Improvement suggestions
 
-**v2.4.1** - Markdown improvements
-- Fixed markdown rendering placeholders
+**v2.4.4** - Detection Only Mode
+- Highlight-only mode (non-destructive detection)
+- Emoji detection expanded to 166 patterns
+- Simplified UI with sensitivity-driven tier control
 
-**v2.4.0** - Markdown support
-- Added markdown toggle to checker
-
-**v2.3.3** - UI improvements
-- Fixed checker layout and spacing
-
-**v2.3.1** - Stop words & em dashes
-- Added marketing engagement openers
-- Em dash instant detection
-
-**v2.2.0** - Interactive checker
-- Added slop checker tool
-- Real-time text analysis
-
-**v2.1.0** - Emoji detection
-- Added emoji slop toggle
-
-**v2.0.0** - LinkedIn Fixer
-- Video blocking
-- Ad blocking
-- Darker mode
+**v2.0.0** - LinkedIn Fixer & Dark Theme
+- Complete UI redesign with dark theme
+- Pattern customization system with import/export
+- LinkedIn video blocking, ad blocking, darker mode
 
 **v1.0.0** - Initial release
 - Three-tier detection system

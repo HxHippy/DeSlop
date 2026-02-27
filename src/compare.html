@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De-Slop - Text Comparator</title>
+  <link rel="stylesheet" href="compare.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>DE-SLOP</h1>
+      <p class="tagline" data-i18n="compareTagline">[ TEXT COMPARATOR ]</p>
+      <p class="subtitle" data-i18n="compareSubtitle">Compare two versions of your text</p>
+    </header>
+
+    <div class="compare-section">
+      <div class="textarea-grid">
+        <div class="textarea-panel">
+          <div class="panel-header">
+            <label for="originalText" data-i18n="compareOriginalLabel">Original</label>
+            <span class="score-badge" id="originalBadge"></span>
+          </div>
+          <textarea
+            id="originalText"
+            data-i18n-placeholder="compareOriginalPlaceholder"
+            placeholder="Paste your original text here..."
+            rows="14"
+          ></textarea>
+        </div>
+
+        <div class="swap-column">
+          <button id="swapBtn" class="btn-swap" data-i18n="compareSwap">[ SWAP ]</button>
+        </div>
+
+        <div class="textarea-panel">
+          <div class="panel-header">
+            <label for="revisedText" data-i18n="compareRevisedLabel">Revised</label>
+            <span class="score-badge" id="revisedBadge"></span>
+          </div>
+          <textarea
+            id="revisedText"
+            data-i18n-placeholder="compareRevisedPlaceholder"
+            placeholder="Paste your revised text here..."
+            rows="14"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="compare-controls">
+        <button id="compareBtn" class="btn btn-primary">[ <span data-i18n="compareRun">COMPARE</span> ]</button>
+      </div>
+
+      <div id="results" class="results-section" style="display: none;">
+
+        <!-- Score Comparison Cards -->
+        <div class="score-comparison">
+          <div class="score-card" id="originalScoreCard">
+            <div class="score-card-label" data-i18n="compareOriginalScore">ORIGINAL SCORE</div>
+            <div class="score-card-value" id="originalScoreValue">0</div>
+            <div class="score-card-status" id="originalScoreStatus"></div>
+          </div>
+
+          <div class="delta-card" id="deltaCard">
+            <div class="delta-arrow" id="deltaArrow">&mdash;</div>
+            <div class="delta-label" id="deltaLabel" data-i18n="compareNoDelta">No change</div>
+          </div>
+
+          <div class="score-card" id="revisedScoreCard">
+            <div class="score-card-label" data-i18n="compareRevisedScore">REVISED SCORE</div>
+            <div class="score-card-value" id="revisedScoreValue">0</div>
+            <div class="score-card-status" id="revisedScoreStatus"></div>
+          </div>
+        </div>
+
+        <!-- Tier Breakdown Table -->
+        <div class="tier-breakdown">
+          <h3 data-i18n="compareTierBreakdown">Tier Breakdown</h3>
+          <table class="breakdown-table" id="breakdownTable">
+            <thead>
+              <tr>
+                <th data-i18n="compareTierCol">Tier</th>
+                <th data-i18n="compareOriginalCol">Original</th>
+                <th data-i18n="compareRevisedCol">Revised</th>
+                <th data-i18n="compareChangeCol">Change</th>
+              </tr>
+            </thead>
+            <tbody id="breakdownBody">
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Match Diff Section -->
+        <div class="match-diff">
+          <h3 data-i18n="compareMatchDiff">Match Diff</h3>
+
+          <div class="diff-legend">
+            <span class="legend-item">
+              <span class="legend-dot match-fixed-dot"></span>
+              <span data-i18n="compareFixed">Fixed</span>
+            </span>
+            <span class="legend-item">
+              <span class="legend-dot match-remaining-dot"></span>
+              <span data-i18n="compareRemaining">Remaining</span>
+            </span>
+            <span class="legend-item">
+              <span class="legend-dot match-new-dot"></span>
+              <span data-i18n="compareNew">New</span>
+            </span>
+          </div>
+
+          <div class="diff-columns">
+            <div class="diff-column">
+              <div class="diff-col-header" data-i18n="compareFixedHeader">Fixed Issues</div>
+              <div class="diff-col-content" id="fixedList">
+                <span class="diff-empty" data-i18n="compareNoneFixed">None</span>
+              </div>
+            </div>
+
+            <div class="diff-column">
+              <div class="diff-col-header" data-i18n="compareRemainingHeader">Remaining Issues</div>
+              <div class="diff-col-content" id="remainingList">
+                <span class="diff-empty" data-i18n="compareNoneRemaining">None</span>
+              </div>
+            </div>
+
+            <div class="diff-column">
+              <div class="diff-col-header" data-i18n="compareNewHeader">New Issues</div>
+              <div class="diff-col-content" id="newList">
+                <span class="diff-empty" data-i18n="compareNoneNew">None</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <footer>
+      <button id="backBtn" class="btn btn-link" data-i18n="compareBackToPopup">Back to Popup</button>
+      <p class="version">v3.0.0 | Kief Studio | HxHippy</p>
+    </footer>
+  </div>
+
+  <script src="patterns/registry.js"></script>
+  <script src="patterns/en.js"></script>
+  <script src="languages.js"></script>
+  <script src="i18n-helper.js"></script>
+  <script src="scoring-engine.js"></script>
+  <script src="compare.js"></script>
+</body>
+</html>

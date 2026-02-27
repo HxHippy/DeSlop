@@ -1,0 +1,1502 @@
+{
+  "extensionName": {
+    "message": "De-Slop",
+    "description": "Extension name"
+  },
+  "extensionDescription": {
+    "message": "自动检测并移除网页中AI生成的低质量内容（AI水文）",
+    "description": "Extension description"
+  },
+  "tagline": {
+    "message": "水文检测系统",
+    "description": "Main tagline shown in popup header"
+  },
+  "slopBlocked": {
+    "message": "已拦截水文",
+    "description": "Label for blocked slop counter"
+  },
+  "extensionEnabled": {
+    "message": "启用扩展",
+    "description": "Toggle label for enabling/disabling extension"
+  },
+  "detectionOnlyMode": {
+    "message": "仅检测模式",
+    "description": "Toggle label for detection-only mode"
+  },
+  "showImprovementSuggestions": {
+    "message": "显示改进建议",
+    "description": "Toggle label for showing suggestions"
+  },
+  "detectionSensitivity": {
+    "message": "检测灵敏度",
+    "description": "Label for sensitivity slider"
+  },
+  "tierInfoLevel1": {
+    "message": "<strong>仅等级1：</strong> AI特有短语（非常保守）",
+    "description": "Sensitivity level 1 description"
+  },
+  "tierInfoLevel2": {
+    "message": "<strong>仅等级1：</strong> AI特有短语（保守）",
+    "description": "Sensitivity level 2 description"
+  },
+  "tierInfoLevel3": {
+    "message": "<strong>等级1 + 2：</strong> AI + 企业术语（平衡）",
+    "description": "Sensitivity level 3 description"
+  },
+  "tierInfoLevel4": {
+    "message": "<strong>等级1 + 2 + 3：</strong> AI + 企业 + 营销（激进）",
+    "description": "Sensitivity level 4 description"
+  },
+  "tierInfoLevel5": {
+    "message": "<strong>全部等级：</strong> 最大检测（非常激进）",
+    "description": "Sensitivity level 5 description"
+  },
+  "additionalPatterns": {
+    "message": "附加模式",
+    "description": "Header for additional patterns section"
+  },
+  "additionalPatternsDesc": {
+    "message": "在等级检测之上的可选模式检测",
+    "description": "Description for additional patterns section"
+  },
+  "emojiSlop": {
+    "message": "表情符号水文",
+    "description": "Toggle label for emoji slop detection"
+  },
+  "stopWords": {
+    "message": "套话（“我很激动...”）",
+    "description": "Toggle label for stop word detection"
+  },
+  "emDashOveruse": {
+    "message": "破折号滥用（—）",
+    "description": "Toggle label for em dash detection"
+  },
+  "politicalContent": {
+    "message": "政治内容（所有立场）",
+    "description": "Toggle label for political content filter"
+  },
+  "detectionLanguage": {
+    "message": "检测语言",
+    "description": "Label for language selector"
+  },
+  "autoDetect": {
+    "message": "自动检测",
+    "description": "Auto-detect option in language selector"
+  },
+  "linkedinFixer": {
+    "message": "LinkedIn 修复工具",
+    "description": "Header for LinkedIn fixer section"
+  },
+  "blockAutoPlayVideos": {
+    "message": "阻止视频自动播放",
+    "description": "Toggle label for blocking LinkedIn videos"
+  },
+  "blockAdTracking": {
+    "message": "阻止广告追踪",
+    "description": "Toggle label for blocking LinkedIn ad tracking"
+  },
+  "darkerMode": {
+    "message": "更暗模式",
+    "description": "Toggle label for LinkedIn darker mode"
+  },
+  "domainWhitelist": {
+    "message": "域名白名单",
+    "description": "Header for whitelist section"
+  },
+  "whitelistDesc": {
+    "message": "将特定域名、页面或路径排除在水文检测之外",
+    "description": "Description for whitelist section"
+  },
+  "whitelistPlaceholder": {
+    "message": "example.com, subdomain.site.com, site.com/path",
+    "description": "Placeholder for whitelist input"
+  },
+  "whitelistAdd": {
+    "message": "添加",
+    "description": "Add button for whitelist"
+  },
+  "whitelistExamples": {
+    "message": "示例：",
+    "description": "Label for whitelist examples"
+  },
+  "whitelistExampleDomain": {
+    "message": "整个域名",
+    "description": "Whitelist example description for domain"
+  },
+  "whitelistExampleSubdomain": {
+    "message": "特定子域名",
+    "description": "Whitelist example description for subdomain"
+  },
+  "whitelistExamplePath": {
+    "message": "特定路径",
+    "description": "Whitelist example description for path"
+  },
+  "whitelistExamplePage": {
+    "message": "特定页面",
+    "description": "Whitelist example description for page"
+  },
+  "whitelistEmpty": {
+    "message": "白名单中没有域名",
+    "description": "Shown when whitelist is empty"
+  },
+  "rescanPage": {
+    "message": "重新扫描页面",
+    "description": "Button to rescan the current page"
+  },
+  "resetStats": {
+    "message": "重置统计",
+    "description": "Button to reset slop counter"
+  },
+  "isMyPostSlop": {
+    "message": "我的帖子是水文吗？",
+    "description": "Button to open the slop checker"
+  },
+  "slopMachine": {
+    "message": "水文老虎机",
+    "description": "Button to open the slop machine"
+  },
+  "customizePatterns": {
+    "message": "自定义模式",
+    "description": "Button to open pattern settings"
+  },
+  "checkerTagline": {
+    "message": "水文检测器",
+    "description": "Checker page tagline"
+  },
+  "checkerSubtitle": {
+    "message": "检查你的帖子是否会被标记为水文",
+    "description": "Checker page subtitle"
+  },
+  "checkerEditLabel": {
+    "message": "编辑你的内容：",
+    "description": "Label for checker text input"
+  },
+  "checkerClear": {
+    "message": "清除",
+    "description": "Clear button in checker"
+  },
+  "checkerPlaceholder": {
+    "message": "将你的LinkedIn帖子、文章或任何文本粘贴到这里，检查是否会被检测为水文...",
+    "description": "Placeholder for checker textarea"
+  },
+  "checkerLiveAnalysis": {
+    "message": "实时分析已启用",
+    "description": "Live analysis indicator text"
+  },
+  "checkerHighlightedPreview": {
+    "message": "高亮预览：",
+    "description": "Label for highlighted preview section"
+  },
+  "checkerRenderMarkdown": {
+    "message": "渲染Markdown",
+    "description": "Toggle button for markdown rendering"
+  },
+  "checkerPreviewPlaceholder": {
+    "message": "水文短语将在这里高亮显示...",
+    "description": "Placeholder text in preview area"
+  },
+  "checkerSlopScore": {
+    "message": "水文评分",
+    "description": "Label for slop score display"
+  },
+  "checkerScoreBreakdown": {
+    "message": "评分明细",
+    "description": "Header for score breakdown section"
+  },
+  "checkerDetectedPatterns": {
+    "message": "检测到的模式",
+    "description": "Header for detected patterns section"
+  },
+  "checkerSuggestions": {
+    "message": "改进建议",
+    "description": "Header for suggestions section"
+  },
+  "checkerBackToPopup": {
+    "message": "返回弹窗",
+    "description": "Back button text in checker"
+  },
+  "checkerSlopDetected": {
+    "message": "检测到水文！",
+    "description": "Tooltip header when slop is found"
+  },
+  "checkerSuggestionLabel": {
+    "message": "建议：",
+    "description": "Label before suggestion text in tooltip"
+  },
+  "checkerClean": {
+    "message": "干净 - 未检测到水文",
+    "description": "Status when score is 0"
+  },
+  "checkerBorderline": {
+    "message": "擦边 - 勉强通过",
+    "description": "Status when score is below threshold"
+  },
+  "checkerSlopBlocked": {
+    "message": "检测到水文 - 将被拦截",
+    "description": "Status when score exceeds threshold"
+  },
+  "checkerBlocked": {
+    "message": "已拦截",
+    "description": "Threshold status: blocked"
+  },
+  "checkerPass": {
+    "message": "通过",
+    "description": "Threshold status: pass"
+  },
+  "checkerTier1Label": {
+    "message": "等级1（AI水文）- 每个3pts：",
+    "description": "Breakdown label for tier 1"
+  },
+  "checkerTier2Label": {
+    "message": "等级2（企业术语）- 每个2pts：",
+    "description": "Breakdown label for tier 2"
+  },
+  "checkerTier3Label": {
+    "message": "等级3（营销）- 每个1pt：",
+    "description": "Breakdown label for tier 3"
+  },
+  "checkerEmojiLabel": {
+    "message": "表情符号水文 - 每个5pts：",
+    "description": "Breakdown label for emoji"
+  },
+  "checkerInactive": {
+    "message": "（未激活）",
+    "description": "Shown when a tier is inactive at current sensitivity"
+  },
+  "checkerDisabled": {
+    "message": "（已禁用）",
+    "description": "Shown when emoji detection is disabled"
+  },
+  "checkerCleanSuggestion1": {
+    "message": "你的内容很干净！没有检测到水文模式。",
+    "description": "Suggestion when content is clean"
+  },
+  "checkerCleanSuggestion2": {
+    "message": "继续保持，写真实、具体的内容。",
+    "description": "Suggestion when content is clean"
+  },
+  "checkerBorderlineSuggestion1": {
+    "message": "你的内容处于边缘，但能通过过滤器。",
+    "description": "Suggestion for borderline content"
+  },
+  "checkerBorderlineSuggestion2": {
+    "message": "建议删除一些流行术语以确保安全。",
+    "description": "Suggestion for borderline content"
+  },
+  "checkerBorderlineSuggestion3": {
+    "message": "点击预览中高亮的短语查看具体建议。",
+    "description": "Suggestion for borderline content"
+  },
+  "checkerSlopSuggestion1": {
+    "message": "你的内容将被标记为水文并被拦截。",
+    "description": "Suggestion for slop content"
+  },
+  "checkerSlopSuggestion2": {
+    "message": "点击上方高亮的短语查看修改建议。",
+    "description": "Suggestion for slop content"
+  },
+  "checkerRemoveAIPhrases": {
+    "message": "移除AI特有短语：$1",
+    "description": "Suggestion to remove AI phrases"
+  },
+  "checkerCutBuzzwords": {
+    "message": "减少企业流行术语：$1",
+    "description": "Suggestion to cut buzzwords"
+  },
+  "checkerRemoveMarketing": {
+    "message": "移除营销垃圾用语：$1",
+    "description": "Suggestion to remove marketing"
+  },
+  "checkerRemoveEmoji": {
+    "message": "减少或移除表情符号的使用，尤其避免与流行术语搭配",
+    "description": "Suggestion to remove emojis"
+  },
+  "checkerTier1Suggestion": {
+    "message": "这是AI生成的水文用语。用具体、真实的表达来代替空泛的套话吧。",
+    "description": "Generic tier 1 suggestion"
+  },
+  "checkerTier2Suggestion": {
+    "message": "这是企业术语的黑话。用通俗语言描述你真正想表达的意思吧。",
+    "description": "Generic tier 2 suggestion"
+  },
+  "checkerTier3Suggestion": {
+    "message": "这是营销垃圾用语。去掉浮夸的表达，说事实就好。",
+    "description": "Generic tier 3 suggestion"
+  },
+  "checkerEmojiSuggestion": {
+    "message": "表情符号与流行术语的过度搭配使用是低质量内容的信号。请少用或不用表情符号。",
+    "description": "Generic emoji suggestion"
+  },
+  "checkerDefaultSuggestion": {
+    "message": "考虑把这个短语改写得更具体、更少套路化。",
+    "description": "Default suggestion"
+  },
+  "settingsTagline": {
+    "message": "模式自定义",
+    "description": "Settings page tagline"
+  },
+  "settingsTier1Tab": {
+    "message": "等级1：AI水文",
+    "description": "Tab label for tier 1 patterns"
+  },
+  "settingsTier2Tab": {
+    "message": "等级2：企业术语",
+    "description": "Tab label for tier 2 patterns"
+  },
+  "settingsTier3Tab": {
+    "message": "等级3：营销",
+    "description": "Tab label for tier 3 patterns"
+  },
+  "settingsCustomTab": {
+    "message": "自定义模式",
+    "description": "Tab label for custom patterns"
+  },
+  "settingsTier1Title": {
+    "message": "等级1：AI特征指标",
+    "description": "Tier 1 panel title"
+  },
+  "settingsTier1Desc": {
+    "message": "权重：每次匹配3分 | 始终激活",
+    "description": "Tier 1 panel description"
+  },
+  "settingsTier2Title": {
+    "message": "等级2：企业流行语",
+    "description": "Tier 2 panel title"
+  },
+  "settingsTier2Desc": {
+    "message": "权重：每次匹配2分 | 灵敏度3及以上时激活",
+    "description": "Tier 2 panel description"
+  },
+  "settingsTier3Title": {
+    "message": "等级3：营销垃圾",
+    "description": "Tier 3 panel title"
+  },
+  "settingsTier3Desc": {
+    "message": "权重：每次匹配1分 | 灵敏度4及以上时激活",
+    "description": "Tier 3 panel description"
+  },
+  "settingsCustomTitle": {
+    "message": "自定义模式",
+    "description": "Custom patterns panel title"
+  },
+  "settingsCustomDesc": {
+    "message": "你自己的模式和自定义权重",
+    "description": "Custom patterns panel description"
+  },
+  "settingsAddPattern": {
+    "message": "添加模式",
+    "description": "Button to add a pattern"
+  },
+  "settingsAddCustom": {
+    "message": "添加自定义",
+    "description": "Button to add a custom pattern"
+  },
+  "settingsDelete": {
+    "message": "删除",
+    "description": "Button to delete a pattern"
+  },
+  "settingsExport": {
+    "message": "导出模式",
+    "description": "Button to export patterns"
+  },
+  "settingsImport": {
+    "message": "导入模式",
+    "description": "Button to import patterns"
+  },
+  "settingsReset": {
+    "message": "恢复默认",
+    "description": "Button to reset patterns to defaults"
+  },
+  "settingsClose": {
+    "message": "关闭",
+    "description": "Button to close settings"
+  },
+  "settingsTier1Placeholder": {
+    "message": "输入正则表达式模式（例：/\\bdelve into\\b/gi）",
+    "description": "Placeholder for tier 1 pattern input"
+  },
+  "settingsTier2Placeholder": {
+    "message": "输入正则表达式模式（例：/\\bsynergy\\b/gi）",
+    "description": "Placeholder for tier 2 pattern input"
+  },
+  "settingsTier3Placeholder": {
+    "message": "输入正则表达式模式（例：/\\bfree\\b/gi）",
+    "description": "Placeholder for tier 3 pattern input"
+  },
+  "settingsCustomPlaceholder": {
+    "message": "输入正则表达式模式",
+    "description": "Placeholder for custom pattern input"
+  },
+  "settingsPatternSaved": {
+    "message": "模式保存成功！",
+    "description": "Status message after saving"
+  },
+  "settingsPatternAdded": {
+    "message": "已将模式添加到$1",
+    "description": "Status after adding a pattern"
+  },
+  "settingsPatternDeleted": {
+    "message": "模式已删除",
+    "description": "Status after deleting a pattern"
+  },
+  "settingsExported": {
+    "message": "模式已导出",
+    "description": "Status after exporting"
+  },
+  "settingsImported": {
+    "message": "模式导入成功",
+    "description": "Status after importing"
+  },
+  "settingsResetDone": {
+    "message": "已恢复默认",
+    "description": "Status after resetting"
+  },
+  "settingsNoPatterns": {
+    "message": "此等级中没有模式",
+    "description": "Shown when a tier has no patterns"
+  },
+  "settingsEnterPattern": {
+    "message": "请输入一个模式",
+    "description": "Error when no pattern entered"
+  },
+  "settingsInvalidFormat": {
+    "message": "模式必须是正则表达式格式：/模式/标志",
+    "description": "Error for invalid pattern format"
+  },
+  "settingsImportConfirm": {
+    "message": "这将替换所有当前模式。是否继续？",
+    "description": "Confirmation for import"
+  },
+  "settingsResetConfirm": {
+    "message": "这将把所有模式恢复为默认值。是否继续？",
+    "description": "Confirmation for reset"
+  },
+  "settingsImportError": {
+    "message": "导入模式时出错：$1",
+    "description": "Error message for import failure"
+  },
+  "settingsCustomPatternAdded": {
+    "message": "自定义模式已添加",
+    "description": "Status after adding custom pattern"
+  },
+  "settingsPoints": {
+    "message": "$1pts",
+    "description": "Points display for patterns"
+  },
+  "settings1Point": {
+    "message": "1分",
+    "description": "Weight option: 1 point"
+  },
+  "settings2Points": {
+    "message": "2分",
+    "description": "Weight option: 2 points"
+  },
+  "settings3Points": {
+    "message": "3分",
+    "description": "Weight option: 3 points"
+  },
+  "settings5Points": {
+    "message": "5分",
+    "description": "Weight option: 5 points"
+  },
+  "slopMachineTitle": {
+    "message": "水文老虎机",
+    "description": "Slop machine page title"
+  },
+  "slopMachineTagline": {
+    "message": "转一转，换个好词",
+    "description": "Slop machine tagline"
+  },
+  "slopMachineSubtitle": {
+    "message": "用真实的表达替换水文套话",
+    "description": "Slop machine subtitle"
+  },
+  "slopMachineSlop": {
+    "message": "水文",
+    "description": "Reel label: slop"
+  },
+  "slopMachineBetter": {
+    "message": "改进",
+    "description": "Reel label: better"
+  },
+  "slopMachineSpin": {
+    "message": "转动老虎机",
+    "description": "Spin button text"
+  },
+  "slopMachineSpinning": {
+    "message": "转动中...",
+    "description": "Spin button text while spinning"
+  },
+  "slopMachineSpinAgain": {
+    "message": "再转一次",
+    "description": "Spin button text after first spin"
+  },
+  "slopMachineSpins": {
+    "message": "转动次数：",
+    "description": "Label for spin count"
+  },
+  "slopMachineAlternatives": {
+    "message": "已学到的替代表达：",
+    "description": "Label for learned count"
+  },
+  "slopMachineFullIndex": {
+    "message": "水文完整索引",
+    "description": "Header for the full slop index"
+  },
+  "slopMachineIndexDesc": {
+    "message": "不想碰运气？完整列表在这里。",
+    "description": "Description for slop index"
+  },
+  "slopMachineSearch": {
+    "message": "搜索水文词汇...",
+    "description": "Placeholder for search input"
+  },
+  "slopMachineAll": {
+    "message": "全部",
+    "description": "Filter tab: all"
+  },
+  "slopMachineAISlop": {
+    "message": "AI水文",
+    "description": "Filter tab: AI slop"
+  },
+  "slopMachineCorporate": {
+    "message": "企业术语",
+    "description": "Filter tab: corporate"
+  },
+  "slopMachineMarketing": {
+    "message": "营销",
+    "description": "Filter tab: marketing"
+  },
+  "slopMachineStopWords": {
+    "message": "套话",
+    "description": "Filter tab: stop words"
+  },
+  "slopMachineBackToPopup": {
+    "message": "返回弹窗",
+    "description": "Back button text"
+  },
+  "slopMachineTier1Label": {
+    "message": "AI水文 - 3pts",
+    "description": "Tier label for AI slop"
+  },
+  "slopMachineTier2Label": {
+    "message": "企业术语 - 2pts",
+    "description": "Tier label for corporate"
+  },
+  "slopMachineTier3Label": {
+    "message": "营销 - 1pt",
+    "description": "Tier label for marketing"
+  },
+  "slopMachineStopWordsLabel": {
+    "message": "套话 - 3pts",
+    "description": "Tier label for stop words"
+  },
+  "sensitivityLabel": {
+    "message": "灵敏度 $1（$2pts）：",
+    "description": "Sensitivity threshold label"
+  },
+  "matchCount": {
+    "message": "$1个匹配",
+    "description": "Single match count"
+  },
+  "matchCountPlural": {
+    "message": "$1个匹配",
+    "description": "Plural match count"
+  },
+  "testPatterns": {
+    "message": "测试模式",
+    "description": "Button in popup to open the pattern test page"
+  },
+  "testPageTitle": {
+    "message": "模式测试器",
+    "description": "Title of the pattern test page"
+  },
+  "testPageTagline": {
+    "message": "多语言模式验证",
+    "description": "Tagline on the pattern test page"
+  },
+  "testAllLanguages": {
+    "message": "测试所有语言",
+    "description": "Button to run tests across all languages"
+  },
+  "testLanguage": {
+    "message": "测试",
+    "description": "Button to test a single language"
+  },
+  "testPassed": {
+    "message": "通过",
+    "description": "Test result: passed"
+  },
+  "testFailed": {
+    "message": "未通过",
+    "description": "Test result: failed"
+  },
+  "testResults": {
+    "message": "结果",
+    "description": "Label for test results section"
+  },
+  "testMatches": {
+    "message": "个匹配",
+    "description": "Label for match count in test results"
+  },
+  "testNoMatches": {
+    "message": "未找到匹配项",
+    "description": "Shown when no patterns matched in test"
+  },
+  "testSummaryPass": {
+    "message": "$1/11种语言通过",
+    "description": "Summary of how many languages passed the test"
+  },
+  "testPatternCount": {
+    "message": "$1个模式",
+    "description": "Count of patterns in a tier"
+  },
+  "settingsOverviewTab": {
+    "message": "概览",
+    "description": "Tab label for settings overview"
+  },
+  "settingsHelpTab": {
+    "message": "帮助",
+    "description": "Tab label for settings help"
+  },
+  "settingsTotalPatterns": {
+    "message": "模式总数",
+    "description": "Label for total pattern count in overview"
+  },
+  "settingsDetectionLang": {
+    "message": "检测语言",
+    "description": "Label for detection language in overview"
+  },
+  "settingsSensitivityLevel": {
+    "message": "灵敏度级别",
+    "description": "Label for sensitivity level in overview"
+  },
+  "settingsHowScoringWorks": {
+    "message": "评分机制说明",
+    "description": "Header for scoring explanation section"
+  },
+  "settingsScanStep": {
+    "message": "文本将与所有激活等级的模式进行匹配",
+    "description": "Step 1 of scoring explanation"
+  },
+  "settingsScoreStep": {
+    "message": "每次匹配加分：等级1 = 3pts，等级2 = 2pts，等级3 = 1pt",
+    "description": "Step 2 of scoring explanation"
+  },
+  "settingsThresholdStep": {
+    "message": "分数与灵敏度阈值进行比较（4-15分）",
+    "description": "Step 3 of scoring explanation"
+  },
+  "settingsFlagStep": {
+    "message": "超过阈值的内容将被标记或隐藏",
+    "description": "Step 4 of scoring explanation"
+  },
+  "settingsSearchPatterns": {
+    "message": "搜索模式...",
+    "description": "Placeholder for pattern search input in settings"
+  },
+  "settingsRegexMode": {
+    "message": "正则表达式",
+    "description": "Label for regex input mode toggle"
+  },
+  "settingsPlainTextMode": {
+    "message": "纯文本",
+    "description": "Label for plain text input mode toggle"
+  },
+  "settingsEnabled": {
+    "message": "已启用",
+    "description": "Status label: pattern is enabled"
+  },
+  "settingsDisabled": {
+    "message": "已禁用",
+    "description": "Status label: pattern is disabled"
+  },
+  "settingsHelpRegex": {
+    "message": "模式帮助",
+    "description": "Header for regex help section"
+  },
+  "settingsHelpRegexDesc": {
+    "message": "模式使用JavaScript正则表达式格式",
+    "description": "Description of regex pattern format"
+  },
+  "settingsHelpPlainText": {
+    "message": "在纯文本模式下，输入短语后会自动转换为正则表达式",
+    "description": "Description of plain text mode behavior"
+  },
+  "settingsOpenTestPage": {
+    "message": "打开测试页面",
+    "description": "Button to open the pattern test page from settings"
+  },
+  "batchChecker": {
+    "message": "BATCH CHECKER",
+    "description": "Button in popup to open the batch checker"
+  },
+  "compareTextComparator": {
+    "message": "TEXT COMPARATOR",
+    "description": "Button in popup to open the text comparator"
+  },
+  "compareTagline": {
+    "message": "[ TEXT COMPARATOR ]",
+    "description": "Comparator page tagline"
+  },
+  "compareSubtitle": {
+    "message": "Compare two versions of your text",
+    "description": "Comparator page subtitle"
+  },
+  "compareOriginalLabel": {
+    "message": "Original",
+    "description": "Label for the original text textarea"
+  },
+  "compareRevisedLabel": {
+    "message": "Revised",
+    "description": "Label for the revised text textarea"
+  },
+  "compareOriginalPlaceholder": {
+    "message": "Paste your original text here...",
+    "description": "Placeholder for original textarea"
+  },
+  "compareRevisedPlaceholder": {
+    "message": "Paste your revised text here...",
+    "description": "Placeholder for revised textarea"
+  },
+  "compareSwap": {
+    "message": "[ SWAP ]",
+    "description": "Button to swap original and revised texts"
+  },
+  "compareRun": {
+    "message": "COMPARE",
+    "description": "Button to run comparison"
+  },
+  "compareOriginalScore": {
+    "message": "ORIGINAL SCORE",
+    "description": "Label for original score card"
+  },
+  "compareRevisedScore": {
+    "message": "REVISED SCORE",
+    "description": "Label for revised score card"
+  },
+  "compareNoDelta": {
+    "message": "No change",
+    "description": "Delta label when scores are equal"
+  },
+  "compareImproved": {
+    "message": "improved",
+    "description": "Delta label suffix when revised score is lower"
+  },
+  "compareWorsened": {
+    "message": "worsened",
+    "description": "Delta label suffix when revised score is higher"
+  },
+  "compareTierBreakdown": {
+    "message": "Tier Breakdown",
+    "description": "Header for tier breakdown table"
+  },
+  "compareTierCol": {
+    "message": "Tier",
+    "description": "Table column header: tier name"
+  },
+  "compareOriginalCol": {
+    "message": "Original",
+    "description": "Table column header: original points"
+  },
+  "compareRevisedCol": {
+    "message": "Revised",
+    "description": "Table column header: revised points"
+  },
+  "compareChangeCol": {
+    "message": "Change",
+    "description": "Table column header: point change"
+  },
+  "compareTier1Label": {
+    "message": "Tier 1 - AI Slop (3pts)",
+    "description": "Tier 1 row label in breakdown table"
+  },
+  "compareTier2Label": {
+    "message": "Tier 2 - Corporate (2pts)",
+    "description": "Tier 2 row label in breakdown table"
+  },
+  "compareTier3Label": {
+    "message": "Tier 3 - Marketing (1pt)",
+    "description": "Tier 3 row label in breakdown table"
+  },
+  "compareEmojiLabel": {
+    "message": "Emoji Slop (5pts)",
+    "description": "Emoji row label in breakdown table"
+  },
+  "comparePtsLabel": {
+    "message": "pts",
+    "description": "Points unit abbreviation"
+  },
+  "compareNaLabel": {
+    "message": "n/a",
+    "description": "Shown for inactive tiers in breakdown"
+  },
+  "compareMatchDiff": {
+    "message": "Match Diff",
+    "description": "Header for match diff section"
+  },
+  "compareFixed": {
+    "message": "Fixed",
+    "description": "Legend label for fixed matches"
+  },
+  "compareRemaining": {
+    "message": "Remaining",
+    "description": "Legend label for remaining matches"
+  },
+  "compareNew": {
+    "message": "New",
+    "description": "Legend label for new matches"
+  },
+  "compareFixedHeader": {
+    "message": "Fixed Issues",
+    "description": "Column header for fixed issues"
+  },
+  "compareRemainingHeader": {
+    "message": "Remaining Issues",
+    "description": "Column header for remaining issues"
+  },
+  "compareNewHeader": {
+    "message": "New Issues",
+    "description": "Column header for new issues"
+  },
+  "compareNoneFixed": {
+    "message": "None",
+    "description": "Shown when there are no fixed issues"
+  },
+  "compareNoneRemaining": {
+    "message": "None",
+    "description": "Shown when there are no remaining issues"
+  },
+  "compareNoneNew": {
+    "message": "None",
+    "description": "Shown when there are no new issues"
+  },
+  "compareTierT1Short": {
+    "message": "AI Slop",
+    "description": "Short label for tier 1 on match pills"
+  },
+  "compareTierT2Short": {
+    "message": "Corporate",
+    "description": "Short label for tier 2 on match pills"
+  },
+  "compareTierT3Short": {
+    "message": "Marketing",
+    "description": "Short label for tier 3 on match pills"
+  },
+  "compareTierEmojiShort": {
+    "message": "Emoji",
+    "description": "Short label for emoji tier on match pills"
+  },
+  "compareBackToPopup": {
+    "message": "Back to Popup",
+    "description": "Back button on comparator page"
+  },
+  "batchTagline": {
+    "message": "[ BATCH CHECKER ]",
+    "description": "Tagline shown in batch checker header"
+  },
+  "batchSubtitle": {
+    "message": "Score multiple texts at once",
+    "description": "Subtitle shown in batch checker header"
+  },
+  "batchInputLabel": {
+    "message": "Paste your texts below:",
+    "description": "Label above the batch input textarea"
+  },
+  "batchClear": {
+    "message": "CLEAR",
+    "description": "Clear button label in batch checker"
+  },
+  "batchPlaceholder": {
+    "message": "Paste multiple texts here. Separate them with --- on its own line, or use numbered format (1. text one  2. text two). Each block is scored independently.",
+    "description": "Placeholder text for the batch input textarea"
+  },
+  "batchSeparatorHint": {
+    "message": "Separators: blank line with",
+    "description": "First part of the separator hint below the textarea"
+  },
+  "batchOrNumbered": {
+    "message": "or numbered list",
+    "description": "Second part of the separator hint below the textarea"
+  },
+  "batchAnalyze": {
+    "message": "ANALYZE BATCH",
+    "description": "Label on the main analyze button"
+  },
+  "batchPassed": {
+    "message": "Passed",
+    "description": "Label for passed count in summary bar"
+  },
+  "batchTotal": {
+    "message": "Total",
+    "description": "Label for total block count in summary bar"
+  },
+  "batchAvgScore": {
+    "message": "Avg Score",
+    "description": "Label for average score in summary bar"
+  },
+  "batchWorstBlock": {
+    "message": "Worst Block",
+    "description": "Label for worst-scoring block in summary bar"
+  },
+  "batchResults": {
+    "message": "RESULTS",
+    "description": "Heading above the results table"
+  },
+  "batchExportCSV": {
+    "message": "EXPORT CSV",
+    "description": "Label on the CSV export button"
+  },
+  "batchColNum": {
+    "message": "#",
+    "description": "Results table column header: block number"
+  },
+  "batchColPreview": {
+    "message": "Preview",
+    "description": "Results table column header: text preview"
+  },
+  "batchColScore": {
+    "message": "Score",
+    "description": "Results table column header: slop score"
+  },
+  "batchColStatus": {
+    "message": "Status",
+    "description": "Results table column header: pass/fail status"
+  },
+  "batchColIssues": {
+    "message": "Top Issues",
+    "description": "Results table column header: top matched patterns"
+  },
+  "batchNoIssues": {
+    "message": "None detected",
+    "description": "Shown in the issues column when no patterns matched"
+  },
+  "batchStatusPass": {
+    "message": "PASS",
+    "description": "Status badge label: block passes the filter"
+  },
+  "batchStatusBorderline": {
+    "message": "BORDERLINE",
+    "description": "Status badge label: block is close to the threshold"
+  },
+  "batchStatusFail": {
+    "message": "FAIL",
+    "description": "Status badge label: block would be blocked"
+  },
+  "batchDetailAnalysis": {
+    "message": "SCORE BREAKDOWN",
+    "description": "Heading for score breakdown section inside expanded row"
+  },
+  "batchDetailTier1": {
+    "message": "Tier 1 - AI Slop (3pts)",
+    "description": "Tier 1 label in expanded row breakdown"
+  },
+  "batchDetailTier2": {
+    "message": "Tier 2 - Corporate (2pts)",
+    "description": "Tier 2 label in expanded row breakdown"
+  },
+  "batchDetailTier3": {
+    "message": "Tier 3 - Marketing (1pt)",
+    "description": "Tier 3 label in expanded row breakdown"
+  },
+  "batchDetailEmoji": {
+    "message": "Emoji Slop (5pts)",
+    "description": "Emoji tier label in expanded row breakdown"
+  },
+  "batchDetailMatches": {
+    "message": "Matched Phrases",
+    "description": "Heading for matched phrases list inside expanded row"
+  },
+  "batchNoBlocks": {
+    "message": "No text blocks found. Try pasting more content or check your separator format.",
+    "description": "Empty state message when no blocks could be parsed from input"
+  },
+  "batchBackToPopup": {
+    "message": "Back to Popup",
+    "description": "Footer back button label in batch checker"
+  },
+  "batchCSVBlock": {
+    "message": "Block #",
+    "description": "CSV column header: block number"
+  },
+  "batchCSVPreview": {
+    "message": "Preview",
+    "description": "CSV column header: text preview"
+  },
+  "batchCSVScore": {
+    "message": "Score",
+    "description": "CSV column header: slop score"
+  },
+  "batchCSVStatus": {
+    "message": "Status",
+    "description": "CSV column header: pass/fail status"
+  },
+  "batchCSVTier1": {
+    "message": "Tier1 pts",
+    "description": "CSV column header: tier 1 points"
+  },
+  "batchCSVTier2": {
+    "message": "Tier2 pts",
+    "description": "CSV column header: tier 2 points"
+  },
+  "batchCSVTier3": {
+    "message": "Tier3 pts",
+    "description": "CSV column header: tier 3 points"
+  },
+  "batchCSVEmoji": {
+    "message": "Emoji pts",
+    "description": "CSV column header: emoji slop points"
+  },
+  "batchCSVMatches": {
+    "message": "Top Matches",
+    "description": "CSV column header: top matched phrases"
+  },
+  "rewriteMyText": {
+    "message": "REWRITE MY TEXT",
+    "description": "Button in popup to open the text rewriter"
+  },
+  "rewriterTagline": {
+    "message": "[ TEXT REWRITER ]",
+    "description": "Rewriter page tagline"
+  },
+  "rewriterSubtitle": {
+    "message": "Fix slop phrases in your text",
+    "description": "Rewriter page subtitle"
+  },
+  "rewriterInputLabel": {
+    "message": "Paste your text:",
+    "description": "Label for rewriter textarea"
+  },
+  "rewriterClear": {
+    "message": "CLEAR",
+    "description": "Clear button in rewriter"
+  },
+  "rewriterPlaceholder": {
+    "message": "Paste your text here to detect and fix slop phrases...",
+    "description": "Placeholder for rewriter textarea"
+  },
+  "rewriterLiveAnalysis": {
+    "message": "Live analysis enabled",
+    "description": "Live analysis indicator in rewriter"
+  },
+  "rewriterPreviewLabel": {
+    "message": "Fixed preview:",
+    "description": "Label for fixed preview section"
+  },
+  "rewriterPreviewPlaceholder": {
+    "message": "Your text will appear here with slop phrases highlighted and fix buttons...",
+    "description": "Placeholder text in rewriter preview area"
+  },
+  "rewriterFixBtn": {
+    "message": "fix",
+    "description": "Inline fix button label in rewriter preview"
+  },
+  "rewriterFixAll": {
+    "message": "FIX ALL",
+    "description": "Button to apply all available fixes"
+  },
+  "rewriterCopy": {
+    "message": "COPY FIXED TEXT",
+    "description": "Button to copy the fixed text"
+  },
+  "rewriterReset": {
+    "message": "RESET FIXES",
+    "description": "Button to undo all fixes and restore original text"
+  },
+  "rewriterCopied": {
+    "message": "COPIED",
+    "description": "Status message shown after copying"
+  },
+  "rewriterClean": {
+    "message": "CLEAN",
+    "description": "Match counter status when no slop found"
+  },
+  "rewriterMatch": {
+    "message": "match",
+    "description": "Singular match label in counter"
+  },
+  "rewriterMatches": {
+    "message": "matches",
+    "description": "Plural matches label in counter"
+  },
+  "rewriterOriginalScore": {
+    "message": "ORIGINAL SCORE",
+    "description": "Label for original score in score comparison"
+  },
+  "rewriterCurrentScore": {
+    "message": "CURRENT SCORE",
+    "description": "Label for current score in score comparison"
+  },
+  "rewriterNoChange": {
+    "message": "NO CHANGE",
+    "description": "Improvement label when score has not changed"
+  },
+  "rewriterImproved": {
+    "message": "IMPROVED",
+    "description": "Improvement label suffix when score is lower"
+  },
+  "rewriterWorse": {
+    "message": "WORSE",
+    "description": "Improvement label suffix when score is higher"
+  },
+  "rewriterBackToPopup": {
+    "message": "Back to Popup",
+    "description": "Back button on rewriter page"
+  },
+  "analyzeUrl": {
+    "message": "ANALYZE URL",
+    "description": "Button in popup to open the URL analyzer"
+  },
+  "urlAnalyzerTagline": {
+    "message": "[ URL ANALYZER ]",
+    "description": "URL analyzer page tagline"
+  },
+  "urlAnalyzerSubtitle": {
+    "message": "Scan any webpage for slop content",
+    "description": "URL analyzer page subtitle"
+  },
+  "urlAnalyzerPlaceholder": {
+    "message": "https://example.com/article",
+    "description": "Placeholder for URL input field"
+  },
+  "urlAnalyzerHint": {
+    "message": "Enter a full URL starting with https:// or http://",
+    "description": "Hint text below the URL input"
+  },
+  "urlAnalyzerAnalyze": {
+    "message": "ANALYZE",
+    "description": "Label on the analyze button"
+  },
+  "urlAnalyzerFallbackLabel": {
+    "message": "Could not fetch URL? Paste the content here:",
+    "description": "Label above the fallback textarea"
+  },
+  "urlAnalyzerFallbackPlaceholder": {
+    "message": "Paste the page text or article content here...",
+    "description": "Placeholder for fallback textarea"
+  },
+  "urlAnalyzerAnalyzePasted": {
+    "message": "ANALYZE PASTED TEXT",
+    "description": "Button label to analyze pasted fallback text"
+  },
+  "urlAnalyzerLoading": {
+    "message": "Fetching and analyzing page content...",
+    "description": "Loading indicator text"
+  },
+  "urlAnalyzerErrorLabel": {
+    "message": "FETCH ERROR",
+    "description": "Error section label"
+  },
+  "urlAnalyzerErrorHint": {
+    "message": "You can paste the page content manually in the text area above.",
+    "description": "Hint shown after a fetch error"
+  },
+  "urlAnalyzerErrorEmpty": {
+    "message": "Please enter a URL to analyze.",
+    "description": "Validation error: empty URL"
+  },
+  "urlAnalyzerErrorProtocol": {
+    "message": "URL must start with http:// or https://",
+    "description": "Validation error: wrong protocol"
+  },
+  "urlAnalyzerErrorInvalid": {
+    "message": "The URL you entered is not valid.",
+    "description": "Validation error: malformed URL"
+  },
+  "urlAnalyzerErrorNoContent": {
+    "message": "Could not extract readable text from this page. Try pasting the content manually.",
+    "description": "Error when extracted text is too short"
+  },
+  "urlAnalyzerFallbackEmpty": {
+    "message": "Please paste some text to analyze.",
+    "description": "Validation error: fallback textarea is empty"
+  },
+  "urlAnalyzerMetaUrl": {
+    "message": "URL ANALYZED",
+    "description": "Meta label for the analyzed URL"
+  },
+  "urlAnalyzerMetaWords": {
+    "message": "WORD COUNT",
+    "description": "Meta label for word count"
+  },
+  "urlAnalyzerMetaTime": {
+    "message": "ANALYZED AT",
+    "description": "Meta label for analysis timestamp"
+  },
+  "urlAnalyzerMetaSource": {
+    "message": "SOURCE",
+    "description": "Meta label for content source"
+  },
+  "urlAnalyzerSourceFetched": {
+    "message": "Fetched",
+    "description": "Source label when content was fetched automatically"
+  },
+  "urlAnalyzerSourcePasted": {
+    "message": "Pasted text",
+    "description": "Source label when content was pasted manually"
+  },
+  "urlAnalyzerSlopScore": {
+    "message": "SLOP SCORE",
+    "description": "Label for the slop score display"
+  },
+  "urlAnalyzerStatusClean": {
+    "message": "CLEAN - No slop detected",
+    "description": "Status when score is 0"
+  },
+  "urlAnalyzerStatusBorderline": {
+    "message": "BORDERLINE - Below threshold",
+    "description": "Status when score is below threshold"
+  },
+  "urlAnalyzerStatusSlop": {
+    "message": "SLOP DETECTED - Above threshold",
+    "description": "Status when score exceeds threshold"
+  },
+  "urlAnalyzerScoreBreakdown": {
+    "message": "Score Breakdown",
+    "description": "Header for score breakdown section"
+  },
+  "urlAnalyzerTier1Label": {
+    "message": "Tier 1 - AI Slop (3pts each)",
+    "description": "Breakdown label for tier 1"
+  },
+  "urlAnalyzerTier2Label": {
+    "message": "Tier 2 - Corporate (2pts each)",
+    "description": "Breakdown label for tier 2"
+  },
+  "urlAnalyzerTier3Label": {
+    "message": "Tier 3 - Marketing (1pt each)",
+    "description": "Breakdown label for tier 3"
+  },
+  "urlAnalyzerEmojiLabel": {
+    "message": "Emoji Slop (5pts each)",
+    "description": "Breakdown label for emoji"
+  },
+  "urlAnalyzerInactive": {
+    "message": "(inactive)",
+    "description": "Shown when a tier is inactive at current sensitivity"
+  },
+  "urlAnalyzerDisabled": {
+    "message": "(disabled)",
+    "description": "Shown when emoji detection is disabled"
+  },
+  "urlAnalyzerTopMatches": {
+    "message": "Top Slop Matches",
+    "description": "Header for top matches section"
+  },
+  "urlAnalyzerMatchLabel": {
+    "message": "match",
+    "description": "Singular match count label"
+  },
+  "urlAnalyzerMatchesLabel": {
+    "message": "matches",
+    "description": "Plural match count label"
+  },
+  "urlAnalyzerRecentScans": {
+    "message": "Recent Scans",
+    "description": "Header for the history section"
+  },
+  "urlAnalyzerReplay": {
+    "message": "RE-SCAN",
+    "description": "Label on history item re-scan action"
+  },
+  "urlAnalyzerPastedSource": {
+    "message": "[Pasted text]",
+    "description": "Displayed as URL when content was pasted without a URL"
+  },
+  "urlAnalyzerJustNow": {
+    "message": "just now",
+    "description": "Relative time label for very recent scans"
+  },
+  "urlAnalyzerBackToPopup": {
+    "message": "Back to Popup",
+    "description": "Back button text on URL analyzer page"
+  },
+  "humanizeScore": {
+    "message": "HUMANIZE SCORE",
+    "description": "Button in popup to open the humanize score tool"
+  },
+  "humanizeTagline": {
+    "message": "[ HUMANIZE SCORE ]",
+    "description": "Humanize page tagline"
+  },
+  "humanizeSubtitle": {
+    "message": "How human does your writing sound?",
+    "description": "Humanize page subtitle"
+  },
+  "humanizeInputLabel": {
+    "message": "Paste your text for analysis:",
+    "description": "Label for humanize text input"
+  },
+  "humanizeClear": {
+    "message": "CLEAR",
+    "description": "Clear button in humanize tool"
+  },
+  "humanizePlaceholder": {
+    "message": "Paste your text here to analyze how human it sounds...",
+    "description": "Placeholder for humanize textarea"
+  },
+  "humanizeCharCount": {
+    "message": "0 words",
+    "description": "Initial word count label"
+  },
+  "humanizeAnalyze": {
+    "message": "ANALYZE",
+    "description": "Analyze button text"
+  },
+  "humanizeAuthenticityScore": {
+    "message": "AUTHENTICITY SCORE",
+    "description": "Label beneath the gauge"
+  },
+  "humanizeEnterText": {
+    "message": "ENTER TEXT",
+    "description": "Gauge label before text is entered"
+  },
+  "humanizeLikelyHuman": {
+    "message": "70-100: LIKELY HUMAN",
+    "description": "Legend item for human range"
+  },
+  "humanizeMixedSignals": {
+    "message": "40-69: MIXED SIGNALS",
+    "description": "Legend item for mixed range"
+  },
+  "humanizeLikelyAI": {
+    "message": "0-39: LIKELY AI",
+    "description": "Legend item for AI range"
+  },
+  "humanizeLikelyHumanShort": {
+    "message": "LIKELY HUMAN",
+    "description": "Short gauge label for human score"
+  },
+  "humanizeMixedSignalsShort": {
+    "message": "MIXED SIGNALS",
+    "description": "Short gauge label for mixed score"
+  },
+  "humanizeLikelyAIShort": {
+    "message": "LIKELY AI",
+    "description": "Short gauge label for AI score"
+  },
+  "humanizeLanguageNotice": {
+    "message": "Note: Some metrics (passive voice, reading level) are optimized for English text.",
+    "description": "Notice shown when UI language is not English"
+  },
+  "humanizeMetricsTitle": {
+    "message": "WRITING QUALITY METRICS",
+    "description": "Section heading for metrics grid"
+  },
+  "humanizeMetricSentenceVariety": {
+    "message": "Sentence Variety",
+    "description": "Metric card name: sentence variety"
+  },
+  "humanizeMetricSentenceVarietyDesc": {
+    "message": "Mix of short, medium, and long sentences",
+    "description": "Metric card description: sentence variety"
+  },
+  "humanizeMetricActiveVoice": {
+    "message": "Active Voice Usage",
+    "description": "Metric card name: active voice"
+  },
+  "humanizeMetricActiveVoiceDesc": {
+    "message": "Percentage of sentences in active voice",
+    "description": "Metric card description: active voice"
+  },
+  "humanizeMetricAvgLength": {
+    "message": "Avg Sentence Length",
+    "description": "Metric card name: average sentence length"
+  },
+  "humanizeMetricAvgLengthDesc": {
+    "message": "Ideal range is 15-20 words per sentence",
+    "description": "Metric card description: average sentence length"
+  },
+  "humanizeMetricVocabulary": {
+    "message": "Vocabulary Diversity",
+    "description": "Metric card name: vocabulary diversity"
+  },
+  "humanizeMetricVocabularyDesc": {
+    "message": "Ratio of unique words to total words",
+    "description": "Metric card description: vocabulary diversity"
+  },
+  "humanizeMetricRepetition": {
+    "message": "Repetition Score",
+    "description": "Metric card name: repetition"
+  },
+  "humanizeMetricRepetitionDesc": {
+    "message": "Frequency of repeated non-common words",
+    "description": "Metric card description: repetition"
+  },
+  "humanizeMetricReadingLevel": {
+    "message": "Reading Level",
+    "description": "Metric card name: reading level"
+  },
+  "humanizeMetricReadingLevelDesc": {
+    "message": "Flesch-Kincaid grade level (ideal: 8-12)",
+    "description": "Metric card description: reading level"
+  },
+  "humanizeMetricParagraphVariety": {
+    "message": "Paragraph Variety",
+    "description": "Metric card name: paragraph variety"
+  },
+  "humanizeMetricParagraphVarietyDesc": {
+    "message": "Variation in paragraph lengths",
+    "description": "Metric card description: paragraph variety"
+  },
+  "humanizeMetricSlop": {
+    "message": "Slop Score",
+    "description": "Metric card name: slop"
+  },
+  "humanizeMetricSlopDesc": {
+    "message": "Absence of AI-typical buzzwords and phrases",
+    "description": "Metric card description: slop"
+  },
+  "humanizeTipsTitle": {
+    "message": "WRITING TIPS",
+    "description": "Section heading for writing tips"
+  },
+  "humanizeTipAllGood": {
+    "message": "Your writing looks authentic! Keep it specific, varied, and direct.",
+    "description": "Tip shown when all metrics score well"
+  },
+  "humanizeTipSentenceVariety": {
+    "message": "Mix up your sentence lengths. Use some short punchy sentences alongside longer, more complex ones.",
+    "description": "Tip for low sentence variety"
+  },
+  "humanizeTipActiveVoice": {
+    "message": "Rewrite passive constructions. Instead of \"was created by\", write who actually did it.",
+    "description": "Tip for low active voice score"
+  },
+  "humanizeTipAvgLengthLong": {
+    "message": "Break up long sentences. Aim for 15-20 words per sentence to improve readability.",
+    "description": "Tip when sentences are too long"
+  },
+  "humanizeTipAvgLengthShort": {
+    "message": "Some sentences are too choppy. Combine related ideas into fuller sentences.",
+    "description": "Tip when sentences are too short"
+  },
+  "humanizeTipVocabulary": {
+    "message": "You are repeating the same words often. Use synonyms and vary your word choice.",
+    "description": "Tip for low vocabulary diversity"
+  },
+  "humanizeTipRepetitionBase": {
+    "message": "appears too frequently. Find alternatives and spread ideas across different phrasing.",
+    "description": "Tip suffix for high repetition (word name is prepended)"
+  },
+  "humanizeTipReadingLevelHard": {
+    "message": "Simplify your language. Use shorter words and clearer phrasing where possible.",
+    "description": "Tip when reading level is too high"
+  },
+  "humanizeTipReadingLevelEasy": {
+    "message": "Your writing may be too simple. Add more depth and complexity to your ideas.",
+    "description": "Tip when reading level is too low"
+  },
+  "humanizeTipParagraphVariety": {
+    "message": "Vary your paragraph lengths. Mix short punchy paragraphs with longer, developed ones.",
+    "description": "Tip for low paragraph variety"
+  },
+  "humanizeTipSlop": {
+    "message": "Your text contains AI-typical phrases. Remove buzzwords, be specific, and write from direct experience.",
+    "description": "Tip for high slop score"
+  },
+  "humanizeBackToPopup": {
+    "message": "Back to Popup",
+    "description": "Back button text in humanize tool"
+  }
+}

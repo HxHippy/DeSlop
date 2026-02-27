@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: 'Courier New', 'Courier', monospace;
+  font-family: 'Courier New', 'Courier', monospace, 'Noto Sans CJK SC', 'Microsoft YaHei', 'Meiryo', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
   background: #1a1a1a;
   color: #e0e0e0;
   padding: 20px;
