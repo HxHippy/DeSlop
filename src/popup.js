@@ -58,7 +58,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     linkedinBlockAds: false,
     linkedinDarkerMode: false,
     whitelist: [],
-    patternLanguage: 'auto'
+    patternLanguage: 'auto',
+    theme: 'dark'
   });
 
   enabledToggle.checked = settings.enabled;
@@ -249,6 +250,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     chrome.tabs.create({ url: 'test.html' });
   });
 
+  // About button
+  const aboutBtn = document.getElementById('aboutBtn');
+  if (aboutBtn) {
+    aboutBtn.addEventListener('click', () => {
+      chrome.tabs.create({ url: 'about.html' });
+    });
+  }
+
   // Settings buttons (bottom + header gear icon)
   settingsBtn.addEventListener('click', () => {
     chrome.tabs.create({ url: 'settings.html' });
@@ -257,6 +266,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (headerSettingsBtn) {
     headerSettingsBtn.addEventListener('click', () => {
       chrome.tabs.create({ url: 'settings.html' });
+    });
+  }
+
+  // Theme cycle button
+  const themeCycleBtn = document.getElementById('themeCycleBtn');
+  if (themeCycleBtn) {
+    themeCycleBtn.addEventListener('click', async () => {
+      const THEMES = ['dark', 'light', 'midnight'];
+      const current = await chrome.storage.sync.get({ theme: 'dark' });
+      const idx = THEMES.indexOf(current.theme);
+      const next = THEMES[(idx + 1) % THEMES.length];
+      await chrome.storage.sync.set({ theme: next });
+      try { localStorage.setItem('deslop-theme', next); } catch (e) {}
+      document.documentElement.setAttribute('data-theme', next);
     });
   }
 

@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   populateStatControls();
   renderAllPatterns();
   updateOverview();
+  setupThemeSelector();
 });
 
 // Load default patterns from shared source
@@ -710,6 +711,34 @@ function escapeHtml(text) {
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
+}
+
+// Theme selector
+function setupThemeSelector() {
+  const options = document.querySelectorAll('.theme-option');
+  if (!options.length) return;
+
+  // Load current theme and highlight active
+  chrome.storage.sync.get({ theme: 'dark' }, (result) => {
+    const current = result.theme || 'dark';
+    options.forEach(opt => {
+      if (opt.getAttribute('data-theme-value') === current) {
+        opt.classList.add('active');
+      }
+    });
+  });
+
+  // Handle clicks
+  options.forEach(opt => {
+    opt.addEventListener('click', async () => {
+      const theme = opt.getAttribute('data-theme-value');
+      options.forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      await chrome.storage.sync.set({ theme });
+      try { localStorage.setItem('deslop-theme', theme); } catch (e) {}
+      document.documentElement.setAttribute('data-theme', theme);
+    });
+  });
 }
 
 // Pattern tester

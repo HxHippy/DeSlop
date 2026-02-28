@@ -6,8 +6,8 @@
 
 body {
   font-family: 'Courier New', 'Courier', monospace, 'Noto Sans CJK SC', 'Microsoft YaHei', 'Meiryo', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
-  background: #1a1a1a;
-  color: #e0e0e0;
+  background: var(--bg-body);
+  color: var(--text-primary);
   padding: 20px;
   min-height: 100vh;
 }
@@ -15,8 +15,8 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  background: #2b2b2b;
-  border: 2px solid #444;
+  background: var(--bg-surface);
+  border: 2px solid var(--border-default);
   border-radius: 4px;
   padding: 40px;
 }
@@ -26,12 +26,12 @@ header {
   text-align: center;
   margin-bottom: 32px;
   padding-bottom: 24px;
-  border-bottom: 2px solid #555;
+  border-bottom: 2px solid var(--border-strong);
 }
 
 h1 {
   font-size: 42px;
-  color: #ffffff;
+  color: var(--text-heading);
   margin-bottom: 8px;
   font-weight: normal;
   letter-spacing: 6px;
@@ -39,14 +39,14 @@ h1 {
 
 .tagline {
   font-size: 14px;
-  color: #999;
+  color: var(--text-tertiary);
   letter-spacing: 2px;
   margin-bottom: 4px;
 }
 
 .subtitle {
   font-size: 12px;
-  color: #666;
+  color: var(--text-disabled);
   letter-spacing: 1px;
   margin-top: 8px;
 }
@@ -64,9 +64,9 @@ h1 {
 
 #urlInput {
   flex: 1;
-  background: #1a1a1a;
-  color: #e0e0e0;
-  border: 2px solid #444;
+  background: var(--bg-container);
+  color: var(--text-primary);
+  border: 2px solid var(--border-default);
   border-radius: 4px;
   padding: 14px 18px;
   font-family: 'Courier New', monospace;
@@ -77,17 +77,17 @@ h1 {
 }
 
 #urlInput:focus {
-  border-color: #FF6B6B;
-  background: #0f0f0f;
+  border-color: var(--accent-primary);
+  background: var(--bg-inset);
 }
 
 #urlInput::placeholder {
-  color: #555;
+  color: var(--text-disabled);
 }
 
 .url-hint {
   font-size: 11px;
-  color: #555;
+  color: var(--text-disabled);
   letter-spacing: 0.5px;
   margin-top: 8px;
   padding-left: 2px;
@@ -96,7 +96,7 @@ h1 {
 /* Buttons */
 .btn {
   padding: 12px 24px;
-  border: 1px solid #555;
+  border: 1px solid var(--border-strong);
   border-radius: 3px;
   font-size: 12px;
   font-family: 'Courier New', monospace;
@@ -107,47 +107,47 @@ h1 {
 }
 
 .btn-primary {
-  background: #FF6B6B;
-  color: #fff;
-  border-color: #FF6B6B;
+  background: var(--accent-primary);
+  color: var(--btn-primary-text);
+  border-color: var(--accent-primary);
   font-size: 13px;
   padding: 14px 24px;
 }
 
 .btn-primary:hover {
-  background: #ff5252;
-  border-color: #ff5252;
+  background: var(--accent-primary-hover);
+  border-color: var(--accent-primary-hover);
 }
 
 .btn-primary:disabled {
   background: #5a2e2e;
   border-color: #5a2e2e;
-  color: #999;
+  color: var(--text-tertiary);
   cursor: not-allowed;
 }
 
 .btn-secondary {
-  background: #333;
-  color: #e0e0e0;
-  border-color: #555;
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
 }
 
 .btn-secondary:hover {
-  background: #444;
-  border-color: #666;
+  background: var(--border-default);
+  border-color: var(--text-disabled);
 }
 
 .btn-link {
   background: transparent;
-  color: #888;
-  border: 1px solid #444;
+  color: var(--text-muted);
+  border: 1px solid var(--border-default);
   padding: 8px 16px;
   font-size: 11px;
 }
 
 .btn-link:hover {
-  color: #bbb;
-  border-color: #555;
+  color: var(--text-secondary);
+  border-color: var(--border-strong);
 }
 
 /* Fallback Section */
@@ -169,15 +169,15 @@ h1 {
 
 .fallback-label {
   font-size: 12px;
-  color: #aaa;
+  color: var(--text-tertiary);
   letter-spacing: 0.5px;
 }
 
 #fallbackTextarea {
   width: 100%;
-  background: #1a1a1a;
-  color: #e0e0e0;
-  border: 2px solid #444;
+  background: var(--bg-container);
+  color: var(--text-primary);
+  border: 2px solid var(--border-default);
   border-radius: 4px;
   padding: 16px;
   font-family: 'Courier New', monospace;
@@ -189,12 +189,12 @@ h1 {
 }
 
 #fallbackTextarea:focus {
-  border-color: #FF6B6B;
-  background: #0f0f0f;
+  border-color: var(--accent-primary);
+  background: var(--bg-inset);
 }
 
 #fallbackTextarea::placeholder {
-  color: #555;
+  color: var(--text-disabled);
 }
 
 /* Loading Section */
@@ -209,8 +209,8 @@ h1 {
 .spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid #333;
-  border-top-color: #FF6B6B;
+  border: 3px solid var(--bg-elevated);
+  border-top-color: var(--accent-primary);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -223,7 +223,7 @@ h1 {
 
 .loading-text {
   font-size: 13px;
-  color: #888;
+  color: var(--text-muted);
   letter-spacing: 1px;
 }
 
@@ -238,7 +238,7 @@ h1 {
 
 .error-label {
   font-size: 11px;
-  color: #FF6B6B;
+  color: var(--accent-primary);
   letter-spacing: 2px;
   margin-bottom: 8px;
   font-weight: bold;
@@ -246,14 +246,14 @@ h1 {
 
 .error-message {
   font-size: 13px;
-  color: #e0e0e0;
+  color: var(--text-primary);
   margin-bottom: 8px;
   word-break: break-all;
 }
 
 .error-hint {
   font-size: 12px;
-  color: #888;
+  color: var(--text-muted);
   letter-spacing: 0.5px;
 }
 
@@ -264,8 +264,8 @@ h1 {
 
 /* Meta info */
 .result-meta {
-  background: #1a1a1a;
-  border: 2px solid #444;
+  background: var(--bg-container);
+  border: 2px solid var(--border-default);
   border-radius: 4px;
   padding: 20px 24px;
   margin-bottom: 24px;
@@ -281,7 +281,7 @@ h1 {
 .meta-item:first-child {
   margin-bottom: 16px;
   padding-bottom: 16px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border-muted);
 }
 
 .meta-row {
@@ -292,20 +292,20 @@ h1 {
 
 .meta-label {
   font-size: 10px;
-  color: #666;
+  color: var(--text-disabled);
   letter-spacing: 2px;
   text-transform: uppercase;
 }
 
 .meta-value {
   font-size: 13px;
-  color: #e0e0e0;
+  color: var(--text-primary);
   word-break: break-all;
   line-height: 1.4;
 }
 
 .meta-value.url-value {
-  color: #FF6B6B;
+  color: var(--accent-primary);
   font-size: 12px;
 }
 
@@ -313,8 +313,8 @@ h1 {
 .score-display {
   text-align: center;
   padding: 40px;
-  background: #1a1a1a;
-  border: 2px solid #444;
+  background: var(--bg-container);
+  border: 2px solid var(--border-default);
   border-radius: 4px;
   margin-bottom: 24px;
   display: flex;
@@ -326,7 +326,7 @@ h1 {
 
 .score-label {
   font-size: 14px;
-  color: #999;
+  color: var(--text-tertiary);
   letter-spacing: 2px;
   margin-bottom: 16px;
 }
@@ -334,22 +334,22 @@ h1 {
 .score-value {
   font-size: 72px;
   font-weight: bold;
-  color: #FF6B6B;
+  color: var(--accent-primary);
   margin-bottom: 16px;
   font-family: 'Courier New', monospace;
   line-height: 1;
 }
 
 .score-value.safe {
-  color: #4CAF50;
+  color: var(--accent-success);
 }
 
 .score-value.warning {
-  color: #ff9800;
+  color: var(--accent-warning);
 }
 
 .score-value.danger {
-  color: #FF6B6B;
+  color: var(--accent-primary);
 }
 
 .score-status {
@@ -362,27 +362,27 @@ h1 {
 
 .score-status.safe {
   background: rgba(76, 175, 80, 0.15);
-  color: #4CAF50;
-  border: 1px solid #4CAF50;
+  color: var(--accent-success);
+  border: 1px solid var(--accent-success);
 }
 
 .score-status.warning {
   background: rgba(255, 152, 0, 0.15);
-  color: #ff9800;
-  border: 1px solid #ff9800;
+  color: var(--accent-warning);
+  border: 1px solid var(--accent-warning);
 }
 
 .score-status.danger {
   background: rgba(255, 107, 107, 0.15);
-  color: #FF6B6B;
-  border: 1px solid #FF6B6B;
+  color: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
 }
 
 /* Breakdown */
 .breakdown,
 .top-matches {
-  background: #1a1a1a;
-  border: 2px solid #444;
+  background: var(--bg-container);
+  border: 2px solid var(--border-default);
   border-radius: 4px;
   padding: 24px;
   margin-bottom: 20px;
@@ -391,11 +391,11 @@ h1 {
 .breakdown h3,
 .top-matches h3 {
   font-size: 13px;
-  color: #FF6B6B;
+  color: var(--accent-primary);
   letter-spacing: 2px;
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border-muted);
   font-weight: normal;
 }
 
@@ -405,7 +405,7 @@ h1 {
   align-items: baseline;
   padding: 10px 0;
   font-size: 13px;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .breakdown-item:last-child {
@@ -413,24 +413,24 @@ h1 {
 }
 
 .breakdown-tier {
-  color: #999;
+  color: var(--text-tertiary);
 }
 
 .breakdown-score {
-  color: #FF6B6B;
+  color: var(--accent-primary);
   font-weight: bold;
 }
 
 .breakdown-score .muted {
-  color: #555;
+  color: var(--text-disabled);
   font-weight: normal;
   font-size: 11px;
 }
 
 /* Top Matches */
 .match-item {
-  background: #0f0f0f;
-  border: 1px solid #333;
+  background: var(--bg-inset);
+  border: 1px solid var(--border-muted);
   border-radius: 3px;
   padding: 12px;
   margin-bottom: 8px;
@@ -442,14 +442,14 @@ h1 {
 }
 
 .match-pattern {
-  color: #FF6B6B;
+  color: var(--accent-primary);
   margin-bottom: 4px;
   font-weight: bold;
   word-break: break-word;
 }
 
 .match-meta {
-  color: #777;
+  color: var(--text-muted);
   font-size: 11px;
   display: flex;
   gap: 12px;
@@ -466,19 +466,19 @@ h1 {
 
 .match-tier-badge.tier1 {
   background: rgba(255, 107, 107, 0.2);
-  color: #FF6B6B;
+  color: var(--accent-primary);
   border: 1px solid rgba(255, 107, 107, 0.4);
 }
 
 .match-tier-badge.tier2 {
   background: rgba(255, 152, 0, 0.2);
-  color: #ff9800;
+  color: var(--accent-warning);
   border: 1px solid rgba(255, 152, 0, 0.4);
 }
 
 .match-tier-badge.tier3 {
   background: rgba(255, 193, 7, 0.2);
-  color: #ffc107;
+  color: var(--accent-caution);
   border: 1px solid rgba(255, 193, 7, 0.4);
 }
 
@@ -490,8 +490,8 @@ h1 {
 
 /* History Section */
 .history-section {
-  background: #1a1a1a;
-  border: 2px solid #444;
+  background: var(--bg-container);
+  border: 2px solid var(--border-default);
   border-radius: 4px;
   padding: 24px;
   margin-bottom: 32px;
@@ -499,11 +499,11 @@ h1 {
 
 .history-section h3 {
   font-size: 13px;
-  color: #FF6B6B;
+  color: var(--accent-primary);
   letter-spacing: 2px;
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border-muted);
   font-weight: normal;
 }
 
@@ -518,7 +518,7 @@ h1 {
   justify-content: space-between;
   align-items: center;
   padding: 12px 8px;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid var(--border-subtle);
   cursor: pointer;
   transition: background 0.15s;
   gap: 16px;
@@ -534,12 +534,12 @@ h1 {
 }
 
 .history-item:hover .history-url {
-  color: #FF6B6B;
+  color: var(--accent-primary);
 }
 
 .history-url {
   font-size: 12px;
-  color: #bbb;
+  color: var(--text-secondary);
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -565,26 +565,26 @@ h1 {
 }
 
 .history-score.safe {
-  color: #4CAF50;
+  color: var(--accent-success);
 }
 
 .history-score.warning {
-  color: #ff9800;
+  color: var(--accent-warning);
 }
 
 .history-score.danger {
-  color: #FF6B6B;
+  color: var(--accent-primary);
 }
 
 .history-date {
   font-size: 11px;
-  color: #555;
+  color: var(--text-disabled);
   white-space: nowrap;
 }
 
 .history-replay {
   font-size: 10px;
-  color: #555;
+  color: var(--text-disabled);
   letter-spacing: 1px;
   padding: 3px 8px;
   border: 1px solid #3a3a3a;
@@ -593,13 +593,13 @@ h1 {
 }
 
 .history-item:hover .history-replay {
-  color: #FF6B6B;
-  border-color: #FF6B6B;
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
 }
 
 .history-empty {
   font-size: 12px;
-  color: #555;
+  color: var(--text-disabled);
   text-align: center;
   padding: 20px 0;
   letter-spacing: 0.5px;
@@ -611,24 +611,24 @@ h1 {
 }
 
 #fallbackTextarea::-webkit-scrollbar-track {
-  background: #0f0f0f;
+  background: var(--scrollbar-track);
   border-radius: 4px;
 }
 
 #fallbackTextarea::-webkit-scrollbar-thumb {
-  background: #444;
+  background: var(--scrollbar-thumb);
   border-radius: 4px;
 }
 
 #fallbackTextarea::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: var(--scrollbar-hover);
 }
 
 /* Footer */
 footer {
   margin-top: 32px;
   padding-top: 16px;
-  border-top: 1px solid #444;
+  border-top: 1px solid var(--border-default);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -636,6 +636,6 @@ footer {
 
 .version {
   font-size: 10px;
-  color: #555;
+  color: var(--text-disabled);
   letter-spacing: 1px;
 }

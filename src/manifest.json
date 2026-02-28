@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_extensionName__",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",
   "author": "Kief Studio",
@@ -63,7 +63,9 @@
         "scoring-engine.js",
         "languages.js",
         "i18n-helper.js",
-        "_locales/*/messages.json"
+        "_locales/*/messages.json",
+        "theme.css",
+        "theme-loader.js"
       ],
       "matches": ["<all_urls>"]
     }

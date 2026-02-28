@@ -1,0 +1,159 @@
+/* ============================================================
+   DE-SLOP THEME SYSTEM
+   Three themes: Dark (default), Light, Midnight (OLED)
+   Applied via data-theme attribute on <html>
+   ============================================================ */
+
+/* ---- Dark Theme (default) ---- */
+:root,
+[data-theme="dark"] {
+  /* Surfaces */
+  --bg-body: #1a1a1a;
+  --bg-surface: #2b2b2b;
+  --bg-container: #1a1a1a;
+  --bg-inset: #0f0f0f;
+  --bg-hover: #222222;
+  --bg-elevated: #333333;
+
+  /* Borders */
+  --border-subtle: #2a2a2a;
+  --border-muted: #333333;
+  --border-default: #444444;
+  --border-strong: #555555;
+
+  /* Text */
+  --text-heading: #ffffff;
+  --text-primary: #e0e0e0;
+  --text-secondary: #bbbbbb;
+  --text-tertiary: #999999;
+  --text-muted: #888888;
+  --text-disabled: #666666;
+
+  /* Accents */
+  --accent-primary: #FF6B6B;
+  --accent-primary-hover: #ff5252;
+  --accent-primary-subtle: rgba(255, 107, 107, 0.15);
+  --accent-warning: #ff9800;
+  --accent-warning-subtle: rgba(255, 152, 0, 0.2);
+  --accent-caution: #ffc107;
+  --accent-caution-subtle: rgba(255, 193, 7, 0.25);
+  --accent-success: #4CAF50;
+  --accent-success-subtle: rgba(76, 175, 80, 0.2);
+  --accent-purple: #9c27b0;
+  --accent-purple-subtle: rgba(156, 39, 176, 0.3);
+  --accent-link: #8ab4f8;
+
+  /* Components */
+  --scrollbar-track: #0f0f0f;
+  --scrollbar-thumb: #444444;
+  --scrollbar-hover: #555555;
+  --slider-bg: #555555;
+  --slider-border: #666666;
+  --slider-knob: #e0e0e0;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+
+  /* Button text on accent backgrounds */
+  --btn-primary-text: #1a1a1a;
+}
+
+/* ---- Light Theme ---- */
+[data-theme="light"] {
+  /* Surfaces */
+  --bg-body: #e8e8e8;
+  --bg-surface: #ffffff;
+  --bg-container: #f5f5f5;
+  --bg-inset: #ebebeb;
+  --bg-hover: #e0e0e0;
+  --bg-elevated: #d5d5d5;
+
+  /* Borders */
+  --border-subtle: #e0e0e0;
+  --border-muted: #d0d0d0;
+  --border-default: #bbbbbb;
+  --border-strong: #999999;
+
+  /* Text */
+  --text-heading: #111111;
+  --text-primary: #222222;
+  --text-secondary: #555555;
+  --text-tertiary: #777777;
+  --text-muted: #888888;
+  --text-disabled: #aaaaaa;
+
+  /* Accents */
+  --accent-primary: #d63333;
+  --accent-primary-hover: #c02020;
+  --accent-primary-subtle: rgba(214, 51, 51, 0.1);
+  --accent-warning: #e68a00;
+  --accent-warning-subtle: rgba(230, 138, 0, 0.12);
+  --accent-caution: #d4a000;
+  --accent-caution-subtle: rgba(212, 160, 0, 0.12);
+  --accent-success: #2e7d32;
+  --accent-success-subtle: rgba(46, 125, 50, 0.1);
+  --accent-purple: #7b1fa2;
+  --accent-purple-subtle: rgba(123, 31, 162, 0.1);
+  --accent-link: #1a73e8;
+
+  /* Components */
+  --scrollbar-track: #e0e0e0;
+  --scrollbar-thumb: #bbbbbb;
+  --scrollbar-hover: #999999;
+  --slider-bg: #bbbbbb;
+  --slider-border: #999999;
+  --slider-knob: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.12);
+
+  /* Button text on accent backgrounds */
+  --btn-primary-text: #ffffff;
+}
+
+/* ---- Midnight Theme (OLED true black) ---- */
+[data-theme="midnight"] {
+  /* Surfaces */
+  --bg-body: #000000;
+  --bg-surface: #0a0a0a;
+  --bg-container: #111111;
+  --bg-inset: #000000;
+  --bg-hover: #1a1a1a;
+  --bg-elevated: #222222;
+
+  /* Borders */
+  --border-subtle: #1a1a1a;
+  --border-muted: #222222;
+  --border-default: #333333;
+  --border-strong: #444444;
+
+  /* Text */
+  --text-heading: #ffffff;
+  --text-primary: #e8e8e8;
+  --text-secondary: #cccccc;
+  --text-tertiary: #aaaaaa;
+  --text-muted: #888888;
+  --text-disabled: #666666;
+
+  /* Accents */
+  --accent-primary: #FF6B6B;
+  --accent-primary-hover: #ff5252;
+  --accent-primary-subtle: rgba(255, 107, 107, 0.12);
+  --accent-warning: #ffab40;
+  --accent-warning-subtle: rgba(255, 171, 64, 0.15);
+  --accent-caution: #ffd54f;
+  --accent-caution-subtle: rgba(255, 213, 79, 0.15);
+  --accent-success: #66bb6a;
+  --accent-success-subtle: rgba(102, 187, 106, 0.15);
+  --accent-purple: #ce93d8;
+  --accent-purple-subtle: rgba(206, 147, 216, 0.15);
+  --accent-link: #90caf9;
+
+  /* Components */
+  --scrollbar-track: #000000;
+  --scrollbar-thumb: #333333;
+  --scrollbar-hover: #444444;
+  --slider-bg: #444444;
+  --slider-border: #555555;
+  --slider-knob: #e8e8e8;
+  --shadow-color: rgba(0, 0, 0, 0.8);
+
+  /* Button text on accent backgrounds */
+  --btn-primary-text: #1a1a1a;
+}

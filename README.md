@@ -1,10 +1,12 @@
 # De-Slop
 
-![De-Slop Logo](De-Slop.png)
+<p align="center">
+  <img src="De-Slop.png" alt="De-Slop Logo" width="200">
+</p>
 
-![De-Slop Banner](assets/Deslop.jpeg)
+A Chrome extension that detects and removes AI-generated "slop" from web pages. 600+ patterns across 11 languages, 8 analysis tools, zero API calls. Runs entirely in your browser.
 
-A Chrome extension that automatically detects and removes AI-generated "slop" content from web pages. Runs entirely locally with no external API calls or data collection.
+---
 
 ## Features
 
@@ -16,7 +18,7 @@ A Chrome extension that automatically detects and removes AI-generated "slop" co
 - **Configurable sensitivity** (1-5 slider)
 - **Detection Only Mode** - highlight slop instead of removing it, with hover tooltips
 - **Custom pattern editor** - add your own slop patterns with custom weights
-- **Detection-only mode** - highlight slop without removing it
+- **Three themes** - Dark, Light, and Midnight (OLED true black), synced across all pages
 
 ### Analysis Tools
 - **Slop Checker** - paste text and see what gets flagged with real-time highlighting and suggestions
@@ -42,8 +44,6 @@ When on LinkedIn.com, additional features activate:
 - **YouTube filtering** - video titles, descriptions, Shorts, and clickbait detection
 - **Improvement suggestions** - better alternatives for sloppy phrases
 - **Export/import** custom pattern sets
-
-![Main Sidebar Interface](assets/Sidebar.png)
 
 ## Installation
 
@@ -105,13 +105,15 @@ The widest net:
 3. Adjust sensitivity slider
 4. View blocked slop count
 
+<img src="assets/Sidebar.png" alt="Main Sidebar Interface" width="380">
+
 ### Interactive Checker
 1. Click `[ IS MY POST SLOP? ]`
 2. Paste your text
 3. See highlighted matches with explanations
 4. Toggle markdown rendering if needed
 
-![Slop Detector Tool](assets/Slop-Detector.png)
+<img src="assets/Slop-Detector.png" alt="Slop Detector Tool" width="600">
 
 ### Slop Machine
 1. Click `[ SLOP MACHINE ]`
@@ -119,7 +121,7 @@ The widest net:
 3. Or browse the full searchable index
 4. Filter by category (AI, Corporate, Marketing, Stop Words)
 
-![Slop Machine Interface](assets/Slop-Machine.png)
+<img src="assets/Slop-Machine.png" alt="Slop Machine Interface" width="600">
 
 ### Pattern Customization
 1. Click `[ CUSTOMIZE PATTERNS ]`
@@ -128,7 +130,7 @@ The widest net:
 4. Export/import pattern sets
 5. Changes save automatically
 
-![Pattern Customization](assets/Patterns.png)
+<img src="assets/Patterns.png" alt="Pattern Customization" width="600">
 
 ### LinkedIn Fixer
 When on LinkedIn, additional toggles appear:
@@ -157,6 +159,8 @@ When on LinkedIn, additional toggles appear:
 DeSlop/
 ├── src/
 │   ├── manifest.json        # Extension configuration (Manifest V3)
+│   ├── theme.css            # CSS variable definitions (dark/light/midnight)
+│   ├── theme-loader.js      # Sync theme loader (prevents flash)
 │   ├── background.js        # Service worker
 │   ├── content.js           # Main detection engine
 │   ├── content.css          # Styles for hiding/highlighting slop
@@ -178,6 +182,7 @@ DeSlop/
 │   ├── slop-machine.*       # Gamified learning tool
 │   ├── test.*               # Multi-language pattern tester
 │   ├── settings.*           # Pattern customization UI
+│   ├── about.*              # Project info and attribution
 │   ├── linkedin-fixer.js    # LinkedIn-specific enhancements
 │   ├── rules.json           # Ad blocking rules
 │   └── icons/               # Extension icons
@@ -189,12 +194,11 @@ DeSlop/
 
 ## Privacy
 
-De-Slop:
-- ✓ Runs entirely locally - no data sent to servers
-- ✓ Stores settings in Chrome sync storage
-- ✓ No analytics or tracking
-- ✓ No external API calls
-- ✓ Open source - inspect the code
+- Runs entirely locally - no data sent to servers
+- Stores settings in Chrome sync storage
+- No analytics or tracking
+- No external API calls
+- Open source - inspect the code
 
 ## Permissions
 
@@ -213,6 +217,16 @@ De-Slop:
 - If your entire LinkedIn feed disappears - it's all slop! Lower sensitivity.
 
 ## Version History
+
+**v3.1.0** - Theme System & About Page
+- Three-theme system: Dark (default), Light, and Midnight (OLED true black)
+- CSS variable architecture across all 11 UI pages (~35 design tokens)
+- Theme cycle button in popup header, theme selector cards in settings
+- Sync theme loader prevents flash of wrong theme on page load
+- Theme persists across pages and browser restarts via chrome.storage.sync
+- About page with project info, feature summary, and privacy statement
+- Improved button contrast for WCAG accessibility
+- Removed stale release files
 
 **v3.0.0** - Multi-language & Tools Suite
 - 11-language pattern system (en, es, fr, de, it, pt, sv, pl, ja, ko, zh)
@@ -253,5 +267,4 @@ See LICENSE file for full license text.
 
 ## Credits
 
-Made by Kief Studio (https://kief.studio)
-Developed by HxHippy
+Made by [Kief Studio](https://kief.studio) | Developed by HxHippy

@@ -6,8 +6,8 @@
 
 body {
   font-family: 'Courier New', 'Courier', monospace, 'Noto Sans CJK SC', 'Microsoft YaHei', 'Meiryo', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
-  background: #1a1a1a;
-  color: #e0e0e0;
+  background: var(--bg-body);
+  color: var(--text-primary);
   padding: 20px;
   min-height: 100vh;
 }
@@ -15,8 +15,8 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  background: #2b2b2b;
-  border: 2px solid #444;
+  background: var(--bg-surface);
+  border: 2px solid var(--border-default);
   border-radius: 4px;
   padding: 40px;
 }
@@ -26,12 +26,12 @@ header {
   text-align: center;
   margin-bottom: 32px;
   padding-bottom: 24px;
-  border-bottom: 2px solid #555;
+  border-bottom: 2px solid var(--border-strong);
 }
 
 h1 {
   font-size: 42px;
-  color: #ffffff;
+  color: var(--text-heading);
   margin-bottom: 8px;
   font-weight: normal;
   letter-spacing: 6px;
@@ -39,14 +39,14 @@ h1 {
 
 .tagline {
   font-size: 14px;
-  color: #999;
+  color: var(--text-tertiary);
   letter-spacing: 2px;
   margin-bottom: 4px;
 }
 
 .subtitle {
   font-size: 12px;
-  color: #666;
+  color: var(--text-disabled);
   letter-spacing: 1px;
   margin-top: 8px;
 }
@@ -80,17 +80,17 @@ h1 {
 
 .textarea-panel label {
   font-size: 13px;
-  color: #e0e0e0;
+  color: var(--text-primary);
   letter-spacing: 1px;
 }
 
 .score-badge {
   font-size: 11px;
-  color: #999;
+  color: var(--text-tertiary);
   font-family: 'Courier New', monospace;
   letter-spacing: 1px;
   padding: 2px 8px;
-  border: 1px solid #444;
+  border: 1px solid var(--border-default);
   border-radius: 3px;
   display: none;
 }
@@ -100,28 +100,28 @@ h1 {
 }
 
 .score-badge.safe {
-  color: #4CAF50;
-  border-color: #4CAF50;
-  background: rgba(76, 175, 80, 0.1);
+  color: var(--accent-success);
+  border-color: var(--accent-success);
+  background: var(--accent-success-subtle);
 }
 
 .score-badge.warning {
-  color: #ff9800;
-  border-color: #ff9800;
-  background: rgba(255, 152, 0, 0.1);
+  color: var(--accent-warning);
+  border-color: var(--accent-warning);
+  background: var(--accent-warning-subtle);
 }
 
 .score-badge.danger {
-  color: #FF6B6B;
-  border-color: #FF6B6B;
-  background: rgba(255, 107, 107, 0.1);
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+  background: var(--accent-primary-subtle);
 }
 
 .textarea-panel textarea {
   width: 100%;
-  background: #1a1a1a;
-  color: #e0e0e0;
-  border: 2px solid #444;
+  background: var(--bg-container);
+  color: var(--text-primary);
+  border: 2px solid var(--border-default);
   border-radius: 4px;
   padding: 16px;
   font-family: 'Courier New', monospace;
@@ -135,12 +135,12 @@ h1 {
 
 .textarea-panel textarea:focus {
   outline: none;
-  border-color: #FF6B6B;
-  background: #0f0f0f;
+  border-color: var(--accent-primary);
+  background: var(--bg-inset);
 }
 
 .textarea-panel textarea::placeholder {
-  color: #555;
+  color: var(--text-disabled);
 }
 
 /* Custom scrollbars for textareas */
@@ -149,17 +149,17 @@ h1 {
 }
 
 .textarea-panel textarea::-webkit-scrollbar-track {
-  background: #0f0f0f;
+  background: var(--scrollbar-track);
   border-radius: 4px;
 }
 
 .textarea-panel textarea::-webkit-scrollbar-thumb {
-  background: #555;
+  background: var(--scrollbar-thumb);
   border-radius: 4px;
 }
 
 .textarea-panel textarea::-webkit-scrollbar-thumb:hover {
-  background: #666;
+  background: var(--scrollbar-hover);
 }
 
 /* Swap Column */
@@ -172,9 +172,9 @@ h1 {
 }
 
 .btn-swap {
-  background: #333;
-  color: #FF6B6B;
-  border: 1px solid #555;
+  background: var(--bg-elevated);
+  color: var(--accent-primary);
+  border: 1px solid var(--border-strong);
   border-radius: 3px;
   padding: 8px 12px;
   font-size: 11px;
@@ -188,8 +188,8 @@ h1 {
 }
 
 .btn-swap:hover {
-  background: #444;
-  border-color: #FF6B6B;
+  background: var(--border-default);
+  border-color: var(--accent-primary);
 }
 
 /* Compare Controls */
@@ -200,7 +200,7 @@ h1 {
 /* Buttons */
 .btn {
   padding: 12px 32px;
-  border: 1px solid #555;
+  border: 1px solid var(--border-strong);
   border-radius: 3px;
   font-size: 12px;
   font-family: 'Courier New', monospace;
@@ -210,34 +210,34 @@ h1 {
 }
 
 .btn-primary {
-  background: #FF6B6B;
-  color: #fff;
-  border-color: #FF6B6B;
+  background: var(--accent-primary);
+  color: var(--btn-primary-text);
+  border-color: var(--accent-primary);
   font-size: 13px;
   padding: 14px 48px;
 }
 
 .btn-primary:hover {
-  background: #ff5252;
-  border-color: #ff5252;
+  background: var(--accent-primary-hover);
+  border-color: var(--accent-primary-hover);
 }
 
 .btn-link {
   background: transparent;
-  color: #888;
-  border: 1px solid #444;
+  color: var(--text-muted);
+  border: 1px solid var(--border-default);
   padding: 8px 16px;
   font-size: 11px;
 }
 
 .btn-link:hover {
-  color: #bbb;
-  border-color: #555;
+  color: var(--text-secondary);
+  border-color: var(--border-strong);
 }
 
 /* Results Section */
 .results-section {
-  border-top: 2px solid #444;
+  border-top: 2px solid var(--border-default);
   padding-top: 32px;
   display: flex;
   flex-direction: column;
@@ -253,8 +253,8 @@ h1 {
 }
 
 .score-card {
-  background: #1a1a1a;
-  border: 2px solid #444;
+  background: var(--bg-container);
+  border: 2px solid var(--border-default);
   border-radius: 4px;
   padding: 32px 24px;
   text-align: center;
@@ -262,7 +262,7 @@ h1 {
 
 .score-card-label {
   font-size: 11px;
-  color: #999;
+  color: var(--text-tertiary);
   letter-spacing: 2px;
   margin-bottom: 12px;
 }
@@ -271,21 +271,21 @@ h1 {
   font-size: 64px;
   font-weight: bold;
   font-family: 'Courier New', monospace;
-  color: #FF6B6B;
+  color: var(--accent-primary);
   margin-bottom: 12px;
   line-height: 1;
 }
 
 .score-card-value.safe {
-  color: #4CAF50;
+  color: var(--accent-success);
 }
 
 .score-card-value.warning {
-  color: #ff9800;
+  color: var(--accent-warning);
 }
 
 .score-card-value.danger {
-  color: #FF6B6B;
+  color: var(--accent-primary);
 }
 
 .score-card-status {
@@ -297,21 +297,21 @@ h1 {
 }
 
 .score-card-status.safe {
-  background: rgba(76, 175, 80, 0.2);
-  color: #4CAF50;
-  border: 1px solid #4CAF50;
+  background: var(--accent-success-subtle);
+  color: var(--accent-success);
+  border: 1px solid var(--accent-success);
 }
 
 .score-card-status.warning {
-  background: rgba(255, 152, 0, 0.2);
-  color: #ff9800;
-  border: 1px solid #ff9800;
+  background: var(--accent-warning-subtle);
+  color: var(--accent-warning);
+  border: 1px solid var(--accent-warning);
 }
 
 .score-card-status.danger {
-  background: rgba(255, 107, 107, 0.2);
-  color: #FF6B6B;
-  border: 1px solid #FF6B6B;
+  background: var(--accent-primary-subtle);
+  color: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
 }
 
 /* Delta Card */
@@ -328,49 +328,49 @@ h1 {
   font-size: 48px;
   font-weight: bold;
   font-family: 'Courier New', monospace;
-  color: #666;
+  color: var(--text-disabled);
   line-height: 1;
 }
 
 .delta-arrow.improved {
-  color: #4CAF50;
+  color: var(--accent-success);
 }
 
 .delta-arrow.worsened {
-  color: #FF6B6B;
+  color: var(--accent-primary);
 }
 
 .delta-label {
   font-size: 11px;
-  color: #666;
+  color: var(--text-disabled);
   letter-spacing: 1px;
   text-align: center;
   white-space: nowrap;
 }
 
 .delta-label.improved {
-  color: #4CAF50;
+  color: var(--accent-success);
 }
 
 .delta-label.worsened {
-  color: #FF6B6B;
+  color: var(--accent-primary);
 }
 
 /* Tier Breakdown Table */
 .tier-breakdown {
-  background: #1a1a1a;
-  border: 2px solid #444;
+  background: var(--bg-container);
+  border: 2px solid var(--border-default);
   border-radius: 4px;
   padding: 24px;
 }
 
 .tier-breakdown h3 {
   font-size: 13px;
-  color: #FF6B6B;
+  color: var(--accent-primary);
   letter-spacing: 2px;
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border-muted);
 }
 
 .breakdown-table {
@@ -382,16 +382,16 @@ h1 {
 .breakdown-table th {
   text-align: left;
   padding: 8px 12px;
-  color: #999;
+  color: var(--text-tertiary);
   font-size: 11px;
   letter-spacing: 1px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border-muted);
   font-weight: normal;
 }
 
 .breakdown-table td {
   padding: 10px 12px;
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid var(--bg-container);
 }
 
 .breakdown-table tbody tr:last-child td {
@@ -399,16 +399,16 @@ h1 {
 }
 
 .breakdown-table .col-tier {
-  color: #ccc;
+  color: var(--text-secondary);
 }
 
 .breakdown-table .col-original {
-  color: #999;
+  color: var(--text-tertiary);
   text-align: right;
 }
 
 .breakdown-table .col-revised {
-  color: #999;
+  color: var(--text-tertiary);
   text-align: right;
 }
 
@@ -418,32 +418,32 @@ h1 {
 }
 
 .col-change.improved {
-  color: #4CAF50;
+  color: var(--accent-success);
 }
 
 .col-change.worsened {
-  color: #FF6B6B;
+  color: var(--accent-primary);
 }
 
 .col-change.neutral {
-  color: #666;
+  color: var(--text-disabled);
 }
 
 /* Match Diff Section */
 .match-diff {
-  background: #1a1a1a;
-  border: 2px solid #444;
+  background: var(--bg-container);
+  border: 2px solid var(--border-default);
   border-radius: 4px;
   padding: 24px;
 }
 
 .match-diff h3 {
   font-size: 13px;
-  color: #FF6B6B;
+  color: var(--accent-primary);
   letter-spacing: 2px;
   margin-bottom: 12px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border-muted);
 }
 
 .diff-legend {
@@ -458,7 +458,7 @@ h1 {
   align-items: center;
   gap: 6px;
   font-size: 11px;
-  color: #999;
+  color: var(--text-tertiary);
   letter-spacing: 0.5px;
 }
 
@@ -472,17 +472,17 @@ h1 {
 
 .match-fixed-dot {
   background: rgba(76, 175, 80, 0.6);
-  border: 1px solid #4CAF50;
+  border: 1px solid var(--accent-success);
 }
 
 .match-remaining-dot {
   background: rgba(255, 193, 7, 0.5);
-  border: 1px solid #ffc107;
+  border: 1px solid var(--accent-caution);
 }
 
 .match-new-dot {
   background: rgba(255, 107, 107, 0.5);
-  border: 1px solid #FF6B6B;
+  border: 1px solid var(--accent-primary);
 }
 
 /* Diff Columns */
@@ -500,10 +500,10 @@ h1 {
 
 .diff-col-header {
   font-size: 11px;
-  color: #999;
+  color: var(--text-tertiary);
   letter-spacing: 1px;
   padding-bottom: 8px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border-muted);
 }
 
 .diff-col-content {
@@ -514,7 +514,7 @@ h1 {
 
 .diff-empty {
   font-size: 12px;
-  color: #555;
+  color: var(--text-disabled);
   font-style: italic;
 }
 
@@ -560,7 +560,7 @@ h1 {
 footer {
   margin-top: 32px;
   padding-top: 16px;
-  border-top: 1px solid #444;
+  border-top: 1px solid var(--border-default);
   text-align: center;
   display: flex;
   justify-content: space-between;
@@ -569,7 +569,7 @@ footer {
 
 .version {
   font-size: 10px;
-  color: #666;
+  color: var(--text-disabled);
   letter-spacing: 1px;
 }
 
