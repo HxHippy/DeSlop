@@ -1,10 +1,10 @@
 # De-Slop
 
 <p align="center">
-  <img src="De-Slop.png" alt="De-Slop Logo" width="200">
+  <img src="assets/Deslop.jpeg" alt="De-Slop Banner" width="600">
 </p>
 
-A Chrome extension that detects and removes AI-generated "slop" from web pages. 600+ patterns across 11 languages, 8 analysis tools, zero API calls. Runs entirely in your browser.
+A Chrome extension that detects and removes AI-generated "slop" from web pages. 600+ patterns across 11 languages, 8 analysis tools, 3 themes, zero API calls. Runs entirely in your browser.
 
 ---
 
@@ -99,38 +99,44 @@ The widest net:
 
 ## Usage
 
-### Basic Controls
-1. Click the extension icon
-2. Toggle on/off
-3. Adjust sensitivity slider
-4. View blocked slop count
+### Popup (Dark & Light themes)
 
-<img src="assets/Sidebar.png" alt="Main Sidebar Interface" width="380">
+<p>
+  <img src="assets/Popup-Dark.png" alt="Popup - Dark Theme" width="300">
+  <img src="assets/Popup-Light.png" alt="Popup - Light Theme" width="300">
+</p>
 
-### Interactive Checker
-1. Click `[ IS MY POST SLOP? ]`
-2. Paste your text
-3. See highlighted matches with explanations
-4. Toggle markdown rendering if needed
+Toggle on/off, adjust sensitivity, access all tools. Cycle themes with the sun icon in the header.
 
-<img src="assets/Slop-Detector.png" alt="Slop Detector Tool" width="600">
+### Analysis Tools
 
-### Slop Machine
-1. Click `[ SLOP MACHINE ]`
-2. Spin for random slop/better alternatives
-3. Or browse the full searchable index
-4. Filter by category (AI, Corporate, Marketing, Stop Words)
+**Humanize Score** -- 8-metric writing quality analysis
 
-<img src="assets/Slop-Machine.png" alt="Slop Machine Interface" width="600">
+<img src="assets/Humanize-Score.png" alt="Humanize Score Tool" width="600">
 
-### Pattern Customization
-1. Click `[ CUSTOMIZE PATTERNS ]`
-2. Add/delete patterns in any tier
-3. Create custom patterns with custom weights
-4. Export/import pattern sets
-5. Changes save automatically
+**Batch Checker** -- score multiple text blocks at once
 
-<img src="assets/Patterns.png" alt="Pattern Customization" width="600">
+<img src="assets/Batch-Checker.png" alt="Batch Checker Tool" width="600">
+
+**Text Rewriter** -- side-by-side input with live fix suggestions
+
+<img src="assets/Text-Rewriter.png" alt="Text Rewriter Tool" width="600">
+
+### Pattern Tester
+
+Validate detection patterns across all 11 supported languages.
+
+<img src="assets/Pattern-Tester.png" alt="Multi-Language Pattern Tester" width="600">
+
+### Settings & Theme Selector
+
+Configure patterns, sensitivity, language, and choose your theme (Dark, Light, Midnight).
+
+<img src="assets/Settings.png" alt="Settings and Theme Selector" width="600">
+
+### About
+
+<img src="assets/About.png" alt="About Page" width="600">
 
 ### LinkedIn Fixer
 When on LinkedIn, additional toggles appear:
